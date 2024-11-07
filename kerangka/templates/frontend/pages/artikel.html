@@ -1,0 +1,182 @@
+{% extends 'frontend/layouts/main.html' %}
+{% block css %}
+
+{% load static %}
+<style>
+    /* Default untuk layar kecil (sm) */
+    .custom-img-article {
+        height: 20rem;
+    }
+
+    .custom-img-direktur {
+        height: 30rem;
+        width: 80%;
+    }
+
+    .card-direktur {
+        border: none;
+    }
+
+    /* Large screens (lg), untuk ukuran layar >= 992px */
+    @media (min-width: 770px) {
+        .custom-img-article {
+            height: 10rem;
+        }
+
+        .custom-img-direktur {
+            height: 25rem;
+            width: 100%;
+        }
+
+        .card-direktur {
+            border: #f3f4f6;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="artikel" style="margin-top: 10rem" class="artikel d-flex justify-content-center gap-3 p-3">
+    <div class="row" style="margin-left: -15rem;">
+        <div class="container col-10 col-md-8 col-lg-8" data-aos="fade-up">
+            <div class="mb-5" style="border-bottom: 1px solid black;">
+                <h2>Artikel</h2>
+            </div>
+
+            <div class="card mb-3" style="max-width: 100%;">
+                <div class="row g-0">
+                    <div class="col-12 col-md-4 mb-3 mb-md-0">
+                        <img src="{% static 'arsha/assets/img/artikel1.svg' %}"
+                        class="img-fluid col-12 rounded-start custom-img-article" style="height: 18.5rem" alt="...">
+                    </div>
+                    <div class="col-11 col-md-8 order-0 order-md-1">
+                        <div class="card-body">
+                            <a href="{% url 'artikel1' %}" style="text-transform: capitalize; font-weight: bold; font-size:1rem;"
+                                class="card-title">Tips Investasi Aman Untuk Pemula di Tahun 2024</a>
+                            <p style="text-align:left; font-size:0.9rem; margin-top:1.4rem;" class="card-text">Investasi
+                                menjadi salah satu cara efektif untuk mencapai kebebasan finansial, namun bagi pemula,
+                                dunia investasi bisa terasa membingungkan. Untuk memulai, penting memahami berbagai
+                                pilihan investasi yang ada dan memilih yang paling sesuai dengan profil risiko. Sebagai
+                                langkah awal, kenali perbedaan antara investasi berisiko rendah seperti deposito dan
+                                obligasi, serta investasi berisiko tinggi seperti saham dan cryptocurrency.</p>
+                                                         <div style="display: flex; align-items: center; margin-top: 0.9rem;">
+                                    <span style="margin-right: 8px;">
+                                        <i class="bi bi-person-circle"></i> <!-- Icon User -->
+                                    </span>
+                                    <small class="text-body-secondary" style="margin-right: 16px;">MJ</small> <!-- Nama Penulis -->
+                                
+                                    <span style="margin-right: 8px;">
+                                        <i class="bi bi-clock"></i> <!-- Icon Tanggal -->
+                                    </span>
+                                    <small class="text-body-secondary">3 Agustus 2024</small> 
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3" style="max-width: 100%;">
+                <div class="row g-0">
+                    <div class="col-12 col-md-4 mb-3 mb-md-0">
+                        <img src="{% static 'arsha/assets/img/artikel2.svg' %}"
+                        class="img-fluid col-12 rounded-start custom-img-article" style="height: 18.5rem" alt="...">
+                    </div>
+                    <div class="col-11 col-md-8 order-0 order-md-1">
+                        <div class="card-body">
+                            <a href="" style="text-transform: capitalize; font-weight: bold; font-size:1rem;"
+                                class="card-title">Dampak Persaingan Mata Uang Terhadap Stabilitas Ekonomi Global</a>
+                            <p style="text-align:left; font-size:0.9rem; margin-top:1.4rem;" class="card-text">Investasi
+                                Persaingan mata uang antarnegara merupakan fenomena yang kerap mempengaruhi stabilitas ekonomi global. Ketika nilai mata uang suatu negara mengalami perubahan drastis, hal tersebut bisa menimbulkan dampak signifikan, baik secara langsung maupun tidak langsung. Salah satu contohnya adalah ketika negara besar seperti Amerika Serikat atau Tiongkok mengintervensi nilai tukar mereka untuk menguntungkan ekspor, hal ini dapat menimbulkan ketidakseimbangan di pasar global.</p>
+                                <div style="display: flex; align-items: center; margin-top: 0.9rem;">
+                                    <span style="margin-right: 8px;">
+                                        <i class="bi bi-person-circle"></i> <!-- Icon User -->
+                                    </span>
+                                    <small class="text-body-secondary" style="margin-right: 16px;">Tom Hiddleston</small> <!-- Nama Penulis -->
+                                
+                                    <span style="margin-right: 8px;">
+                                        <i class="bi bi-clock"></i> <!-- Icon Tanggal -->
+                                    </span>
+                                    <small class="text-body-secondary">30 Januari 2024</small> 
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3" style="max-width: 100%;">
+                <div class="row g-0">
+                    <div class="col-12 col-md-4 mb-3 mb-md-0">
+                        <img src="{% static 'arsha/assets/img/artikel3.svg' %}"
+                        class="img-fluid col-12 rounded-start custom-img-article" style="height: 18.5rem" alt="...">
+                    </div>
+                    <div class="col-11 col-md-8 order-0 order-md-1">
+                        <div class="card-body">
+                            <a href="" style="text-transform: capitalize; font-weight: bold; font-size:1rem;"
+                                class="card-title">Strategi Diversifikasi Portofolio Untuk Memaksimalkan Keuntungan Investasi</a>
+                            <p style="text-align:left; font-size:0.9rem; margin-top:1.4rem;" class="card-text">Diversifikasi portofolio adalah salah satu strategi yang paling umum digunakan investor untuk mengurangi risiko dan memaksimalkan keuntungan. Dengan menyebar modal di berbagai jenis aset, investor dapat melindungi portofolio mereka dari fluktuasi pasar yang drastis. Diversifikasi tidak hanya melibatkan jenis aset, tetapi juga sektor industri, wilayah geografis, dan bahkan jangka waktu investasi.</p>
+                            <div style="display: flex; align-items: center; margin-top: 0.9rem;">
+                                <span style="margin-right: 8px;">
+                                    <i class="bi bi-person-circle"></i> <!-- Icon User -->
+                                </span>
+                                <small class="text-body-secondary" style="margin-right: 16px;">Tom Holand</small> <!-- Nama Penulis -->
+                            
+                                <span style="margin-right: 8px;">
+                                    <i class="bi bi-clock"></i> <!-- Icon Tanggal -->
+                                </span>
+                                <small class="text-body-secondary">24 Mei 2024</small> 
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+    <div class="mt-5 d-flex justify-content-center" style="margin-left: -13rem; margin-right: 10px; ">
+        <div class="card card-list p-4" style="width: 19rem; height: 42rem; border: none; box-shadow: 0px 0px 15px rgba(0,0,0,0.1);">
+            
+            <!-- Kategori -->
+            <p style="font-size: large; color: #384046; font-weight: 600;">Kategori</p>
+            <div class="ml-2" style="margin-left: 0.5rem;">
+                <p class="text-secondary font-weight-light">Berita (25)</p>
+                <p class="text-secondary font-weight-light">Edukasi (12)</p>
+                <p class="text-secondary font-weight-light">Inspirasi (5)</p>
+            </div>
+    
+            <!-- Artikel Terbaru -->
+            <p style="font-size: large; color: #384046; font-weight: 600; margin-top: 1.5rem;">Artikel Terbaru</p>
+            <div class="ml-2" style="margin-left: 0.5rem;">
+                <!-- Artikel 1 -->
+                <div class="d-flex align-items-center mb-3">
+                    <img src="{% static 'arsha/assets/img/artikel1.svg' %}" alt="Article Image" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                    <div>
+                        <p class="mb-0" style="font-weight: 500; color: #384046;">Tips Investasi Aman Untuk Pemula di Tahun 2024</p>
+                        <p class="text-secondary" style="font-size: 0.9rem;">23 Oktober 2024</p>
+                    </div>
+                </div>
+                
+                <!-- Artikel 2 -->
+                <div class="d-flex align-items-center mb-3">
+                    <img src="{% static 'arsha/assets/img/artikel2.svg' %}" alt="Article Image" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                    <div>
+                        <p class="mb-0" style="font-weight: 500; color: #384046;">Dampak Persaingan Mata Uang Terhadap Stabilitas Ekonomi Global</p>
+                        <p class="text-secondary" style="font-size: 0.9rem;">23 Oktober 2024</p>
+                    </div>
+                </div>
+    
+                <!-- Artikel 3 -->
+                <div class="d-flex align-items-center mb-3">
+                    <img src="{% static 'arsha/assets/img/artikel3.svg' %}" alt="Article Image" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                    <div>
+                        <p class="mb-0" style="font-weight: 500; color: #384046;">Strategi Diversifikasi Portofolio Untuk Memaksimalkan Keuntungan Investasi</p>
+                        <p class="text-secondary" style="font-size: 0.9rem;">23 Oktober 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>
+{% endblock %}
+
+{% include 'frontend/layouts/main.html' %}
