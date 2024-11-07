@@ -1,0 +1,103 @@
+{% extends 'frontend/layouts/main.html' %}
+{% load static %}
+{% block css %}
+    <style>
+        /* Default for small screens (sm) */
+        .custom-img-article {
+            height: 20rem;
+        }
+
+        .custom-img-direktur {
+            height: 30rem;
+            width: 80%;
+        }
+
+        .card-direktur {
+            border: none
+        }
+
+        /* Large screens (lg), for screen sizes >= 992px */
+        @media (min-width: 770px) {
+            .custom-img-article {
+                height: 10rem;
+            }
+
+            .custom-img-direktur {
+                height: 25rem;
+                width: 100%
+            }
+
+            .card-direktur {
+                border: #f3f4f6
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+   
+
+   
+
+    <section id="contact" class="contact section" style="background-color: #E1EDF4; padding-top: 10rem; padding-bottom: 5rem;">
+        <div style=" margin-left: 7rem; margin-bottom: 2rem;">
+            <h2 style="font-size: 2rem; ">Pusat Bantuan</h2>
+            <h4 style="font-size: 1.2rem; ">Hi Investor, apakah ada yang bisa kami bantu?</h4>
+        </div>
+        
+        <div class="faq-container" style="display: flex; gap: 1.5rem; justify-content: center; align-items: flex-start;">
+            <!-- Card FAQ -->
+            <div class="faq-card" style="background-color: #fff; padding: 2rem; border-radius: 10px; width: 250px; text-align: center; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); height: 23.8rem;">
+                
+                    <div class="icon-circle">
+                        <img src="{% static 'arsha/assets/img/pb1.svg' %}" alt="">
+                    </div>
+                
+                <h3 style="color: #333; font-weight: bold;">FAQ</h3>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 3.1rem;">Temukan Jawaban Untuk Pertanyaan Seputar GENINVEST</p>
+                <button style="background-color: #d0e6f5; color: #333; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer; margin-top: 1rem;">Pelajari Selengkapnya</button>
+            </div>
+    
+            <!-- Card Syarat dan Ketentuan -->
+            <div class="faq-card" style="background-color: #fff; padding: 2rem; border-radius: 10px; width: 250px; text-align: center; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);">
+                <div class="icon-circle">
+                    <img src="{% static 'arsha/assets/img/pb2.svg' %}" alt="">
+                </div>
+                <h3 style="color: #333; font-weight: bold;">Syarat dan Ketentuan</h3>
+                <p style="color: #666; font-size: 0.9rem;">Pelajari Syarat dan Ketentuan pembuatan Akun GENINVEST</p>
+                <button style="background-color: #d0e6f5; color: #333; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer; margin-top: 1rem;">Pelajari Selengkapnya</button>
+            </div>
+    
+            <!-- Card Kebijakan Privasi -->
+            <div class="faq-card" style="background-color: #fff; padding: 2rem; border-radius: 10px; width: 250px; text-align: center; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);">
+                <div class="icon-circle">
+                    <img src="{% static 'arsha/assets/img/pb3.svg' %}" alt="">
+                </div>
+                <h3 style="color: #333; font-weight: bold;">Kebijakan Privasi</h3>
+                <p style="color: #666; font-size: 0.9rem;">Pelajari Cara Kami Menjaga Privasi Keamanan Akun Kamu</p>
+                <button style="background-color: #d0e6f5; color: #333; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer; margin-top: 1rem;">Pelajari Selengkapnya</button>
+            </div>
+        </div>
+    
+        <div style="margin-top: 2rem; text-align: center;">
+            <p style="color: #666; font-size: 0.9rem;">Tidak Menemukan yang Kamu Cari? Hubungi Tim Customer dan Support IT Kami</p>
+            <button style="background-color: #FFFF; color: #007bff; border-color: #007bff; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer;">EMAIL</button>
+            <button style="background-color: #007bff; color: #fff; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer;">CHAT</button>
+        </div>
+    </section>
+    
+    
+
+    
+
+   
+{% endblock %}
+
+{% block js %}
+<script>
+    AOS.init();
+</script>
+
+    <!-- Additional JS specific to this page -->
+{% endblock %}
