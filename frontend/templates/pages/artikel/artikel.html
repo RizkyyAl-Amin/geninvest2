@@ -1,0 +1,189 @@
+{% extends 'layouts/main.html' %}
+{% block css %}
+
+{% load static %}
+<style>
+    /* Default untuk layar kecil (sm) */
+    .custom-img-article {
+        height: 10rem;
+    }
+
+    .card-direktur {
+        border: none;
+    }
+
+    /* Large screens (lg), untuk ukuran layar >= 992px */
+    @media (min-width: 770px) {
+        .custom-img-article {
+            height: 10rem;
+        }
+
+        .card-direktur {
+            border: #f3f4f6;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="artikel" style="margin-top: 10rem" class="artikel d-flex justify-content-center gap-3 p-3">
+    <div class="container" data-aos="fade-up">
+        <div class="mb-5" style="border-bottom: 1px solid black;">
+            <h2>Artikel</h2>
+        </div>
+        <div class="row">
+            <!-- Kolom Daftar Artikel -->
+            <div class="col-md-8 order-1 order-md-0">
+                <!-- Artikel 1 -->
+                <div class="card mb-3" style="max-width: 100%;">
+                    <div class="row g-0">
+                        <div class="">
+                            <img src="{% static 'arsha/assets/img/artikel1.svg' %}"
+                                class="img-fluid col-12 rounded-start custom-img-article" style="height: 18.5rem"
+                                alt="...">
+                        </div>
+                        <div class="col-11 col-md-12 order-0 order-md-1">
+                            <div class="card-body">
+                                <a href="{% url 'artikel1' %}"
+                                    style="text-transform: capitalize; font-weight: bold; font-size:1rem;"
+                                    class="card-title">Tips Investasi Aman Untuk Pemula di Tahun 2024</a>
+                                    <div style="display: flex; align-items: center; margin-top: 0.9rem;">
+                                        <span style="margin-right: 8px;">
+                                            <i class="bi bi-person-circle"></i> <!-- Icon User -->
+                                        </span>
+                                        <small class="text-body-secondary" style="margin-right: 16px;">MJ</small>
+                                        <span style="margin-right: 8px;">
+                                            <i class="bi bi-clock"></i> <!-- Icon Tanggal -->
+                                        </span>
+                                        <small class="text-body-secondary">3 Agustus 2024</small>
+                                    </div>
+                                <p style="text-align:left; font-size:0.9rem; margin-top:1.4rem;" class="card-text">
+                                    Investasi menjadi salah satu cara efektif untuk mencapai kebebasan finansial, namun bagi pemula,
+                                    dunia investasi bisa terasa membingungkan...
+                                </p>
+                                
+                                <a href="{% url 'artikel1' %}" class="btn-getstarted" style="font-size: 0.8rem; padding: 0.5rem; border-radius: 10px; float: right; margin-bottom: 1rem;">Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artikel 2 -->
+                <div class="card mb-3" style="max-width: 100%;">
+                    <div class="row g-0">
+                        <div class="">
+                            <img src="{% static 'arsha/assets/img/artikel2.svg' %}"
+                                class="img-fluid col-12 rounded-start custom-img-article" style="height: 18.5rem"
+                                alt="...">
+                        </div>
+                        <div class="col-11 col-md-12 order-0 order-md-1">
+                            <div class="card-body">
+                                <a href="#"
+                                    style="text-transform: capitalize; font-weight: bold; font-size:1rem;"
+                                    class="card-title">Cara Mengelola Keuangan di Masa Krisis</a>
+                                    <div style="display: flex; align-items: center; margin-top: 0.9rem;">
+                                        <span style="margin-right: 8px;">
+                                            <i class="bi bi-person-circle"></i>
+                                        </span>
+                                        <small class="text-body-secondary" style="margin-right: 16px;">MJ</small>
+                                        <span style="margin-right: 8px;">
+                                            <i class="bi bi-clock"></i>
+                                        </span>
+                                        <small class="text-body-secondary">10 September 2024</small>
+                                    </div>
+                                <p style="text-align:left; font-size:0.9rem; margin-top:1.4rem;" class="card-text">
+                                    Mengelola keuangan di masa krisis membutuhkan strategi yang tepat. Berikut beberapa tips agar kondisi finansial tetap stabil...
+                                </p>
+                                <a href="{% url 'artikel1' %}" class="btn-getstarted" style="font-size: 0.8rem; padding: 0.5rem; border-radius: 10px; float: right; margin-bottom: 1rem;">Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artikel 3 -->
+                <div class="card mb-3" style="max-width: 100%;">
+                    <div class="row g-0">
+                        <div class="">
+                            <img src="{% static 'arsha/assets/img/artikel3.svg' %}"
+                                class="img-fluid col-12 rounded-start custom-img-article" style="height: 18.5rem"
+                                alt="...">
+                        </div>
+                        
+                        <div class="col-11 col-md-12 order-0 order-md-1">
+                            <div class="card-body">
+                                <a href="#"
+                                    style="text-transform: capitalize; font-weight: bold; font-size:1rem;"
+                                    class="card-title">Membangun Portofolio Investasi yang Seimbang</a>
+                                    <div style="display: flex; align-items: center; margin-top: 0.9rem;">
+                                        <span style="margin-right: 8px;">
+                                            <i class="bi bi-person-circle"></i>
+                                        </span>
+                                        <small class="text-body-secondary" style="margin-right: 16px;">MJ</small>
+                                        <span style="margin-right: 8px;">
+                                            <i class="bi bi-clock"></i>
+                                        </span>
+                                        <small class="text-body-secondary">15 Oktober 2024</small>
+                                    </div>
+                                <p style="text-align:left; font-size:0.9rem; margin-top:1.4rem;" class="card-text">
+                                    Portofolio yang seimbang bisa menjadi kunci untuk pertumbuhan finansial jangka panjang. Berikut cara memulainya...
+                                </p>
+                                <a href="{% url 'artikel1' %}" class="btn-getstarted" style="font-size: 0.8rem; padding: 0.5rem; border-radius: 10px; float: right; margin-bottom: 1rem;">Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Card Kategori -->
+            <div class="col-md-4 order-0 order-md-1">
+                <div class="card card-list p-4"
+                    style="width: 100%; height: auto; border: none; box-shadow: 0px 0px 15px rgba(0,0,0,0.1);">
+                
+                    <!-- Kategori -->
+                    <p style="font-size: large; color: #384046; font-weight: 600;">Kategori</p>
+                    <div class="ml-2" style="margin-left: 0.5rem;">
+                        <p class="text-secondary font-weight-light">Berita (25)</p>
+                        <p class="text-secondary font-weight-light">Edukasi (12)</p>
+                        <p class="text-secondary font-weight-light">Inspirasi (5)</p>
+                    </div>
+                
+            
+                    <p style="font-size: large; color: #384046; font-weight: 600; margin-top: 1.5rem;">Artikel Terbaru</p>
+                    <div class="ml-2" style="margin-left: 0.5rem;">
+                       
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'arsha/assets/img/artikel1.svg' %}" alt="Article Image"
+                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                            <div>
+                                <p class="mb-0" style="font-weight: 500; color: #384046;">Tips Investasi Aman Untuk Pemula di Tahun
+                                    2024</p>
+                                <p class="text-secondary" style="font-size: 0.9rem;">3 Agustus 2024</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'arsha/assets/img/artikel2.svg' %}" alt="Article Image"
+                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                            <div>
+                                <p class="mb-0" style="font-weight: 500; color: #384046;">Cara Mengelola Keuangan di Masa Krisis</p>
+                                <p class="text-secondary" style="font-size: 0.9rem;">10 September 2024</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'arsha/assets/img/artikel3.svg' %}" alt="Article Image"
+                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                            <div>
+                                <p class="mb-0" style="font-weight: 500; color: #384046;">TMembangun Portofolio Investasi yang Seimbang</p>
+                                <p class="text-secondary" style="font-size: 0.9rem;">15 Oktober 2024</p>
+                            </div>
+                        </div>
+                        
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% include 'frontend/layouts/main.html' %}

@@ -1,0 +1,186 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .wrapper {
+        border: 1px solid black;
+    }
+    .sidebar {
+        width: 220px;
+        background-color: #ffffff;
+        padding: 1rem;
+        float: left;
+        margin-top: 1rem;
+        border-right: 1px solid #dddddd;
+        
+    }
+
+    .sidebar button {
+        width: 100%;
+        background-color: white;
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+        margin-bottom: 12px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 16px;
+        color: #333;
+        transition: background-color 0.3s;
+        cursor: pointer;
+    }
+
+    .sidebar button.active {
+        background-color: #47b2e4;
+        color: white;
+    }
+
+    .sidebar button:hover {
+        background-color: #61a9f1;
+        color: rgb(255, 255, 255);
+    }
+
+    /* Main Content Styles */
+    .content {
+        margin-left: 240px;
+        /* Adjusted to align with sidebar */
+        padding: 20px;
+    }
+
+    .content .card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .content .card:hover {
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+    }
+
+    .content .card h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .content .card p {
+        font-size: 14px;
+        color: #666;
+        margin-top: 5px;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        background-color: #ffffff;
+        padding: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #333;
+        border-top: 1px solid #a9a9a9;
+        margin-top: 2rem;
+    }
+
+    .contact-section .contact-buttons {
+        margin-top: 10px;
+
+    }
+
+    .contact-section .contact-buttons {
+        margin-top: 10px;
+
+    }
+    
+
+    .contact-section .contact-buttons a {
+        margin: 0 10px;
+        padding: 8px 40px;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .contact-section .contact-buttons a.email {
+        background-color: #ffffff;
+        border: 1px solid #47b2e4;
+        color: #007bff;
+    }
+
+    .contact-section .contact-buttons a.chat {
+        background-color: #47b2e4;
+        border: 1px solid #47b2e4;
+        color: #ffffff;
+    }
+
+    .contact-section .contact-buttons a.email:hover {
+        background-color: #47b2e4;
+        border: 1px solid #ffffff;
+        color: #ffffff;
+    }
+
+    .contact-section .contact-buttons a.chat:hover {
+        background-color: #ffffff;
+        border: 1px solid #47b2e4;
+        color: #47b2e4;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="wrapper" style="padding-top: 7rem; border: #333;">
+    <section class="sidebar">
+        <button class="active">AKUN</button>
+        <button>Panduan Investor</button>
+        <button>Saham</button>
+        <button>Saham Syariah</button>
+    </section>
+
+    <section class="content">
+        <div class="card">
+            <h4 class="bi bi-info-circle-fill">   Cara membuat atau registrasi Akun</h4>
+            <p>Panduan Cara membuat akun GENINVEST</p>
+        </div>
+        <div class="card">
+            <h4 class="bi bi-info-circle-fill">   Login akun bibit menggunakan Google</h4>
+            <p>Panduan login GENINVEST Menggunakan Akun Google</p>
+        </div>
+        <div class="card">
+            <h4 class="bi bi-info-circle-fill">   Cara membuat atau registrasi Akun</h4>
+            <p>Panduan Cara membuat akun GENINVEST</p>
+        </div>
+        <div class="card">
+            <h4 class="bi bi-info-circle-fill">   Login akun bibit menggunakan Google</h4>
+            <p>Panduan login GENINVEST Menggunakan Akun Google</p>
+        </div>
+        <div class="card">
+            <h4 class="bi bi-info-circle-fill">   Cara membuat atau registrasi Akun</h4>
+            <p>Panduan Cara membuat akun GENINVEST</p>
+        </div>
+        <div class="card">
+            <h4 class="bi bi-info-circle-fill">   Login akun bibit menggunakan Google</h4>
+            <p>Panduan login GENINVEST Menggunakan Akun Google</p>
+        </div>
+    </section>
+
+    <div class="contact-section">
+        <p>Tidak Menemukan Apa Yang Anda Cari? Hubungi Tim Customer dan Tim Support IT Kami</p>
+        <div class="contact-buttons">
+            <a href="#" class="email ">✉️ Email</a>
+            <a href="#" class="chat">💬 Chat</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    AOS.init();
+</script>
+{% endblock %}
