@@ -1,0 +1,157 @@
+{% extends 'layouts/main.html' %}
+{% block css %}
+
+{% load static %}
+<style>
+    /* Default untuk layar kecil (sm) */
+    .custom-img-article {
+        height: 10rem;
+    }
+
+    .card-direktur {
+        border: none;
+    }
+
+    /* Large screens (lg), untuk ukuran layar >= 992px */
+    @media (min-width: 770px) {
+        .custom-img-article {
+            height: 10rem;
+        }
+
+        .card-direktur {
+            border: #f3f4f6;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="artikel" style="margin-top: 10rem" class="artikel d-flex justify-content-center gap-3 p-3">
+    <div class="container" data-aos="fade-up">
+        <div class="mb-5" style="border-bottom: 1px solid black;">
+            <h2>Artikel</h2>
+        </div>
+        <div class="row">
+            <!-- Kolom Daftar Artikel -->
+            <div class="col-md-8 order-1 order-md-0">
+                <!-- Artikel 1 -->
+                <div class="card mb-3" style="max-width: 100%;">
+                    <div class="row g-0">
+                        <!-- Kolom Gambar -->
+    
+                        <img src="{% static 'arsha/assets/img/artikel1.svg' %}"
+                            class="img-fluid col-12 rounded-start custom-img-article" style="height: 18.5rem;"
+                            alt="Artikel Image">
+    
+                        
+                        <div class="col-11 col-md-8 order-0 order-md-1" style="margin-left: 1rem;">
+                            <div class="card-body">
+                               
+                                <a href="#" style="text-transform: capitalize; font-weight: bold; font-size:1.5rem;"
+                                    class="card-title">Tips Investasi Aman Untuk Pemula di Tahun 2024</a>
+                                <div style="display: flex; align-items: center; margin-top: 0.9rem;">
+                                    <span style="margin-right: 8px;">
+                                        <i class="bi bi-person-circle"></i> 
+                                    </span>
+                                    <small class="text-body-secondary" style="margin-right: 16px;">MJ</small>
+                                 
+    
+                                    <span style="margin-right: 8px;">
+                                        <i class="bi bi-clock"></i>
+                                    </span>
+                                    <small class="text-body-secondary">3 Agustus 2024</small> 
+                                </div>
+                              
+                                <div style="width: 40rem;">
+                                    <p style=" margin-top:1.4rem;">
+                                        Investasi menjadi salah satu cara efektif untuk mencapai kebebasan finansial, namun
+                                        bagi pemula, dunia investasi bisa terasa membingungkan. Untuk memulai, penting
+                                        memahami berbagai pilihan investasi yang ada dan memilih yang paling sesuai dengan
+                                        profil risiko. Sebagai langkah awal, kenali perbedaan antara investasi berisiko
+                                        rendah seperti deposito dan obligasi, serta investasi berisiko tinggi seperti saham
+                                        dan cryptocurrency.
+                                    </p>
+                                    <p>Menentukan tujuan investasi sejak awal adalah langkah penting. Apakah kamu
+                                        berinvestasi untuk jangka pendek atau jangka panjang? Tujuan investasi akan membantu
+                                        menentukan produk yang sesuai. Investasi jangka panjang, misalnya, cocok untuk reksa
+                                        dana saham atau properti, yang cenderung memberikan imbal hasil yang lebih tinggi
+                                        seiring waktu.</p>
+                                    <p>Pemula juga harus menerapkan prinsip diversifikasi untuk mengurangi risiko. Jangan
+                                        letakkan semua modal di satu tempat. Sebaliknya, sebarkan investasi ke berbagai
+                                        instrumen untuk meminimalkan kerugian jika salah satu investasi mengalami penurunan.
+                                        Diversifikasi ini bisa meliputi berbagai sektor, seperti saham, obligasi, dan emas.
+                                    </p>
+                                    <p>Menggunakan aplikasi investasi yang terpercaya juga dapat membantu pemula. Aplikasi
+                                        seperti GENINVEST menyediakan fitur yang memudahkan pengguna untuk memilih produk
+                                        investasi yang aman dan sesuai kebutuhan. Selain itu, pastikan aplikasi yang dipilih
+                                        memiliki fitur keamanan berlapis untuk melindungi data dan dana pengguna.</p>
+                                    <p>Terakhir, selalu edukasi diri mengenai perkembangan pasar dan tren investasi.
+                                        Mengikuti berita finansial dan belajar dari ahli dapat membantu kamu membuat
+                                        keputusan yang lebih cerdas dan menghindari kesalahan yang umum dilakukan investor
+                                        pemula. Dengan langkah-langkah ini, kamu bisa memulai investasi dengan lebih percaya
+                                        diri di tahun 2024.</p>
+                                </div>
+                            
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+            </div>
+
+            <!-- Kolom Card Kategori -->
+            <div class="col-md-4 order-0 order-md-1">
+                <div class="card card-list p-4"
+                    style="width: 100%; height: auto; border: none; box-shadow: 0px 0px 15px rgba(0,0,0,0.1);">
+                
+                    <!-- Kategori -->
+                    <p style="font-size: large; color: #384046; font-weight: 600;">Kategori</p>
+                    <div class="ml-2" style="margin-left: 0.5rem;">
+                        <p class="text-secondary font-weight-light">Berita (25)</p>
+                        <p class="text-secondary font-weight-light">Edukasi (12)</p>
+                        <p class="text-secondary font-weight-light">Inspirasi (5)</p>
+                    </div>
+                
+                    <!-- Artikel Terbaru -->
+                    <p style="font-size: large; color: #384046; font-weight: 600; margin-top: 1.5rem;">Artikel Terbaru</p>
+                    <div class="ml-2" style="margin-left: 0.5rem;">
+                        <!-- Artikel Terbaru 1 -->
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'arsha/assets/img/artikel1.svg' %}" alt="Article Image"
+                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                            <div>
+                                <p class="mb-0" style="font-weight: 500; color: #384046;">Tips Investasi Aman Untuk Pemula di Tahun
+                                    2024</p>
+                                <p class="text-secondary" style="font-size: 0.9rem;">3 Agustus 2024</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'arsha/assets/img/artikel2.svg' %}" alt="Article Image"
+                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                            <div>
+                                <p class="mb-0" style="font-weight: 500; color: #384046;">Cara Mengelola Keuangan di Masa Krisis</p>
+                                <p class="text-secondary" style="font-size: 0.9rem;">10 September 2024</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'arsha/assets/img/artikel3.svg' %}" alt="Article Image"
+                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                            <div>
+                                <p class="mb-0" style="font-weight: 500; color: #384046;">TMembangun Portofolio Investasi yang Seimbang</p>
+                                <p class="text-secondary" style="font-size: 0.9rem;">15 Oktober 2024</p>
+                            </div>
+                        </div>
+
+   
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% include 'frontend/layouts/main.html' %}

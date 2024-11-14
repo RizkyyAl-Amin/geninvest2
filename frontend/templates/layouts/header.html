@@ -1,0 +1,35 @@
+{% load static %}
+<header id="header" class="header d-flex align-items-center fixed-top" style="background-color: #ffffff;">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+        <a href="" class="logo d-flex align-items-center me-auto">
+            <img src="{% static 'arsha/assets/img/logo.svg' %}" alt="geninvest" sizes="2">
+            <P style="font-weight: 900; font-size: larger;">GENINVEST</P>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Beranda</a></li>
+                <li class="dropdown "><a href="#"><span>Artikel</span> <i
+                    class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <ul>
+                        <li><a href="{% url 'artikel' %}" class="{% if request.path == '/artikel' %}active{% endif %}">Artikel</a></li>
+                        <li><a href="/Berita">Berita</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#"><span>Pusat Bantuan</span> <i
+                    class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <ul>
+                        <li><a href="{% url 'pusat_bantuan/faq' %}" class="{% if request.path == '/faq' %}active{% endif %}">FAQ</a></li>
+                        <li><a href="{% url 'pusat_bantuan/syarat_ketentuan' %}" class="{% if request.path == '/artikel' %}active{% endif %}">Syarat Dan Ketentuan</a></li>
+                        <li><a href="#" class="{% if request.path == '/artikel' %}active{% endif %}">Kebijakan Privasi</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <a class="btn-getstarted" href="{% url 'login' %}">
+            Login
+        </a>
+    </div>
+</header>
