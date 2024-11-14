@@ -1,3 +1,4 @@
+{% load static %}
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
@@ -7,13 +8,13 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'art' %}">
                 <i class="ti-world menu-icon"></i>
                 <span class="menu-title">Artikel</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'kategori_artikel' %}">
                 <i class="ti-world menu-icon"></i>
                 <span class="menu-title">Kategori Artikel</span>
             </a>

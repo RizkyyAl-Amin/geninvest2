@@ -1,7 +1,9 @@
+{% load static %}
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="#"><img src="{% static 'arsha/assets/img/logo.svg' %}" class="mr-2" alt="logo" /></a>
+        <a class="navbar-brand brand-logo" href="#"><img src="{% static 'arsha/assets/img/logo.svg' %}" alt="logo" /></a>
         <a class="navbar-brand brand-logo-mini" href="#"><img src="{% static 'arsha/assets/img/logo.svg' %}" alt="logo" /></a>
+        <P style="font-weight: 1000; font-size: larger; color: #47b2e4; font-family: Arial;">GENINVEST</P>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -11,19 +13,16 @@
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                     Hi, {{ user.username }}
-                    <img class="ml-2" src="{% static 'assets/images/faces/face28.jpg' %}" alt="profile" />
+                    
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item" href="#">
-                        <i class="ti-pen text-primary"></i>
-                        View Profile
-                    </a>
-                    <a class="dropdown-item" href="{% url 'logout' %}"
+                    <a class="dropdown-item" href="{% url 'login' %}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        
                         <i class="ti-power-off text-danger"></i>
                         Logout
                     </a>
-                    <form id="logout-form" action="{% url 'logout' %}" method="POST" class="d-none">
+                    <form id="logout-form" action="{% url 'login' %}" method="POST" class="d-none">
                         {% csrf_token %}
                     </form>
                 </div>
