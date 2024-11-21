@@ -9,20 +9,14 @@
         <nav id="navmenu" class="navmenu">
             <ul>
                 <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Beranda</a></li>
-                <li class="dropdown "><a href="#"><span>Artikel</span> <i
-                    class="bi bi-chevron-down toggle-dropdown"></i></a>
-                    <ul>
-                        <li><a href="{% url 'artikel' %}" class="{% if request.path == '/artikel' %}active{% endif %}">Artikel</a></li>
-                        <li><a href="/Berita">Berita</a></li>
-                    </ul>
-                </li>
+                <li><a href="{% url 'artikel' %}" class="{% if request.path == '/artikel' %}active{% endif %}">Artikel</a></li>
                 <li><a href="{% url 'investasi' %}" class="{% if request.path == '/investasi' %}active{% endif %}">Investasi</a></li>
-                <li><a href="{% url 'kebijakan_privasi' %}" class="{% if request.path == '/kebijakan_privasi' %}active{% endif %}">kebijakan privasi</a></li>
+                
                 <li class="dropdown "><a href="#"><span>Pusat Bantuan</span> <i
                     class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
                         <li><a href="{% url 'pusat_bantuan/faq' %}" class="{% if request.path == '/artikel' %}active{% endif %}">faq</a></li>
-                        
+                        <li><a href="{% url 'kebijakan_privasi' %}" class="{% if request.path == '/kebijakan_privasi' %}active{% endif %}">kebijakan privasi</a></li>
                     </ul>
                 </li>
             </ul>
