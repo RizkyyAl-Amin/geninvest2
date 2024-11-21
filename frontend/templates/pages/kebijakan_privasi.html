@@ -1,0 +1,198 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .wrapper {
+        border: 1px solid black;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+        width: 220px;
+        background-color: #ffffff;
+        padding: 1rem;
+        float: left;
+        margin-top: 1rem;
+        border-right: 1px solid #dddddd;
+        position: sticky;
+        top: 7rem;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar button {
+        width: 100%;
+        background-color: white;
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+        margin-bottom: 12px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 16px;
+        color: #333;
+        transition: background-color 0.3s;
+        cursor: pointer;
+    }
+
+    .sidebar button.active {
+        background-color: #47b2e4;
+        color: white;
+    }
+
+    .sidebar button:hover {
+        background-color: #61a9f1;
+        color: rgb(255, 255, 255);
+    }
+
+    /* Main Content Styles */
+    .content {
+        margin-left: 240px;
+        padding: 20px;
+    }
+
+
+    @media (min-width: 768px) {
+        .sidebar.fixed {
+            position: fixed;
+            top: 7rem;
+        }
+    }
+
+
+    @media (max-width: 767px) {
+        .sidebar {
+            width: 100%;
+            margin-left: 0;
+            border-right: none;
+            position: relative;
+            margin-top: -7rem;
+        }
+
+        .content {
+            margin-left: 0;
+            margin-top: 12rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="wrapper" style="padding-top: 7rem; border: #333;">
+    <section class="sidebar">
+        <button onclick="scrollToSection('definisi')">Disclaimer</button>
+        <button onclick="scrollToSection('ketentuan-umum')">Kebijakan Privasi</button>
+        <button onclick="scrollToSection('ketentuan-akun')">Syarat dan Ketentuan</button>
+    </section>
+
+    <section class="content">
+        <h1 style="color: #000000;">SYARAT DAN KETENTUAN PENGGUNAAN GENINVEST WEBSITE INVESTASI DIGITAL (“Syarat dan
+            Ketentuan”)</h1>
+        <br>
+        <h2 id="definisi" style="color: #000000;">A. Disclaimer</h2>
+
+        <p style="text-indent: 30px;"> GenInvest adalah platform investasi yang fokus pada reksa dana saham,
+            termasuk pilihan saham konvensional dan saham syariah. Semua investasi memiliki potensi risiko, dan
+            GenInvest tidak menjamin keuntungan atau pengembalian modal sepenuhnya. Investasi di pasar saham bisa
+            naik atau turun seiring dengan kondisi pasar, ekonomi, dan perubahan pada perusahaan yang bersangkutan.
+            Kinerja historis tidak dapat dijadikan acuan untuk kinerja masa depan, dan hasil yang diperoleh pengguna
+            bisa berbeda tergantung strategi investasi, volatilitas pasar, dan faktor lainnya.</p>
+        <p style="text-indent: 30px;"> Pengguna GenInvest diharapkan untuk memahami bahwa keputusan investasi
+            merupakan tanggung jawab pribadi masing-masing pengguna, dan segala bentuk risiko yang muncul dari
+            investasi, baik kerugian sebagian atau seluruh dana, menjadi tanggung jawab pengguna sepenuhnya. Kami
+            menyarankan agar pengguna melakukan riset menyeluruh atau berkonsultasi dengan penasihat keuangan
+            sebelum membuat keputusan investasi. GenInvest menyediakan informasi sebagai sarana edukasi dan
+            referensi namun tidak bertindak sebagai penasihat keuangan berlisensi atau menawarkan nasihat khusus
+            sesuai kebutuhan masing-masing pengguna. Semua informasi dan fitur dalam platform GenInvest disediakan
+            apa adanya dan tidak menjamin keberhasilan investasi.</p>
+
+
+
+        <h2 id="ketentuan-umum" style="color: #000000;">B. Kebijakan Privasi</h2>
+        <p style="text-indent: 30px;"> GenInvest menghargai dan melindungi privasi pengguna. Kebijakan Privasi ini
+            menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, dan melindungi informasi pribadi yang
+            Anda bagikan dengan kami. Dengan menggunakan platform GenInvest, Anda menyetujui praktik-praktik yang
+            tercantum dalam Kebijakan Privasi ini.</p>
+        <ol style="padding-left: 1rem;">
+
+
+            <li>Informasi yang Kami Kumpulkan: GenInvest mengumpulkan informasi pribadi seperti nama, alamat email,
+                nomor telepon, data identitas, informasi keuangan, dan informasi demografis lainnya saat Anda mendaftar
+                atau menggunakan layanan kami. Informasi ini diperlukan untuk memverifikasi identitas, memenuhi regulasi
+                keuangan, dan memberikan layanan yang lebih baik sesuai kebutuhan Anda.</li>
+            <li>Penggunaan Informasi: Informasi pribadi yang Anda berikan digunakan untuk tujuan operasional dan
+                peningkatan layanan, termasuk pemrosesan transaksi, verifikasi identitas, dukungan pelanggan, dan
+                penyempurnaan fitur platform kami. GenInvest dapat menggunakan data ini untuk memberikan rekomendasi
+                yang sesuai profil investasi Anda, namun keputusan akhir tetap berada di tangan Anda sebagai pengguna.
+                Kami berkomitmen untuk tidak menjual, menyewakan, atau membagikan informasi pribadi Anda kepada pihak
+                ketiga tanpa persetujuan, kecuali diwajibkan oleh hukum atau regulator keuangan.</li>
+            <li>Keamanan Informasi: GenInvest menjaga keamanan data Anda dengan sistem enkripsi dan langkah-langkah
+                keamanan fisik maupun digital untuk mencegah akses tidak sah. Namun, meskipun kami telah berupaya sebaik
+                mungkin untuk melindungi informasi pribadi, tidak ada sistem keamanan yang sepenuhnya tidak dapat
+                ditembus. Kami menyarankan Anda untuk menjaga kerahasiaan informasi akun dan menghindari berbagi akses
+                login dengan orang lain.</li>
+            <li>Perubahan Kebijakan: Kebijakan Privasi ini dapat diubah sewaktu-waktu untuk memastikan perlindungan data
+                yang lebih baik atau memenuhi persyaratan hukum yang baru. Kami akan memberitahu Anda mengenai perubahan
+                ini, dan Anda tetap memiliki hak untuk memilih apakah akan melanjutkan atau menghentikan penggunaan
+                layanan kami setelah perubahan Kebijakan Privasi diberlakukan.</li>
+
+        </ol>
+
+        <h2 id="ketentuan-akun" style="color: #000000;">C. Syarat dan Ketentuan</h2>
+        <p style="text-indent: 30px;">Dengan mengakses dan menggunakan GenInvest, Anda setuju untuk mematuhi Syarat &
+            Ketentuan berikut, yang mengatur hak dan tanggung jawab Anda sebagai pengguna. Syarat & Ketentuan ini
+            merupakan perjanjian yang mengikat secara hukum antara Anda dan GenInvest.</p>
+        <ol>
+
+            <li>Penggunaan Layanan: GenInvest memberikan akses ke berbagai pilihan reksa dana saham konvensional dan
+                syariah yang dirancang sesuai dengan kebutuhan pengguna. Layanan kami hanya tersedia bagi pengguna yang
+                telah memenuhi persyaratan usia dan lulus proses verifikasi. Semua aktivitas pada akun GenInvest Anda
+                adalah tanggung jawab pribadi, dan Anda diharapkan untuk menjaga keamanan kredensial akun Anda.</li>
+            <li>Hak dan Kewajiban Pengguna: Sebagai pengguna, Anda berhak mendapatkan informasi yang jelas dan akurat terkait produk dan layanan yang tersedia di GenInvest. Anda diwajibkan memberikan informasi yang valid dan lengkap saat pendaftaran, dan bertanggung jawab atas akurasi data yang Anda berikan. Anda dilarang melakukan tindakan ilegal seperti manipulasi data, penyalahgunaan platform, atau tindakan yang merugikan GenInvest dan pengguna lain.</li>
+            <li>Perubahan Layanan dan Fitur: GenInvest memiliki hak untuk memperbarui, mengubah, atau menghentikan fitur atau layanan kapan saja tanpa pemberitahuan sebelumnya. Kami berusaha untuk menjaga layanan tetap optimal, namun tidak menjamin ketersediaan penuh atau performa tanpa gangguan pada platform.</li>
+            <li>Kewajiban Keamanan: Kami berkomitmen untuk melindungi data pengguna dengan sistem keamanan yang terstandarisasi, namun GenInvest tidak bertanggung jawab atas segala kerusakan atau kerugian akibat gangguan teknis, serangan siber, atau kegagalan sistem yang berada di luar kendali kami. Pengguna diharapkan untuk berhati-hati saat mengakses akun pada perangkat umum dan menjaga kerahasiaan akses pribadi.</li>
+            <li>Penutupan Akun: GenInvest berhak menutup atau membatasi akses akun pengguna yang melanggar ketentuan ini atau terlibat dalam aktivitas yang merugikan platform atau pengguna lain. Anda juga dapat memilih untuk menutup akun kapan saja dengan menghubungi layanan pelanggan kami.</li>
+            <li>Perubahan Syarat & Ketentuan: GenInvest berhak mengubah Syarat & Ketentuan ini untuk mengikuti perubahan regulasi atau penyesuaian layanan. Kami akan menginformasikan perubahan yang signifikan kepada pengguna, dan Anda dapat memutuskan apakah akan melanjutkan penggunaan atau menghentikan layanan kami.</li>
+        </ol>
+    </section>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    function scrollToSection(id) {
+        const element = document.getElementById(id);
+        const offset = 112;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - offset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+    }
+
+    // Sticky Sidebar Scrolling
+    const sidebar = document.querySelector('.sidebar');
+    const footer = document.querySelector('footer');
+    const sidebarInitialOffset = sidebar.offsetTop;
+
+    window.addEventListener('scroll', function () {
+        const footerOffsetTop = footer.offsetTop;
+        const sidebarHeight = sidebar.offsetHeight;
+        const scrollPosition = window.pageYOffset + sidebarHeight + 7 * 16;
+
+        if (window.innerWidth >= 768) {
+            if (scrollPosition >= footerOffsetTop) {
+                sidebar.style.position = 'absolute';
+                sidebar.style.top = `${footerOffsetTop - sidebarHeight - sidebarInitialOffset}px`;
+            } else {
+                sidebar.style.position = 'fixed';
+                sidebar.style.top = '7rem';
+            }
+        } else {
+            sidebar.style.position = 'relative';
+        }
+    });
+</script>
+{% endblock %}

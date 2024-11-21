@@ -25,3 +25,22 @@ def kategori(request):
         'title':title
     }
     return render(request, 'pages/artikel/kategori_artikel.html', context)
+
+
+def produk(request):
+    context={
+        'title':title
+    }
+    return render(request, 'pages/produk/produk.html', context)
+
+def cproduk(request):
+    context={
+        'title':title
+    }
+    return render(request, 'pages/produk/create_produk.html', context)
+
+def cartikel(request):
+    context={
+        'title':title
+    }
+    return render(request, 'pages/artikel/create_artikel.html', context)

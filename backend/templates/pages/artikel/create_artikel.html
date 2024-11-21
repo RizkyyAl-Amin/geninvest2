@@ -1,0 +1,90 @@
+{% extends "layouts/main2.html" %}
+
+{% block title %}Tambah Artikel{% endblock %}
+
+{% block css %} 
+<style>
+    .custom-dropdown {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .custom-file-input {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .custom-file-label {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-radius: 8px;
+        padding: 10px 20px;
+    }
+
+    .btn-primary {
+        background-color: #5a67d8;
+        border-radius: 8px;
+        padding: 10px 20px;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #434cdb;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Tambah Artikel</h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="judulArtikel" class="form-label">Judul</label>
+                    <input type="text" class="form-control" id="judulArtikel" name="judul" placeholder="Masukkan judul artikel">
+                </div>
+                <div class="mb-3">
+                    <label for="gambarArtikel" class="form-label">Gambar</label>
+                    <div class="custom-file">
+                        <input type="file" class="form-control custom-file-input" id="gambarArtikel" name="gambar">
+                        <label class="custom-file-label" for="gambarProduk">Masukan Gambar</label>
+                    </div>
+                    
+                </div>
+               
+                <div class="mb-3">
+                    <label for="kategoriArtikel" class="form-label">Kategori</label>
+                    <input type="text" class="form-control" id="kategoriArtikel" name="kategori" placeholder="Masukkan kategori artikel">
+                </div>
+                <div class="mb-3">
+                    <label for="penulisArtikel" class="form-label">Penulis</label>
+                    <input type="text" class="form-control" id="penulisArtikel" name="penulis" placeholder="Masukkan nama penulis">
+                </div>
+                <div class="mb-3">
+                    <label for="kontenArtikel" class="form-label">Konten</label>
+                    <textarea class="form-control" id="kontenArtikel" name="konten" rows="5" placeholder="Masukkan konten artikel"></textarea>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="{% url 'art' %}" class="btn btn-light border">Batal</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

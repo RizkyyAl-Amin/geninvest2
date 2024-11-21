@@ -1,0 +1,109 @@
+{% extends "layouts/main2.html" %}
+
+{% block title %}Tambah Produk Saham{% endblock %}
+
+{% block css %} 
+<style>
+    .custom-dropdown {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .custom-file-input {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .custom-file-label {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-radius: 8px;
+        padding: 10px 20px;
+    }
+
+    .btn-primary {
+        background-color: #5a67d8;
+        border-radius: 8px;
+        padding: 10px 20px;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #434cdb;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Tambah Produk Saham</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-md-6 mb-4">
+                <label for="namaSaham" class="form-label">Nama Saham</label>
+                <input type="text" class="form-control" id="namaSaham" name="nama_saham" placeholder="Masukkan nama saham">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="namaPerusahaan" class="form-label">Nama Perusahaan</label>
+                <input type="text" class="form-control" id="namaPerusahaan" name="nama_perusahaan" placeholder="Masukkan nama perusahaan">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="kodeSaham" class="form-label">Kode Saham</label>
+                <input type="text" class="form-control" id="kodeSaham" name="kode_saham" placeholder="Masukkan kode saham">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="tanggalPeluncuran" class="form-label">Tanggal Peluncuran</label>
+                <input type="date" class="form-control" id="tanggalPeluncuran" name="tanggal_peluncuran">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="jenisSaham" class="form-label">Jenis Saham</label>
+                <select class="form-select custom-dropdown" id="jenisSaham" name="jenis_saham">
+                    <option selected>Pilih kategori</option>
+                    <option value="1">Saham A</option>
+                    <option value="2">Saham B</option>
+                    <option value="3">Saham C</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="hargaSaham" class="form-label">Harga Saham Per Lembar</label>
+                <input type="number" class="form-control" id="hargaSaham" name="harga_saham" placeholder="Masukkan harga per lembar">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="dividenSaham" class="form-label">Dividen Saham Per Lembar</label>
+                <input type="number" class="form-control" id="dividenSaham" name="dividen_saham" placeholder="Masukkan dividen per lembar">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="minimalPembelian" class="form-label">Minimal Pembelian Saham</label>
+                <input type="text" class="form-control" id="minimalPembelian" name="minimal_pembelian" placeholder="1 Lot atau 100 Lembar">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="gambarProduk" class="form-label">Gambar Produk</label>
+                <div class="custom-file">
+                    <input type="file" class="form-control custom-file-input" id="gambarProduk" name="gambar_produk">
+                    <label class="custom-file-label" for="gambarProduk">Pilih file</label>
+                </div>
+            </div>
+            <div class="col-md-12 mb-4">
+                <label for="deskripsiProduk" class="form-label">Deskripsi Produk</label>
+                <textarea class="form-control" id="deskripsiProduk" name="deskripsi_produk" rows="4" placeholder="Jelaskan tentang perusahaan atau saham ini"></textarea>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{% url 'produk' %}" class="btn btn-secondary">Batal</a>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

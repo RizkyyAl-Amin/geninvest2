@@ -1,22 +1,176 @@
 {% extends 'layouts/main2.html' %}
-
+{% load static %}
 {% block title %}Dashboard{% endblock %}
 
+{% block css %} 
+<style>
+    /* Card Body Style */
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Card Title Style */
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333333;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+
+/* Card Text Style */
+.card-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Icon Circle Style */
+.icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background-color: #f1f5f9;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.icon-circle img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-title {
+        font-size: 16px;
+    }
+
+    .card-text {
+        font-size: 20px;
+    }
+
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+    }
+
+    .icon-circle img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+</style>
+{% endblock %}
+
 {% block content %}
-    <div class="main-panel">
-        <div class="content-wrapper">
+<div class="main-panel">
+    <div class="content-wrapper">
+        <h3>Dasbor</h3>
+        <h3>Selamat Datang, Admin</h3>
+
+        
+        <div class="row">
+         
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="icon-circle mb-2">
+                            <img src="{% static 'arsha/assets/img/user.svg' %}" alt="User" width="40">
+                        </div>
+                        <h5 class="card-title">User</h5>
+                        <p class="card-text"><strong>128</strong></p>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="icon-circle mb-2">
+                            <img src="{% static 'arsha/assets/img/page.svg' %}" alt="Artikel" width="40">
+                        </div>
+                        <h5 class="card-title">Artikel</h5>
+                        <p class="card-text"><strong>128</strong></p>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="icon-circle mb-2">
+                            <img src="{% static 'arsha/assets/img/deposit.svg' %}" alt="Pembelian" width="40">
+                        </div>
+                        <h5 class="card-title">Pembelian</h5>
+                        <p class="card-text"><strong>128</strong></p>
+                    </div>
+                </div>
+            </div>
+      
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="icon-circle mb-2">
+                            <img src="{% static 'arsha/assets/img/Request Money.svg' %}" alt="Penarikan" width="40">
+                        </div>
+                        <h5 class="card-title">Penarikan</h5>
+                        <p class="card-text"><strong>128</strong></p>
+                    </div>
+                </div>
+            </div>
+      
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="icon-circle mb-2">
+                            <img src="{% static 'arsha/assets/img/Coin in Hand.svg' %}" alt="Saham Syariah" width="40">
+                        </div>
+                        <h5 class="card-title">Saham Syariah</h5>
+                        <p class="card-text"><strong>128</strong></p>
+                    </div>
+                </div>
+            </div>
+     
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="icon-circle mb-2">
+                            <img src="{% static 'arsha/assets/img/Bank Building.svg' %}" alt="Saham" width="40">
+                        </div>
+                        <h5 class="card-title">Saham</h5>
+                        <p class="card-text"><strong>128</strong></p>
+                    </div>
+                </div>
+            </div>
+       
             
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024.
-                   GENINVEST</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made
-                    with <i class="ti-heart text-danger ml-1"></i></span>
-            </div>
-        </footer>
-        <!-- partial -->
     </div>
+
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024.
+                GENINVEST</span>
+        </div>
+    </footer>
+
+</div>
 {% endblock %}

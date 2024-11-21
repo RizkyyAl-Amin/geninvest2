@@ -1,0 +1,304 @@
+{% extends 'layouts/main.html' %}
+{% block css %}
+{% load static %}
+<style>
+    .hero-section {
+        background-color: #f0f8ff;
+        padding-left: 12rem;
+        padding-right: 11rem;
+        padding-top: 10rem;
+        text-align: left;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-section2 {
+        background-color: #f0f8ff;
+        padding-left: 8rem;
+        padding-top: 10rem;
+        text-align: left;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-text {
+        flex: 1 1 50%;
+        padding: 1rem;
+    }
+
+    .hero-text h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    .hero-text p {
+        margin: 1rem 0;
+        font-size: 1rem;
+        color: #000;
+    }
+
+    .hero-text a {
+        display: inline-block;
+        background-color: #3C8DBC;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        text-decoration: none;
+        border-radius: 0.375rem;
+        font-weight: bold;
+    }
+
+    .hero-text a:hover {
+        background-color: #2576a5;
+    }
+
+    .hero-image {
+        flex: 1 1 50%;
+        padding: 4rem;
+    }
+
+    .hero-image2 {
+        margin-right: 10rem;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+        border-radius: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero-section" style="padding-top: 7rem;">
+    <div class="hero-text">
+        <h1>Ayo Mulai Berinvestasi Bersama Kami di <span style="color: #3C8DBC;">GENINVEST</span></h1>
+        <p>Mulai perjalanan investasi Anda dengan produk kami yang aman dan terpercaya</p>
+        <a href="#">Investasi Sekarang</a>
+    </div>
+    <div class="hero-image">
+        <img src="{% static 'arsha/assets/img/inves.svg' %}" alt="Investment Illustration">
+    </div>
+</section>
+
+<section id="contact" class="why-us section">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Saham Konvensional</h2>
+        <p>Saham konvensional adalah instrumen investasi yang mewakili kepemilikan suatu perusahaan tanpa adanya batasan
+            khusus terkait sektor usaha atau jenis transaksinya. Saham ini tunduk pada regulasi pasar modal umum dan
+            digunakan sebagai salah satu cara bagi perusahaan untuk mendapatkan modal dari publik.</p>
+
+    </div>
+    <h3 style="text-align: center; color: #384046;">Kenapa Harus Saham Konvensional?</h3>
+
+    <div class="kel-warp">
+        <div class="inves-container content" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4">
+                <div>
+                    <div class="wrap-why">
+                        <div class="why-us">
+                            <div class="content">
+                                <div class="icon">
+                                    <div class="icon-circle">
+                                        <img src="{% static 'arsha/assets/img/in1.svg' %}" alt="">
+                                    </div>
+                                </div>
+
+                                <p>Stabilitas yang lebih tinggi dibandingkan jenis investasi lain.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inves-container content" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4">
+                <div>
+                    <div class="wrap-why">
+                        <div class="why-us">
+                            <div class="content">
+                                <div class="icon">
+                                    <div class="icon-circle">
+                                        <img src="{% static 'arsha/assets/img/in3.svg' %}" alt="">
+                                    </div>
+                                </div>
+
+                                <p>Beragam pilihan sektor industri, sesuai dengan tujuan investasi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inves-container content" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4">
+                <div>
+                    <div class="wrap-why">
+                        <div class="why-us">
+                            <div class="content">
+                                <div class="icon">
+                                    <div class="icon-circle">
+                                        <img src="{% static 'arsha/assets/img/in2.svg' %}" alt="">
+                                    </div>
+                                </div>
+
+                                <p>Likuiditas tinggi yang memungkinkan pencairan dana lebih mudah.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inves-container content" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4">
+                <div>
+                    <div class="wrap-why">
+                        <div class="why-us">
+                            <div class="content">
+                                <div class="icon">
+                                    <div class="icon-circle">
+                                        <img src="{% static 'arsha/assets/img/in4.svg' %}" alt="">
+                                    </div>
+                                </div>
+
+                                <p>Potensi keuntungan jangka panjang dengan pertumbuhan modal yang baik.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<section id="contact" class="why-us section">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Saham Syariah</h2>
+        <p>Saham syariah adalah saham yang diterbitkan oleh perusahaan yang kegiatannya sesuai dengan prinsip-prinsip
+            syariah Islam. Saham ini diatur untuk tidak melibatkan bisnis yang dilarang dalam Islam, seperti riba
+            (bunga), perjudian, atau produksi barang haram (misalnya alkohol).</p>
+
+    </div>
+    <h3 style="text-align: center; color: #384046;">Kenapa Harus Saham Syariah?</h3>
+
+    <div class="kel-warp">
+        <div class="inves-container content" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4">
+                <div>
+                    <div class="wrap-why">
+                        <div class="why-us">
+                            <div class="content">
+                                <div class="icon">
+                                    <div class="icon-circle">
+                                        <img src="{% static 'arsha/assets/img/in6.svg' %}" alt="">
+                                    </div>
+                                </div>
+
+                                <p>Mematuhi prinsip-prinsip syariah yang bebas dari riba dan aktivitas haram.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inves-container content" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4">
+                <div>
+                    <div class="wrap-why">
+                        <div class="why-us">
+                            <div class="content">
+                                <div class="icon">
+                                    <div class="icon-circle">
+                                        <img src="{% static 'arsha/assets/img/in7.svg' %}" alt="">
+                                    </div>
+                                </div>
+
+                                <p>Mendukung perusahaan dengan nilai etika dan tanggung jawab sosial yang tinggi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inves-container content" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4">
+                <div>
+                    <div class="wrap-why">
+                        <div class="why-us">
+                            <div class="content">
+                                <div class="icon">
+                                    <div class="icon-circle">
+                                        <img src="{% static 'arsha/assets/img/in8.svg' %}" alt="">
+                                    </div>
+                                </div>
+
+                                <p>Cocok bagi investor yang mengutamakan prinsip keuangan yang bersih dan halal.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inves-container content" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4">
+                <div>
+                    <div class="wrap-why">
+                        <div class="why-us">
+                            <div class="content">
+                                <div class="icon">
+                                    <div class="icon-circle">
+                                        <img src="{% static 'arsha/assets/img/in5.svg' %}" alt="">
+                                    </div>
+                                </div>
+
+                                <p>Diawasi oleh Dewan Syariah Nasional (DSN) dan OJK untuk menjaga transparansi dan
+                                    kepatuhan syariah</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<section class="hero-section2" style="padding-top: 7rem; background-color: #fff;">
+    <div class="hero-text">
+        <h2 style="color: #384046;">Apa Perbedaannya?</h2>
+        <ol style="color: #000; width: 40rem;">
+            <li>Kriteria Usaha: Saham konvensional tidak memiliki batasan khusus terkait sektor usaha, sementara saham
+                syariah hanya diterbitkan oleh perusahaan yang aktivitas bisnisnya sesuai dengan prinsip Islam, seperti
+                tidak melibatkan riba, perjudian, atau barang haram.</li>
+            <li>Praktik Keuangan: Saham konvensional memperbolehkan perusahaan menggunakan sistem bunga, sedangkan saham
+                syariah melarang unsur riba dan memastikan struktur keuangan sesuai dengan prinsip syariah.</li>
+            <li>Penyaringan Saham: Saham konvensional tidak memerlukan penyaringan berdasarkan aturan agama, tetapi
+                saham syariah disaring ketat oleh lembaga seperti Dewan Syariah Nasional (DSN) untuk memastikan
+                kepatuhan terhadap hukum Islam.</li>
+            <li>Jenis Investor: Saham konvensional menarik bagi investor umum tanpa memandang latar belakang agama,
+                sementara saham syariah lebih diminati oleh investor Muslim atau mereka yang mengutamakan investasi
+                berbasis etika dan keberlanjutan.</li>
+        </ol>
+    </div>
+    <div class="hero-image2">
+        <img src="{% static 'arsha/assets/img/biginv.svg' %}" alt="Investment Illustration">
+    </div>
+</section>
+{% endblock %}
+
+{% include 'frontend/layouts/main.html' %}
+
+
+{% include 'frontend/layouts/main.html' %}
