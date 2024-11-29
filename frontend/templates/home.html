@@ -36,7 +36,8 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section id="hero" class="hero section" style="background-image: url('{% static 'arsha/assets/img/home-bg.svg' %}'); height: 10rem;">
+<section id="hero" class="hero section"
+    style="background-image: url('{% static 'arsha/assets/img/home-bg.svg' %}'); height: 10rem;">
     <div class="container">
         <div class="row gy-4">
             <div class="justify-content-center" data-aos="zoom-out" style="text-align: center">
@@ -133,16 +134,21 @@
 
         <div class="container section-title" data-aos="fade-up" style="">
             <h2>Tentang Kami</h2>
-        
-        <div class="" style="align-items: center; position: relative;">
-            <img src="{% static 'arsha/assets/img/logo.svg' %}" alt="" class="big-logo">
 
-            <p>GenInvest adalah platform reksa dana saham yang dapat digunakan oleh semua kalangan dengan fokus utama membantu Gen Z untuk memulai investasi dengan mudah dan terjangkau. Menyediakan pilihan saham syariah dan konvensional, GenInvest memberi kebebasan pengguna memilih sesuai prinsip mereka. Dengan tujuan meningkatkan literasi keuangan dan didukung teknologi terkini serta tampilan web yang mudah, GenInvest berkomitmen menghadirkan pengalaman investasi yang intuitif, aman, dan sesuai kebutuhan generasi muda.</p>
-           
+            <div class="" style="align-items: center; position: relative;">
+                <img src="{% static 'arsha/assets/img/logo.svg' %}" alt="" class="big-logo">
+
+                <p>GenInvest adalah platform reksa dana saham yang dapat digunakan oleh semua kalangan dengan fokus
+                    utama membantu Gen Z untuk memulai investasi dengan mudah dan terjangkau. Menyediakan pilihan saham
+                    syariah dan konvensional, GenInvest memberi kebebasan pengguna memilih sesuai prinsip mereka. Dengan
+                    tujuan meningkatkan literasi keuangan dan didukung teknologi terkini serta tampilan web yang mudah,
+                    GenInvest berkomitmen menghadirkan pengalaman investasi yang intuitif, aman, dan sesuai kebutuhan
+                    generasi muda.</p>
+
+
+            </div>
 
         </div>
-        
-    </div>
     </div>
 </section>
 
@@ -152,49 +158,22 @@
             <h2>Artikel Terbaru</h2>
         </div>
         <div class="arc-container content" data-aos="fade-up" data-aos-delay="100">
+            {% for article in articles %}
             <div class="wrap-why">
                 <div class="why-us">
                     <div class="icon">
-                        <img src="{% static 'arsha/assets/img/artikel1.svg' %}" class="img-fluid custom-img-article"
-                            alt="...">
+                        <img src="{{ article.cover.url }}" class="img-fluid custom-img-article"
+                            alt="{{ article.judul }}">
                     </div>
-                    <a href="" class="card-title">Tips Investasi Aman Untuk Pemula di Tahun 2024</a>
+                    <a href="#" class="card-title">{{ article.judul }}</a>
                     <p class="card-text">
-                        <small class="text-body-secondary">Updated 07 Mei 2024 - oleh Tom Holland</small>
-                        <small class="text-body-secondary">Kategori - Edukasi</small>
+                        <small class="text-body-secondary">Updated {{ article.updated_at|date:"d M Y" }} - <span>oleh 
+                            {{ article.penulis }}</span></small><br>
+                        <small class="text-body-secondary">Kategori - {{ article.kategori }}</small>
                     </p>
                 </div>
             </div>
-        </div>
-        <div class="arc-container content" data-aos="fade-up" data-aos-delay="100">
-            <div class="wrap-why">
-                <div class="why-us">
-                    <div class="icon">
-                        <img src="{% static 'arsha/assets/img/artikel2.svg' %}" class="img-fluid custom-img-article"
-                            alt="...">
-                    </div>
-                    <a href="" class="card-title">Tips Investasi Aman Untuk Pemula di Tahun 2024</a>
-                    <p class="card-text">
-                        <small class="text-body-secondary">Updated 07 Mei 2024 - oleh Tom Holland</small>
-                        <small class="text-body-secondary">Kategori - Edukasi</small>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="arc-container content" data-aos="fade-up" data-aos-delay="100">
-            <div class="wrap-why">
-                <div class="why-us">
-                    <div class="icon">
-                        <img src="{% static 'arsha/assets/img/artikel3.svg' %}" class="img-fluid custom-img-article"
-                            alt="...">
-                    </div>
-                    <a href="" class="card-title">Tips Investasi Aman Untuk Pemula di Tahun 2024</a>
-                    <p class="card-text">
-                        <small class="text-body-secondary">Updated 07 Mei 2024 - oleh Tom Holland</small>
-                        <small class="text-body-secondary">Kategori - Edukasi</small>
-                    </p>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

@@ -1,6 +1,6 @@
 {% extends "layouts/main2.html" %}
 
-{% block title %}Data Article{% endblock %}
+{% block title %}Data Artikel{% endblock %}
 
 {% block content %}
 <div class="content-wrapper">
@@ -8,7 +8,7 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Seluruh Data Article</h4>
+                    <h4 class="card-title">Seluruh Data Artikel</h4>
                     <div style="float: right">
                         <a href="{% url 'cartikel' %}" class="btn btn-success btn-sm">
                             Tambah Data
@@ -23,31 +23,37 @@
                                     <th>Penulis</th>
                                     <th>Kategori</th>
                                     <th>Paragraf Utama</th>
+                                    <th>Cover</th> <!-- Kolom baru -->
                                     <th class="text-center" width="100">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for article in articles %}
-                                    <tr id="index_{{ article.id }}">
-                                        <td class="text-center">{{ forloop.counter }}.</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center d-flex">
-                                            <a style="margin-right: 2px;" href="#" class="btn btn-primary">
-                                                Edit
-                                            </a>
-                                            <form class="inline" action="{% url 'article_delete' article.id|urlencode %}" method="POST">
-                                                {% csrf_token %}
-                                                <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data dengan title {{ article.title }}?')">
-                                                    Delete
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                <tr id="index_{{ article.id }}">
+                                    <td class="text-center">{{ forloop.counter }}.</td>
+                                    <td>{{ article.judul }}</td>
+                                    <td>{{ article.penulis }}</td>
+                                    <td>{{ article.kategori.nama }}</td>
+                                    <td>{{ article.konten|truncatewords:20 }}</td>
+                                    <td class="text-center">
+                                        {% if article.cover %}
+                                        <img src="{{ article.cover.url }}" alt="Cover Artikel" width="100" height="100">
+                                        {% else %}
+                                        <span>Tidak ada gambar</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center d-flex">
+                                        <a href="{% url 'edit_artikel' article.id %}" class="btn btn-primary">Edit</a>
+                                        <form action="{% url 'delete_artikel' article.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button class="btn btn-danger"
+                                                onclick="return confirm('Yakin ingin menghapus artikel?')">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
                                 {% endfor %}
                             </tbody>
+
                         </table>
                     </div>
                 </div>
@@ -60,7 +66,7 @@
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#data-table').DataTable();
     });
 </script>

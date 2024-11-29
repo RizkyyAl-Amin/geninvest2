@@ -1,0 +1,94 @@
+{% extends "layouts/main2.html" %}
+
+{% block title %}Edit Produk Saham{% endblock %}
+
+{% block css %}
+<style>
+    .custom-dropdown {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .custom-file-input {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .custom-file-label {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-radius: 8px;
+        padding: 10px 20px;
+    }
+
+    .btn-primary {
+        background-color: #5a67d8;
+        border-radius: 8px;
+        padding: 10px 20px;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #434cdb;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Edit Produk Saham</h2>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'update_produk' produk.id %}">
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-md-6 mb-4">
+                <label for="namaSaham" class="form-label">Nama Saham</label>
+                <input type="text" class="form-control" id="namaSaham" name="nama_saham"
+                    value="{{ produk.nama_saham }}" placeholder="Masukkan nama saham">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="namaPerusahaan" class="form-label">Nama Perusahaan</label>
+                <input type="text" class="form-control" id="namaPerusahaan" name="nama_perusahaan"
+                    value="{{ produk.nama_perusahaan }}" placeholder="Masukkan nama perusahaan">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="kodeSaham" class="form-label">Kode Saham</label>
+                <input type="text" class="form-control" id="kodeSaham" name="kode_saham"
+                    value="{{ produk.kode_saham }}" placeholder="Masukkan kode saham">
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="jenisSaham" class="form-label">Jenis Saham</label>
+                <select class="form-select custom-dropdown" id="jenisSaham" name="jenis_saham">
+                    <option value="Growth" {% if produk.jenis_saham == "Syariah" %}selected{% endif %}>Syariah</option>
+                    <option value="Value" {% if produk.jenis_saham == "Konvensional" %}selected{% endif %}>Konvensional</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="gambarProduk" class="form-label">Gambar Produk</label>
+                <div class="custom-file">
+                    <input type="file" class="form-control custom-file-input" id="gambarProduk" name="gambar">
+                    {% if produk.gambar %}
+                    <label class="custom-file-label" for="gambarProduk">Ganti file (Saat ini: {{ produk.gambar.name }})</label>
+                    {% else %}
+                    <label class="custom-file-label" for="gambarProduk">Pilih file</label>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-12 mb-4">
+                <label for="deskripsiProduk" class="form-label">Deskripsi Produk</label>
+                <textarea class="form-control" id="deskripsiProduk" name="deskripsi_produk" rows="4"
+                    placeholder="Jelaskan tentang perusahaan atau saham ini">{{ produk.deskripsi_produk }}</textarea>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{% url 'list_produk' %}" class="btn btn-secondary">Batal</a>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

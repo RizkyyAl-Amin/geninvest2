@@ -296,9 +296,82 @@
         <img src="{% static 'arsha/assets/img/biginv.svg' %}" alt="Investment Illustration">
     </div>
 </section>
+<section id="contact" class="why-us section">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Produk Saham</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="example">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Kode Saham</th>
+                        <th>Nama Perusahaan</th>
+                        <th>Jenis Saham</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produk in produks %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ produk.kode_saham }}</td>
+                        <td>{{ produk.nama_perusahaan }}</td>
+                        <td>{{ produk.jenis_saham }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li><a href="?page=1">«</a></li>
+                    <li><a href="?page={{ page_obj.previous_page_number }}">‹</a></li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    <li class="{% if page_obj.number == num %}active{% endif %}">
+                        <a href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">›</a></li>
+                    <li><a href="?page={{ page_obj.paginator.num_pages }}">»</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        
+       
+        
+    </div>
+</section>
 {% endblock %}
 
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#data-table').DataTable();
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "pagingType": "full_numbers", // Menampilkan tombol seperti di gambar
+            "lengthMenu": [10, 25, 50, 100], // Dropdown jumlah baris
+            "language": {
+                "paginate": {
+                    "first": "«",
+                    "last": "»",
+                    "next": "›",
+                    "previous": "‹"
+                },
+                "lengthMenu": "Baris: _MENU_",
+                "info": "_START_ - _END_ dari _TOTAL_ data"
+            }
+        });
+    });
+</script>
+
+{% endblock %}
 {% include 'frontend/layouts/main.html' %}
 
 
-{% include 'frontend/layouts/main.html' %}

@@ -2,7 +2,7 @@
 
 {% block title %}Tambah Artikel{% endblock %}
 
-{% block css %} 
+{% block css %}
 <style>
     .custom-dropdown {
         border-radius: 8px;
@@ -20,25 +20,7 @@
         padding: 8px;
         font-size: 14px;
     }
-
-    .btn-secondary {
-        background-color: #6c757d;
-        border-radius: 8px;
-        padding: 10px 20px;
-    }
-
-    .btn-primary {
-        background-color: #5a67d8;
-        border-radius: 8px;
-        padding: 10px 20px;
-        border: none;
-    }
-
-    .btn-primary:hover {
-        background-color: #434cdb;
-    }
 </style>
-
 {% endblock %}
 
 {% block content %}
@@ -48,31 +30,39 @@
         <div class="card-body">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
+                <!-- Judul Artikel -->
                 <div class="mb-3">
                     <label for="judulArtikel" class="form-label">Judul</label>
-                    <input type="text" class="form-control" id="judulArtikel" name="judul" placeholder="Masukkan judul artikel">
+                    <input type="text" class="form-control" id="judulArtikel" name="judul"
+                        placeholder="Masukkan judul artikel" required>
                 </div>
-                <div class="mb-3">
-                    <label for="gambarArtikel" class="form-label">Gambar</label>
-                    <div class="custom-file">
-                        <input type="file" class="form-control custom-file-input" id="gambarArtikel" name="gambar">
-                        <label class="custom-file-label" for="gambarProduk">Masukan Gambar</label>
-                    </div>
-                    
-                </div>
-               
+
+                <!-- Kategori Artikel -->
                 <div class="mb-3">
                     <label for="kategoriArtikel" class="form-label">Kategori</label>
-                    <input type="text" class="form-control" id="kategoriArtikel" name="kategori" placeholder="Masukkan kategori artikel">
+                    <select class="form-select" id="kategoriArtikel" name="kategori" required>
+                        <option value="" disabled selected>Pilih kategori</option>
+                        {% for kategori in kategoris %}
+                        <option value="{{ kategori.id }}">{{ kategori.nama }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
+
                 <div class="mb-3">
-                    <label for="penulisArtikel" class="form-label">Penulis</label>
-                    <input type="text" class="form-control" id="penulisArtikel" name="penulis" placeholder="Masukkan nama penulis">
+                    <label for="coverArtikel" class="form-label">Cover Artikel</label>
+                    <input type="file" class="form-control" id="coverArtikel" name="cover">
                 </div>
+
+
+
+                <!-- Konten Artikel -->
                 <div class="mb-3">
                     <label for="kontenArtikel" class="form-label">Konten</label>
-                    <textarea class="form-control" id="kontenArtikel" name="konten" rows="5" placeholder="Masukkan konten artikel"></textarea>
+                    <textarea class="form-control" id="kontenArtikel" name="konten" rows="5"
+                        placeholder="Masukkan konten artikel" required></textarea>
                 </div>
+
+                <!-- Tombol Submit -->
                 <div class="d-flex justify-content-end gap-2">
                     <a href="{% url 'art' %}" class="btn btn-light border">Batal</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -81,10 +71,4 @@
         </div>
     </div>
 </div>
-
-
-{% endblock %}
-
-{% block js %}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}

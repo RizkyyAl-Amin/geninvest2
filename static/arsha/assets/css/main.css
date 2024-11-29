@@ -1213,7 +1213,15 @@ section,
   max-width: 300px;
   margin: 0 auto;
 }
+.dataTables_wrapper .dataTables_info {
+  font-size: 0.875rem;
+}
 
+@media (max-width: 576px) {
+  .dataTables_wrapper .dataTables_info {
+    margin-bottom: 1rem;
+  }
+}
 .why-us .inves-container  {
   background-color: white;
   border-radius: 15px;

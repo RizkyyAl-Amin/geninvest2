@@ -1,0 +1,94 @@
+{% extends "layouts/main2.html" %}
+
+{% block title %}Update Artikel{% endblock %}
+
+{% block css %}
+<style>
+    .custom-dropdown {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .custom-file-input {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .custom-file-label {
+        padding: 8px;
+        font-size: 14px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Update Artikel</h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data" action="{% url 'edit_artikel' article.id %}">
+                {% csrf_token %}
+
+             
+                <div class="mb-3">
+                    <label for="judulArtikel" class="form-label">Judul</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="judulArtikel" 
+                        name="judul" 
+                        value="{{ article.judul }}" 
+                        placeholder="Masukkan judul artikel" 
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="kategoriArtikel" class="form-label">Kategori</label>
+                    <select class="form-select" id="kategoriArtikel" name="kategori" required>
+                        <option value="" disabled>Pilih kategori</option>
+                        {% for kategori in kategoris %}
+                        <option value="{{ kategori.id }}" 
+                                {% if artikel.kategori.id == kategori.id %}selected{% endif %}>
+                            {{ kategori.nama }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Cover Artikel -->
+                <div class="mb-3">
+                    <label for="coverArtikel" class="form-label">Cover Artikel</label>
+                    <input 
+                        type="file" 
+                        class="form-control" 
+                        id="coverArtikel" 
+                        name="cover">
+                    {% if article.cover %}
+                    <small class="form-text text-muted">Cover saat ini: <a href="{{ article.cover.name }}" target="_blank">Lihat</a></small>
+                    {% endif %}
+                </div>
+
+                <!-- Konten Artikel -->
+                <div class="mb-3">
+                    <label for="kontenArtikel" class="form-label">Konten</label>
+                    <textarea 
+                        class="form-control" 
+                        id="kontenArtikel" 
+                        name="konten" 
+                        rows="5" 
+                        placeholder="Masukkan konten artikel" 
+                        required>{{ article.konten }}</textarea>
+                </div>
+
+                <!-- Tombol Submit -->
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="{% url 'art' %}" class="btn btn-light border">Batal</a>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

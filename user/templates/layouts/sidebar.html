@@ -1,0 +1,29 @@
+{% load static %}
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link {% if request.path == '/dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Dasbor</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.path == '/produk/' %}active{% endif %}" href="{% url 'list_produk' %}">
+                <i class="icon-paper menu-icon"></i>
+                <span class="menu-title">Produk</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="icon-dolar menu-icon"></i>
+                <span class="menu-title">Laporan Keuangan</span>
+            </a>
+        </li>
+
+        <!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span>
+        </button> -->
+    </ul>
+    
+</nav>

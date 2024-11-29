@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Kategori Article</h4>
                         <div style="float: right">
-                            <a href="#" class="btn btn-success btn-sm">
+                            <a href="{% url 'create_kategori' %}" class="btn btn-success btn-sm">
                                 Tambah Kategori
                             </a>
                         </div>
@@ -29,6 +29,7 @@
                                     <tr class="text-center">
                                         <th class="text-center" width="50">No.</th>
                                         <th>Nama Kategori</th>
+                                        <th>Deskripsis</th>
                                         <th class="text-center" width="100">Aksi</th>
                                     </tr>
                                 </thead>
@@ -37,17 +38,18 @@
                                         <tr id="index_{{ item.id }}">
                                             <td class="text-center">{{ forloop.counter }}.</td>
                                             <td>{{ item.nama }}</td>
+                                            <td>{{ item.deskripsi }}</td>
                                             <td class="text-center d-flex justify-content-between">
                                                 <a href="#"
                                                     class="btn btn-primary">
                                                     Edit
                                                 </a>
-                                                <a>
-                                                    <form action="#" method="POST">
-                                                        {% csrf_token %}
-                                                        <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</button>
-                                                    </form>
-                                                </a>
+                                                <form action="{% url 'delete_kategori' item.id %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <button class="btn btn-danger"
+                                                        onclick="return confirm('Yakin ingin menghapus kategori?')">Delete</button>
+                                                </form>
+                                                
                                             </td>
                                         </tr>
                                     {% endfor %}

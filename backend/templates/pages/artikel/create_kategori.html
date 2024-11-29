@@ -1,0 +1,66 @@
+{% extends "layouts/main2.html" %}
+
+{% block title %}Tambah Kategori{% endblock %}
+
+{% block css %} 
+<style>
+    .custom-dropdown {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .custom-file-input {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .custom-file-label {
+        padding: 8px;
+        font-size: 14px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Tambah Kategori Artikel</h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                <!-- Nama Kategori -->
+                <div class="mb-3">
+                    <label for="namaKategori" class="form-label">Nama Kategori</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="namaKategori" 
+                        name="nama" 
+                        placeholder="Masukkan nama kategori"
+                        required>
+                </div>
+
+                <!-- Deskripsi Kategori -->
+                <div class="mb-3">
+                    <label for="deskripsiKategori" class="form-label">Deskripsi</label>
+                    <textarea 
+                        class="form-control" 
+                        id="deskripsiKategori" 
+                        name="deskripsi" 
+                        rows="3" 
+                        placeholder="Masukkan deskripsi kategori"></textarea>
+                </div>
+
+                <!-- Tombol Submit -->
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="{% url 'list_kategori' %}" class="btn btn-light border">Batal</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
