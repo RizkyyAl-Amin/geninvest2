@@ -23765,6 +23765,37 @@ dl li {
 }
 
 /* Modals */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1050; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden; 
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  margin: 10% auto; 
+  padding: 20px; 
+  border-radius: 8px; 
+  background: #fff;
+  width: 50%; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.modal-close {
+  float: right; 
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal-close:hover, .modal-close:focus {
+  color: red;
+}
+
+
 .modal .modal-dialog {
   margin-top: 100px;
 }

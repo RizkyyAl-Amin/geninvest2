@@ -41,7 +41,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-2">
     <h2 class="mb-4">Tambah Produk Saham</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -59,9 +59,11 @@
                 <label for="kodeSaham" class="form-label">Kode Saham</label>
                 <input type="text" class="form-control" id="kodeSaham" name="kode_saham" placeholder="Masukkan kode saham">
             </div>
+           
+            
             <div class="col-md-6 mb-4">
                 <label for="jenisSaham" class="form-label">Jenis Saham</label>
-                <select class="form-select custom-dropdown" id="jenisSaham" name="jenis_saham">
+                <select class="form-select form-control" id="jenisSaham" name="jenis_saham">
                     <option selected>Pilih kategori</option>
                     <option value="Syariah">Syariah</option>
                     <option value="Konvensional">Konvensional</option>
@@ -69,19 +71,37 @@
                 </select>
             </div>
             <div class="col-md-6 mb-4">
-                <label for="gambarProduk" class="form-label">Gambar Produk</label>
+                
                 <div class="custom-file">
-                    <input type="file" class="form-control custom-file-input" id="gambarProduk" name="gambar">
-                    <label class="custom-file-label" for="gambarProduk">Pilih file</label>
+                    <label for="harga_saham" class="form-label">Harga Saham Per Lembar</label>
+                    <input type="text" class="form-control custom-date" id="harga_saham" name="harga_saham" placeholder="Masukan harga saham">
+        
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                
+                <div class="custom-file">
+                    <label for="dividen_saham" class="form-label">Dividen Saham Per Lembar</label>
+                    <input type="text" class="form-control custom-date" id="dividen_saham" name="dividen_saham" placeholder="Masukan dividen saham">
+        
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                
+                <div class="custom-file">
+                    <label for="minimal_pembelian" class="form-label">Minimal Pembelian Saham</label>
+                    <input type="text" class="form-control custom-date" id="minimal_pembelian" name="minimal_beli" placeholder="1 Lot atau 100 Lembar">
+        
                 </div>
             </div>
             <div class="col-md-12 mb-4">
                 <label for="deskripsiProduk" class="form-label">Deskripsi Produk</label>
-                <textarea class="form-control" id="deskripsiProduk" name="deskripsi_produk" rows="4"
+                <textarea class="form-control" id="deskripsiProduk" name="deskripsi" rows="4"
                     placeholder="Jelaskan tentang perusahaan atau saham ini"></textarea>
             </div>
+
         </div>
-        <div class="mt-4">
+        <div>
             <a href="{% url 'list_produk' %}" class="btn btn-secondary">Batal</a>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </div>

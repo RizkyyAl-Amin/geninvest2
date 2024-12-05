@@ -1,0 +1,120 @@
+{% extends 'layouts/main3.html' %}
+{% load static %}
+{% block title %}Portofolio{% endblock %}
+
+{% block css %}
+<style>
+    .portfolio-section {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .portfolio-header h3 {
+        margin-bottom: 10px;
+        color: #0288d1;
+    }
+
+    .portfolio-header h5 {
+        color: #757575;
+    }
+
+    .portfolio-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #0288d1;
+    }
+
+    .filter-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .filter-buttons .btn {
+        background-color: white;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .stock-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    .stock-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .stock-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stock-name {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .stock-detail {
+        color: #757575;
+    }
+
+    .stock-amount {
+        font-size: 18px;
+        font-weight: bold;
+        color: #0288d1;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <h3>Portofolio</h3>
+
+        <!-- Portfolio Section -->
+        <div class="portfolio-section">
+            <div class="portfolio-header">
+                <h5>Nilai Portofolio</h5>
+                <div class="portfolio-value">Rp 500.000</div>
+                <div class="portfolio-subvalue">Rp 4.300</div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="btn btn-outline-primary active">Saham Konvensional</button>
+                <button class="btn btn-outline-secondary">Saham Syariah</button>
+            </div>
+
+            <!-- Stock List -->
+            <ul class="stock-list">
+                <li>
+                    <div class="stock-info">
+                        <span class="stock-name">BBCA</span>
+                        <span class="stock-detail">PT. Bank Century Asia tbk.</span>
+                        <span class="stock-date">24 Nov 2024</span>
+                    </div>
+                    <div class="stock-amount">Rp 500.000</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024.
+                GENINVEST</span>
+        </div>
+    </footer>
+</div>
+{% endblock %}

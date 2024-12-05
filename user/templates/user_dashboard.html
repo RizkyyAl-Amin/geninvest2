@@ -2,81 +2,127 @@
 {% load static %}
 {% block title %}Dashboard{% endblock %}
 
-{% block css %} 
+{% block css %}
 <style>
-    /* Card Body Style */
-.card {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: #ffffff;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.card-body {
-    padding: 20px;
-}
-
-/* Card Title Style */
-.card-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333333;
-    margin-top: 10px;
-    margin-bottom: 8px;
-}
-
-/* Card Text Style */
-.card-text {
-    font-size: 24px;
-    font-weight: bold;
-    color: #007bff;
-}
-
-/* Icon Circle Style */
-.icon-circle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70px;
-    height: 70px;
-    background-color: #f1f5f9;
-    border-radius: 50%;
-    margin: 0 auto 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.icon-circle img {
-    width: 40px;
-    height: 40px;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .card-title {
-        font-size: 16px;
+    .dashboard-container {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        justify-content: space-around;
+        background-color: #f5f7fa;
     }
 
-    .card-text {
-        font-size: 20px;
+    /* Card Style */
+    .portfolio-card,
+    .wallet-card {
+        flex: 1;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .icon-circle {
-        width: 60px;
-        height: 60px;
+    .portfolio-card:hover,
+    .wallet-card:hover {
+
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     }
 
-    .icon-circle img {
-        width: 30px;
-        height: 30px;
+    /* Content Section */
+    .portfolio-content,
+    .wallet-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
-}
 
+    /* Icon Section */
+    .icon-section {
+        background-color: #e3f2fd;
+        border-radius: 50%;
+        padding: 15px;
+        font-size: 24px;
+        color: #0288d1;
+    }
+
+    /* Text Section */
+    .text-section h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .text-section h1 {
+        margin: 5px 0;
+        font-size: 28px;
+        font-weight: bold;
+        color: #0288d1;
+    }
+
+    .text-section p {
+        margin: 0;
+        font-size: 14px;
+        color: #757575;
+    }
+
+    .investment-section {
+        margin-top: 20px;
+    }
+
+    .investment-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .investment-table th,
+    .investment-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .investment-table th {
+        background-color: #f1f5f9;
+        font-weight: bold;
+    }
+
+    .btn-buy {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .btn-buy:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-custom {
+        display: inline-block;
+        padding: 8px 12px;
+        background-color: #0288d1;
+        /* Warna biru */
+        color: white;
+        /* Warna teks */
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: #84C0E3;
+        /* Warna biru lebih gelap saat hover */
+    }
 </style>
 {% endblock %}
 
@@ -84,86 +130,75 @@
 <div class="main-panel">
     <div class="content-wrapper">
         <h3>Dasbor</h3>
-        <h3>Selamat Datang, Admin</h3>
-
         
-        <div class="row">
-         
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <div class="icon-circle mb-2">
-                            <img src="{% static 'arsha/assets/img/user.svg' %}" alt="User" width="40">
-                        </div>
-                        <h5 class="card-title">User</h5>
-                        <p class="card-text"><strong>{{ jumlah_user }}</strong></p> <!-- Gunakan variabel -->
+        <h5>Selamat Datang {{ user.username }}</h5>
+
+        <!-- Portfolio Section -->
+        <div class="dashboard-container">
+            <div class="portfolio-card">
+                <div class="portfolio-content">
+                    <div class="icon-section">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="text-section">
+                        <h4>Nilai Portofolio</h4>
+                        <h1>Rp 0</h1>
+                        <p>Keuntungan</p>
+                        <small>Rp 0</small>
                     </div>
                 </div>
             </div>
-            
-           
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <div class="icon-circle mb-2">
-                            <img src="{% static 'arsha/assets/img/page.svg' %}" alt="Artikel" width="40">
-                        </div>
-                        <h5 class="card-title">Artikel</h5>
-                        <p class="card-text"><strong>{{ jumlah_artikel }}</strong></p> <!-- Gunakan variabel -->
+            <div class="wallet-card">
+                <div class="wallet-content">
+                    <div class="icon-section">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="text-section">
+                        <h4>RDN Wallet {{ user.rdn }}</h4>
+                        <h1>Rp  </h1>
+                        <a href="/wallet" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-arrow-right"></i> Open
+                        </a>
+
                     </div>
                 </div>
             </div>
-            
-          
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <div class="icon-circle mb-2">
-                            <img src="{% static 'arsha/assets/img/deposit.svg' %}" alt="Pembelian" width="40">
-                        </div>
-                        <h5 class="card-title">Pembelian</h5>
-                        <p class="card-text"><strong>128</strong></p>
-                    </div>
-                </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- Investment Section -->
+        <div class="investment-section">
+            <h5>Produk Investasi</h5>
+            <div class="btn-group">
+                <button class="btn btn-primary">Saham Konvensional</button>
+                <button class="btn btn-secondary">Saham Syariah</button>
             </div>
-      
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <div class="icon-circle mb-2">
-                            <img src="{% static 'arsha/assets/img/Request Money.svg' %}" alt="Penarikan" width="40">
-                        </div>
-                        <h5 class="card-title">Penarikan</h5>
-                        <p class="card-text"><strong>128</strong></p>
-                    </div>
-                </div>
-            </div>
-      
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <div class="icon-circle mb-2">
-                            <img src="{% static 'arsha/assets/img/Coin in Hand.svg' %}" alt="Saham Syariah" width="40">
-                        </div>
-                        <h5 class="card-title">Saham Syariah</h5>
-                        <p class="card-text"><strong>128</strong></p>
-                    </div>
-                </div>
-            </div>
-     
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <div class="icon-circle mb-2">
-                            <img src="{% static 'arsha/assets/img/Bank Building.svg' %}" alt="Saham" width="40">
-                        </div>
-                        <h5 class="card-title">Saham</h5>
-                        <p class="card-text"><strong>128</strong></p>
-                    </div>
-                </div>
-            </div>
-       
-            
+
+            <table class="investment-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Kode Produk</th>
+                        <th>Nama Perusahaan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produk in produk_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ produk.kode_saham }}</td>
+                        <td>{{ produk.nama_perusahaan }}</td>
+                        <td><a href=""></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -173,6 +208,5 @@
                 GENINVEST</span>
         </div>
     </footer>
-
 </div>
 {% endblock %}

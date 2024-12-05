@@ -20,10 +20,15 @@ from django.conf.urls.static import static
 from django.conf import settings
 import frontend
 import backend
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
     
     path('',include('frontend.urls')),
     path('',include('backend.urls')),
     path('', include('login.urls')),
+    path('', include('user.urls')),
+    path('accounts/', include('allauth.urls')),
+    
 ]

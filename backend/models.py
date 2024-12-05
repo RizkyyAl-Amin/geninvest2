@@ -27,8 +27,11 @@ class Produk(models.Model):
     nama_saham = models.CharField(max_length=50)
     nama_perusahaan = models.CharField(max_length=100)
     jenis_saham = models.CharField(max_length=20)
-    gambar = models.ImageField(upload_to='produk_saham/', blank=True, null=True)
-
+    harga_saham = models.BigIntegerField()
+    dividen_saham = models.IntegerField()
+    minimal_beli = models.BigIntegerField()
+    tanggal = models.DateTimeField(auto_now_add=True)
+    deskripsi = models.TextField()
     def __str__(self):
         return self.nama_saham    
 

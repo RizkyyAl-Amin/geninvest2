@@ -33,7 +33,7 @@ def kebijakan_privasi(request):
     context={
         'title':title
     }
-    return render(request, 'pages/kebijakan_privasi.html', context)
+    return render(request, 'pages/pusat_bantuan.html', context)
 
 def investasi(request):
     produks_list = Produk.objects.all()

@@ -1,0 +1,37 @@
+{% load static %}
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <!-- Menu Dasbor -->
+        <li class="nav-item">
+            <a class="nav-link {% if request.path == '/user_dashboard' %}active{% endif %}" href="{% url 'user_dashboard' %}">
+                <i class="bi bi-grid menu-icon"></i> <!-- Ikon Dasbor -->
+                <span class="menu-title">Dasbor</span>
+            </a>
+        </li>
+
+        <!-- Menu RDN Wallet -->
+        <li class="nav-item">
+            <a class="nav-link {% if request.path == '/wallet/' %}active{% endif %}" href="{% url 'wallet' %}">
+                <i class="bi bi-wallet2 menu-icon"></i> <!-- Ikon Wallet -->
+                <span class="menu-title">RDN Wallet</span>
+            </a>
+        </li>
+
+        <!-- Menu Portofolio -->
+        <li class="nav-item">
+            <a class="nav-link {% if request.path == '/porto/' %}active{% endif %}" href="{% url 'porto' %}">
+                <i class="bi bi-graph-up menu-icon"></i> <!-- Ikon Portofolio -->
+                <span class="menu-title">Portofolio</span>
+            </a>
+        </li>
+
+        <!-- Menu Laporan Keuangan -->
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="bi bi-file-text menu-icon"></i> <!-- Ikon Laporan -->
+                <span class="menu-title">Laporan Keuangan</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+

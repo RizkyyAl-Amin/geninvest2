@@ -15,10 +15,14 @@ from .forms import ProdukForm
 def dashboard(request):
     jumlah_artikel = Article.objects.count()
     jumlah_user = CustomUser.objects.filter(role='user').count()
+    jumlah_saham = Produk.objects.count()
+    jumlah_sSyariah = Produk.objects.filter(jenis_saham='syariah').count()
     context={
         'title':title,
         'jumlah_artikel': jumlah_artikel,
         'jumlah_user': jumlah_user,
+        'jumlah_saham': jumlah_saham,
+        'jumlah_sSyariah': jumlah_sSyariah,
     }
     return render(request, 'dashboard.html', context)
 

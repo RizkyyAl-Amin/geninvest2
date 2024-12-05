@@ -32,7 +32,7 @@
                                 <img src="{% static 'arsha/assets/img/logo.svg' %}" alt="logo">
                             </div>
                             <h4 class="text-center"><strong>GENINVEST</strong></h4>
-                            <h6 class="font-weight-light text-center">Masukan Username dan Password Untuk Login</h6>
+                            <h6 class="font-weight-light text-center">Masukan Email dan Password Untuk Login</h6>
                             <!-- Tambahkan blok error -->
                             {% if error_message %}
                             <div class="alert alert-danger" role="alert">
@@ -42,10 +42,10 @@
                             <form class="pt-3" method="POST">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <input type="text" id="username"
+                                    <input type="text" id="email"
                                         class="form-control form-control-lg"
-                                        name="username" required
-                                        placeholder="Username">
+                                        name="email" required
+                                        placeholder="Email">
                                 </div>
     
                                 <div class="form-group">

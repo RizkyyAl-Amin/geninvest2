@@ -1,0 +1,485 @@
+{% extends 'layouts/main3.html' %}
+{% load static %}
+{% block title %}RDN Wallet{% endblock %}
+
+{% block css %}
+<style>
+    .wallet-section {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .wallet-header h5 {
+        color: #757575;
+        margin: 0;
+    }
+
+    .wallet-header h2 {
+        margin: 10px 0;
+        color: #0288d1;
+    }
+
+    .wallet-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .wallet-actions {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        /* Jarak antar tombol */
+        margin-top: 20px;
+    }
+
+    .transaction-history {
+        margin-top: 20px;
+    }
+
+    .transaction-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .transaction-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .transaction-status {
+        font-weight: bold;
+    }
+
+    .transaction-amount {
+        color: #0288d1;
+        font-weight: bold;
+    }
+
+    .btn-custom {
+        background-color: white;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 16px 24px;
+        width: 150px;
+        /* Sesuaikan ukuran tombol */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        /* Jarak antara ikon dan teks */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+    }
+
+    .btn-custom .icon {
+        width: 40px;
+        /* Ukuran ikon */
+        height: 40px;
+    }
+
+    .btn-custom:hover {
+        background-color: #f5f5f5;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-content {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            transform: scale(0.9);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <h3>RDN Wallet</h3>
+
+        <!-- Wallet Section -->
+        <div class="wallet-section" style="width: 50%;">
+            <div class="wallet-header">
+                <h5>Saldo RDN </h5>
+                <h2>Rp 0</h2>
+            </div>
+            <div class="wallet-info">
+                <div class="wallet-detail">
+                    <p><strong>Nomor RDN</strong></p>
+                    <p> <img src="{% static 'arsha/assets/img/logo.svg' %}" alt="" style="width: 40px;"><span style="color: #3C8DBC; font-weight: 600;">GENINVEST </span>{{ user.rdn }}</p>
+                </div>
+                <div class="wallet-detail">
+                    <p><strong>Nama Akun</strong></p>
+                    <p>{{ user.username }}</p>
+                </div>
+            </div>
+            
+            <div class="wallet-actions">
+                <button class="btn-custom" onclick="openModal('depositModal')">
+                    <img src="{% static 'arsha/assets/img/Safe.svg' %}" alt="Deposit" class="icon"> Deposit
+                </button>
+                <button class="btn-custom" onclick="openModal('withdrawModal')">
+                    <img src="{% static 'arsha/assets/img/Deposit.svg' %}" alt="Withdraw" class="icon"> Withdraw
+                </button>
+            </div>
+
+
+
+        </div>
+
+        <!-- Transaction History Section -->
+        <div class="transaction-history">
+            <h5>Riwayat Transaksi</h5>
+           
+            <ul class="transaction-list">
+                <li>
+                    <div class="transaction-detail">
+                        <span class="transaction-status">✔ Deposit Berhasil</span>
+                        <span class="transaction-date">20 Nov 2024</span>
+                    </div>
+                    <span class="transaction-amount">+ Rp 100.000</span>
+                </li>
+                <li>
+                    <div class="transaction-detail">
+                        <span class="transaction-status">✔ Deposit Berhasil</span>
+                        <span class="transaction-date">22 Nov 2024</span>
+                    </div>
+                    <span class="transaction-amount">+ Rp 200.000</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024.
+                GENINVEST</span>
+        </div>
+    </footer>
+</div>
+
+
+<!-- Modal Deposit -->
+<div class="modal fade" id="depositModal" tabindex="-1" aria-labelledby="depositModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px;">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="depositModalLabel">Deposit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <h6>GEINVEST <span id="depositNumber"></span></h6>
+                    <input type="hidden" id="depositNumberInput" name="transaction_number" value="">
+                    <!-- Input Nominal -->
+                    <div class="input-group mb-3" style="font-size: 24px;">
+                        <span class="input-group-text bg-light" style="border-radius: 8px 0 0 8px;">Rp</span>
+                        <input type="text" id="depositAmount" class="form-control text-center py-2" placeholder="0"
+                            style="border-radius: 0 8px 8px 0;" value="0"
+                            oninput="formatCurrencyInput('depositAmount')">
+                    </div>
+                </div>
+                <!-- Tombol Pilihan Nominal -->
+                <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                    <button class="btn btn-outline-primary" onclick="setDepositAmount(10000)">Rp 10.000</button>
+                    <button class="btn btn-outline-primary" onclick="setDepositAmount(50000)">Rp 50.000</button>
+                    <button class="btn btn-outline-primary" onclick="setDepositAmount(100000)">Rp 100.000</button>
+                    <button class="btn btn-outline-primary" onclick="setDepositAmount(200000)">Rp 200.000</button>
+                    <button class="btn btn-outline-primary" onclick="setDepositAmount(300000)">Rp 300.000</button>
+                    <button class="btn btn-outline-primary" onclick="setDepositAmount(500000)">Rp 500.000</button>
+                </div>
+                <hr>
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <span>Biaya:</span>
+                        <span id="depositFee">0</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Total:</span>
+                        <span id="depositTotal">0</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Metode Pembayaran:</span>
+                        <span>Dana <br>081234455123</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <!-- Tombol Bayar -->
+                <button type="button" class="btn btn-primary w-100" style="border-radius: 10px;"
+                    onclick="processDeposit()">Bayar Sekarang</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Withdraw -->
+<div class="modal fade" id="withdrawModal" tabindex="-1" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px;">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="withdrawModalLabel">Withdraw</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <!-- Nomor Withdraw -->
+                    <h6>GEINVEST <span id="withdrawNumber"></span></h6>
+                    <!-- Input Nominal -->
+                    <div class="input-group mb-3" style="font-size: 24px;">
+                        <span class="input-group-text bg-light" style="border-radius: 8px 0 0 8px;">Rp</span>
+                        <input type="text" id="withdrawAmount" class="form-control text-center py-2" placeholder="0"
+                            style="border-radius: 0 8px 8px 0;" value="0"
+                            oninput="formatCurrencyInput('withdrawAmount')">
+                    </div>
+                </div>
+                <!-- Tombol Pilihan Nominal -->
+                <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                    <button class="btn btn-outline-primary" onclick="setWithdrawAmount(10000)">Rp 10.000</button>
+                    <button class="btn btn-outline-primary" onclick="setWithdrawAmount(50000)">Rp 50.000</button>
+                    <button class="btn btn-outline-primary" onclick="setWithdrawAmount(100000)">Rp 100.000</button>
+                    <button class="btn btn-outline-primary" onclick="setWithdrawAmount(200000)">Rp 200.000</button>
+                    <button class="btn btn-outline-primary" onclick="setWithdrawAmount(300000)">Rp 300.000</button>
+                    <button class="btn btn-outline-primary" onclick="setWithdrawAmount(500000)">Rp 500.000</button>
+                </div>
+                <hr>
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <span>Biaya:</span>
+                        <span id="withdrawFee">2.500</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Total:</span>
+                        <span id="withdrawTotal">0</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Metode Pembayaran:</span>
+                        <span>Dana <br>081234455123</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <!-- Tombol Bayar -->
+                <button type="button" class="btn btn-primary w-100" style="border-radius: 10px;"
+                    onclick="processWithdraw()">Bayar Sekarang</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    function openModal(modalId) {
+        const modal = new bootstrap.Modal(document.getElementById(modalId));
+        modal.show();
+    }
+</script>
+
+    <script>
+        // Men-generate nomor deposit/withdraw berdasarkan tanggal sekarang dan angka acak
+        // Fungsi untuk membuat nomor transaksi
+        function generateTransactionNumber() {
+            const now = new Date();
+            const datePart = `${now.getDate().toString().padStart(2, '0')}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getFullYear().toString().slice(-2)}`;
+            const randomPart = Math.floor(100 + Math.random() * 900); // Membuat 3 digit angka acak
+            return `${datePart}${randomPart}`;
+        }
+
+        // Bind nomor transaksi ke modal deposit
+        const depositModal = document.getElementById('depositModal');
+        if (depositModal) {
+            depositModal.addEventListener('show.bs.modal', function () {
+                const transactionNumber = generateTransactionNumber();
+                document.getElementById('depositNumber').textContent = transactionNumber;
+                document.getElementById('depositNumberInput').value = transactionNumber; // Untuk pengiriman ke database
+            });
+        }
+
+        // Bind nomor transaksi ke modal withdraw
+        const withdrawModal = document.getElementById('withdrawModal');
+        if (withdrawModal) {
+            withdrawModal.addEventListener('show.bs.modal', function () {
+                const transactionNumber = generateTransactionNumber();
+                document.getElementById('withdrawNumber').textContent = transactionNumber;
+                document.getElementById('withdrawNumberInput').value = transactionNumber; // Untuk pengiriman ke database
+            });
+        }
+        // Mengatur nominal untuk withdraw berdasarkan tombol
+        function setWithdrawAmount(amount) {
+            document.getElementById('withdrawAmount').value = formatCurrency(amount);
+            updateWithdrawSummary();
+        }
+
+        // Memformat input dengan "Rp" dan tanda titik
+        function formatCurrencyInput(inputId) {
+            const input = document.getElementById(inputId);
+            const value = input.value.replace(/[^0-9]/g, ''); // Hanya angka
+            input.value = value ? formatCurrency(parseInt(value)) : '';
+        }
+
+        // Format angka ke format Rp (contoh: 10000 -> 10.000)
+        function formatCurrency(amount) {
+            return amount.toLocaleString('id-ID');
+        }
+
+        // Update total withdraw
+        function updateWithdrawSummary() {
+            const amount = parseInt(document.getElementById('withdrawAmount').value.replace(/\./g, '')) || 0;
+            const fee = 2500; // Biaya tetap untuk withdraw
+            const total = amount + fee;
+
+            document.getElementById('withdrawFee').textContent = formatCurrency(fee);
+            document.getElementById('withdrawTotal').textContent = formatCurrency(total);
+        }
+
+        // Proses withdraw (kirim data ke server)
+        function processWithdraw() {
+            const amount = parseInt(document.getElementById('withdrawAmount').value.replace(/\./g, '')) || 0;
+            const transactionNumber = document.getElementById('withdrawNumber').textContent;
+
+            if (amount === 0) {
+                alert("Nominal withdraw tidak boleh 0.");
+                return;
+            }
+
+            // Kirim data ke server
+            fetch('/process_withdraw/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}', // CSRF token untuk Django
+                },
+                body: JSON.stringify({
+                    amount: amount,
+                    transactionNumber: transactionNumber
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Withdraw berhasil diproses.");
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('withdrawModal'));
+                        modal.hide();
+                    } else {
+                        alert("Gagal memproses withdraw.");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Event listener untuk memperbarui biaya saat input withdraw berubah
+        document.getElementById('withdrawAmount').addEventListener('input', updateWithdrawSummary);
+    </script>
+
+
+    <script>
+        // Mengatur nominal berdasarkan tombol yang ditekan
+        function setDepositAmount(amount) {
+            document.getElementById('depositAmount').value = formatCurrency(amount);
+
+            // Update total otomatis
+            updateDepositSummary();
+        }
+
+        // Memformat input dengan "Rp" dan tanda titik
+        function formatCurrencyInput(inputId) {
+            const input = document.getElementById(inputId);
+            const value = input.value.replace(/[^0-9]/g, ''); // Hanya angka
+            input.value = value ? formatCurrency(parseInt(value)) : '';
+        }
+
+        // Format angka ke format Rp (contoh: 10000 -> 10.000)
+        function formatCurrency(amount) {
+            return amount.toLocaleString('id-ID');
+        }
+
+        // Update total deposit
+        function updateDepositSummary() {
+            const amount = parseInt(document.getElementById('depositAmount').value.replace(/\./g, '')) || 0;
+            const fee = 0; // Biaya tetap untuk deposit
+            const total = amount + fee;
+
+            document.getElementById('depositFee').textContent = formatCurrency(fee);
+            document.getElementById('depositTotal').textContent = formatCurrency(total);
+        }
+
+        // Proses deposit (kirim data ke server)
+        function processDeposit() {
+            const amount = parseInt(document.getElementById('depositAmount').value.replace(/\./g, '')) || 0;
+
+            if (amount === 0) {
+                alert("Nominal deposit tidak boleh 0.");
+                return;
+            }
+
+            // Kirim data ke server (contoh menggunakan fetch)
+            fetch('/process_deposit/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}', // Pastikan CSRF token di-render jika menggunakan Django
+                },
+                body: JSON.stringify({ amount: amount })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Deposit berhasil diproses.");
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('depositModal'));
+                        modal.hide();
+                    } else {
+                        alert("Gagal memproses deposit.");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Event listener untuk memperbarui biaya saat input deposit berubah
+        document.getElementById('depositAmount').addEventListener('input', updateDepositSummary);
+        document.addEventListener('DOMContentLoaded', function () {
+            // Bind nomor transaksi ke modal deposit
+            const depositModal = document.getElementById('depositModal');
+            if (depositModal) {
+                depositModal.addEventListener('show.bs.modal', function () {
+                    const transactionNumber = generateTransactionNumber();
+                    document.getElementById('depositNumber').textContent = transactionNumber;
+                    document.getElementById('depositNumberInput').value = transactionNumber; // Optional jika ingin disimpan di input hidden
+                });
+            }
+
+            // Bind nomor transaksi ke modal withdraw
+            const withdrawModal = document.getElementById('withdrawModal');
+            if (withdrawModal) {
+                withdrawModal.addEventListener('show.bs.modal', function () {
+                    const transactionNumber = generateTransactionNumber();
+                    document.getElementById('withdrawNumber').textContent = transactionNumber;
+                    document.getElementById('withdrawNumberInput').value = transactionNumber; // Optional jika ingin disimpan di input hidden
+                });
+            }
+        });
+
+    </script>
+
+
+{% endblock %}

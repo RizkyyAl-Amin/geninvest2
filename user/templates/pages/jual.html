@@ -1,0 +1,127 @@
+{% extends 'layouts/main3.html' %}
+{% load static %}
+{% block title %}Penjualan Saham{% endblock %}
+
+{% block css %}
+<style>
+    .form-section {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .form-section h3 {
+        color: #0288d1;
+        margin-bottom: 20px;
+        font-size: 20px;
+        text-align: left;
+    }
+
+    .small-text {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    table tr {
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    table td {
+        padding: 10px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    table td:first-child {
+        width: 50%;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    table td:last-child input {
+        width: 100%;
+        padding: 8px;
+        border: none;
+        font-size: 14px;
+        color: #333;
+        text-align: right;
+    }
+
+    table td:last-child {
+        text-align: right;
+    }
+
+    .form-total {
+        font-size: 16px;
+        font-weight: bold;
+        color: #0288d1;
+        margin-top: 15px;
+        text-align: left;
+    }
+
+    .btn-submit {
+        background-color: #0288d1;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    .btn-submit:hover {
+        background-color: #0277bd;
+    }
+
+    .input-disabled {
+        background-color: #f5f5f5;
+        color: #666;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="form-section">
+            <h3>Penjualan Saham</h3>
+            <div class="small-text">
+                <p>Nama Saham: BBCA - PT. Bank Central Asia tbk.</p>
+                <p>Harga Jual Perlembar: Rp 500.000</p>
+            </div>
+            <table>
+                <tr>
+                    <td>Jumlah Lot yang Tersedia</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Jumlah Lot</td>
+                    <td><input type="number" value="1"></td>
+                </tr>
+                <tr>
+                    <td>Biaya</td>
+                    <td>Rp 1.500</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td><input type="text" class="input-disabled" value="Rp 502.800" disabled></td>
+                </tr>
+            </table>
+            <button class="btn-submit">Jual Sekarang</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

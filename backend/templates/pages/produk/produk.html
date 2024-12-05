@@ -23,7 +23,7 @@
                                     <th>Nama Saham</th>
                                     <th>Nama Perusahaan</th>
                                     <th>Jenis Saham</th>
-                                    <th>Gambar</th>
+                                    
                                     <th class="text-center" width="100">Aksi</th>
                                 </tr>
                             </thead>
@@ -35,13 +35,7 @@
                                     <td>{{ produk.nama_saham }}</td>
                                     <td>{{ produk.nama_perusahaan }}</td>
                                     <td>{{ produk.jenis_saham }}</td>
-                                    <td>
-                                        {% if produk.gambar %}
-                                        <img src="{{ produk.gambar.url }}" alt="{{ produk.nama_saham }}" width="50">
-                                        {% else %}
-                                        Tidak ada gambar
-                                        {% endif %}
-                                    </td>
+                               
                                     <td>
                                         <a href="{% url 'update_produk' produk.id %}" class="btn btn-primary">Edit</a>
                                         <form action="{% url 'delete_produk' produk.id %}" method="POST"
