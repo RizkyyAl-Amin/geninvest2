@@ -1,6 +1,7 @@
 {% extends 'layouts/main3.html' %}
 {% load static %}
 {% block title %}Dashboard{% endblock %}
+{% load humanize %}
 
 {% block css %}
 <style>
@@ -101,6 +102,7 @@
 
     .btn-buy:hover {
         background-color: #0056b3;
+        color: #ffffff;
     }
 
     .btn-custom {
@@ -123,6 +125,138 @@
         background-color: #84C0E3;
         /* Warna biru lebih gelap saat hover */
     }
+
+    .mdl {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .mdl-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .close {
+        float: right;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 5px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .nominal-btn {
+        margin: 5px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .nominal-btn:hover {
+        background-color: #e0e0e0;
+    }
+
+    .input-group {
+        margin: 10px 0;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Tombol nominal */
+    .nominal-btn {
+        background-color: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 10px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .nominal-btn:hover {
+        background-color: #e0e0e0;
+    }
+
+    /* Input nominal */
+    #depositAmount {
+        font-size: 24px;
+        border: none;
+        outline: none;
+        background: #f5f5f5;
+        border-radius: 4px;
+        padding: 10px;
+        width: calc(100% - 20px);
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    /* Detail Biaya dan Total */
+    p {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 5px 0;
+    }
+
+    /* Tombol Submit */
+    .btn {
+        background-color: #007bff;
+        color: white;
+        font-size: 18px;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .close {
+        float: right;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 </style>
 {% endblock %}
 
@@ -130,7 +264,7 @@
 <div class="main-panel">
     <div class="content-wrapper">
         <h3>Dasbor</h3>
-        
+
         <h5>Selamat Datang {{ user.username }}</h5>
 
         <!-- Portfolio Section -->
@@ -155,8 +289,8 @@
                     </div>
                     <div class="text-section">
                         <h4>RDN Wallet {{ user.rdn }}</h4>
-                        <h1>Rp  </h1>
-                        <a href="/wallet" class="btn btn-sm btn-outline-primary">
+                        <h1>Rp {{ rdn_data.balance|floatformat:2|intcomma }} </h1>
+                        <a href="{% url 'wallet' %}" class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-arrow-right"></i> Open
                         </a>
 
@@ -167,39 +301,58 @@
 
         </div>
 
-
-
-
-
-        <!-- Investment Section -->
-        <div class="investment-section">
-            <h5>Produk Investasi</h5>
-            <div class="btn-group">
-                <button class="btn btn-primary">Saham Konvensional</button>
-                <button class="btn btn-secondary">Saham Syariah</button>
+        <button class="btn-buy" data-jenis="Syariah">Beli Saham Syariah</button>
+        <button class="btn-buy" data-jenis="Konvensional">Beli Saham Konvensional</button>
+ 
+        <div style="margin-top: 30px; text-align: center;">
+            <div>
+                <button class="btn btn-custom" id="showSyariah">Tampilkan Saham Syariah</button>
+                <button class="btn btn-custom" id="showKonvensional">Tampilkan Saham Konvensional</button>
             </div>
-
-            <table class="investment-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Kode Produk</th>
-                        <th>Nama Perusahaan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for produk in produk_list %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ produk.kode_saham }}</td>
-                        <td>{{ produk.nama_perusahaan }}</td>
-                        <td><a href=""></a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <canvas id="stockChart" style="max-width: 800px; margin-top: 20px;"></canvas>
         </div>
+        
+        <div class="mdl" id="purchaseModal" style="display: none;">
+            <div class="mdl-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h4>Pembelian Saham</h4>
+                <form id="buy-stock-form"></form>
+             
+                <div style="margin-bottom: 10px;">
+                    <label style="font-weight: bold;">Jenis Saham:</label>
+                    <span id="modalJenisSaham" style="font-weight: bold; color: #007bff;"></span>
+                </div>
+
+              
+                <div style="margin-bottom: 15px;">
+                    <button class="quick-btn" data-amount="50000">50.000</button>
+                    <button class="quick-btn" data-amount="100000">100.000</button>
+                    <button class="quick-btn" data-amount="500000">500.000</button>
+                </div>
+
+        
+                <div style="margin-bottom: 20px;">
+                    <label style="font-weight: bold;">Nominal Pembelian:</label>
+                    <input type="text" id="purchaseAmount" placeholder="Rp 0"
+                        style="width: 100%; font-size: 24px; text-align: left; padding: 5px;">
+                </div>
+
+           
+                <div style="margin-bottom: 20px;">
+                    <p>Biaya Transaksi: <span id="transactionFee">Rp 0</span></p>
+                    <p>Total Biaya: <span id="totalAmount">Rp 0</span></p>
+                </div>
+
+   
+                <button class="btn" style="width: 100%;" id="confirmPurchase">Beli Sekarang</button>
+                </form>
+            </div>
+        </div>
+
+
+
+
+
     </div>
 
     <footer class="footer">
@@ -209,4 +362,187 @@
         </div>
     </footer>
 </div>
+{% endblock %}
+
+{% block js %}
+<script>
+    // Modal Elements
+    const purchaseModal = document.getElementById('purchaseModal');
+    const closeModal = document.getElementById('closeModal');
+    const confirmPurchase = document.getElementById('confirmPurchase');
+    const purchaseAmountInput = document.getElementById('purchaseAmount');
+    const transactionFeeEl = document.getElementById('transactionFee');
+    const totalAmountEl = document.getElementById('totalAmount');
+    const modalJenisSaham = document.getElementById('modalJenisSaham');
+
+    // Tombol bebas untuk membuka modal
+    const buyButtons = document.querySelectorAll('.btn-buy');
+
+    // Tombol cepat nominal
+    const quickButtons = document.querySelectorAll('.quick-btn');
+
+    // Event Listener: Buka Modal
+    buyButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Ambil jenis saham dari data-jenis pada button
+            const jenisSaham = this.getAttribute('data-jenis');
+            modalJenisSaham.innerText = jenisSaham;
+
+            // Reset nilai input dan biaya
+            purchaseAmountInput.value = '';
+            transactionFeeEl.innerText = 'Rp 0';
+            totalAmountEl.innerText = 'Rp 0';
+
+            // Tampilkan modal
+            purchaseModal.style.display = 'block';
+        });
+    });
+
+    // Tutup Modal
+    closeModal.onclick = () => {
+        purchaseModal.style.display = 'none';
+    };
+
+    // Fungsi format Rupiah
+    function formatRupiah(value) {
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    // Update Biaya Transaksi dan Total
+    function updateCosts(nominal) {
+        const fee = Math.ceil(nominal * 0.005); // Biaya transaksi 0.5%
+        const total = nominal + fee;
+
+        transactionFeeEl.innerText = `Rp ${formatRupiah(fee)}`;
+        totalAmountEl.innerText = `Rp ${formatRupiah(total)}`;
+    }
+
+    // Format Input ke Rupiah dan Hitung Biaya
+    purchaseAmountInput.addEventListener('input', function () {
+        let rawValue = this.value.replace(/\D/g, ''); // Hapus karakter non-digit
+        let formattedValue = formatRupiah(rawValue);
+
+        this.value = formattedValue;
+        const nominal = parseInt(rawValue) || 0;
+
+        updateCosts(nominal);
+    });
+
+    // Tombol Cepat Nominal
+    quickButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const amount = parseInt(this.getAttribute('data-amount'));
+            purchaseAmountInput.value = formatRupiah(amount);
+            updateCosts(amount);
+        });
+    });
+
+    // Confirm Purchase
+    confirmPurchase.addEventListener('click', function () {
+        const jenisSaham = modalJenisSaham.innerText;
+        const nominalValue = purchaseAmountInput.value.replace(/\./g, '').replace('Rp ', '');
+
+        fetch('/buy-stock/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                stock_type: jenisSaham,
+                amount: parseInt(nominalValue)
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+
+                    // Update saldo wallet secara dinamis
+                    document.querySelector('.wallet-card h1').innerText = `Rp ${data.new_balance.toLocaleString('id-ID')}`;
+                    purchaseModal.style.display = 'none';
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat memproses pembelian.');
+            });
+    });
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Inisialisasi grafik
+    const ctx = document.getElementById('stockChart').getContext('2d');
+    let stockChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [], // Tanggal pembelian saham
+            datasets: [{
+                label: 'Jumlah Saham Dibeli',
+                data: [], // Data jumlah saham
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Tanggal'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Jumlah Saham'
+                    },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Fungsi untuk mengambil data saham
+    function fetchStockData(stockType) {
+        fetch(`/api/get-stock-data/?type=${stockType}`)
+            .then(response => response.json())
+            .then(data => {
+                // Perbarui grafik dengan data baru
+                stockChart.data.labels = data.dates;
+                stockChart.data.datasets[0].data = data.amounts;
+                stockChart.update();
+            })
+            .catch(error => {
+                console.error('Error fetching stock data:', error);
+                alert('Terjadi kesalahan saat mengambil data saham.');
+            });
+    }
+
+    // Event listeners untuk tombol
+    document.getElementById('showSyariah').addEventListener('click', () => {
+        fetchStockData('syariah');
+    });
+
+    document.getElementById('showKonvensional').addEventListener('click', () => {
+        fetchStockData('konvensional');
+    });
+
+    // Muat data saham syariah secara default
+    fetchStockData('syariah');
+</script>
+
 {% endblock %}

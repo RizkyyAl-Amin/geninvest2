@@ -4,7 +4,7 @@
         <li class="nav-item">
             <a class="nav-link {% if request.path == '/dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">
                 <i class="icon-grid menu-icon"></i>
-                <span class="menu-title">Dasbor</span>
+                <span class="menu-title">Dashboard</span>
             </a>
         </li>
         <li class="nav-item">
@@ -28,9 +28,23 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'monthly_report_list' %}">
                 <i class="icon-paper menu-icon"></i>
                 <span class="menu-title">Laporan</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link {% if request.path == 'dataUser/' %}active{% endif %}" href="{% url 'data_user' %}">
+                <i class="icon-paper menu-icon"></i>
+                <span class="menu-title">User </span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="icon-paper menu-icon"></i>
+                <span class="menu-title">Riwayat Transaksi</span>
             </a>
         </li>
 

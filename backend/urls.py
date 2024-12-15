@@ -13,12 +13,17 @@ urlpatterns = [
     path('kategori/', views.list_kategori, name='list_kategori'),
     path('kategori/create/', views.create_kategori, name='create_kategori'),
     path('kategori/delete/<int:pk>/', views.delete_kategori, name='delete_kategori'),
+    path('kategori/edit/<int:pk>/', views.edit_kategori, name='edit_kategori'),
 
 
     path('produk/', views.list_produk, name='list_produk'),
     path('produk/create/', views.create_produk, name='create_produk'),
     path('produk/update/<int:pk>/', views.update_produk, name='update_produk'),
     path('produk/delete/<int:pk>/', views.delete_produk, name='delete_produk'),
+
+    path('dataUser/', views.data_user, name='data_user'),
+
+    path('laporan-bulanan/', views.monthly_report_list, name='monthly_report_list'),
 ]
 
 if settings.DEBUG:

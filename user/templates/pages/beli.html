@@ -77,14 +77,15 @@
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="form-section">
+            {% for produk in produk_list %}
             <h3>Pembelian Saham</h3>
             <div class="form-group">
                 <label>Nama Saham</label>
-                <input type="text" class="input-disabled" value="BBCA - PT. Bank Central Asia tbk." disabled>
+                <input type="text" class="input-disabled" value="{{ produk.nama_saham }}" disabled>
             </div>
             <div class="form-group">
                 <label>Harga Beli Perlembar</label>
-                <input type="text" class="input-disabled" value="Rp 5.000" disabled>
+                <input type="text" class="input-disabled" value="Rp {{ produk.harga_saham }}" disabled>
             </div>
             <div class="form-group">
                 <label>Jumlah Lot</label>
@@ -99,6 +100,13 @@
             </div>
             <button class="btn-submit">Beli Sekarang</button>
         </div>
+        {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block js %}
+
+
+
 {% endblock %}

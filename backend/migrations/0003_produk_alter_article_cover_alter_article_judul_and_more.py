@@ -16,14 +16,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('kode_saham', models.CharField(max_length=10, unique=True)),
-                ('nama_saham', models.CharField(max_length=50)),
                 ('nama_perusahaan', models.CharField(max_length=100)),
                 ('jenis_saham', models.CharField(max_length=20)),
-                ('harga_saham', models.BigIntegerField()),
-                ('dividen_saham', models.IntegerField()),
-                ('minimal_beli', models.BigIntegerField()),
-                ('tanggal', models.DateTimeField(auto_now_add=True)),
-                ('deskripsi', models.TextField()),
+                ('saham', models.BigIntegerField()),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.AlterField(

@@ -3,7 +3,8 @@ from turtle import title
 from backend.models import Produk
 from django.core.paginator import Paginator
 from backend.models import Article
-
+from backend.models import KategoriArtikel
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 def home(request):
@@ -22,9 +23,17 @@ def artikel(request):
     }
     return render(request, 'pages/artikel/artikel.html', context)
 
-def artikel1(request):
+def artikel1(request, id):
+    artikel = get_object_or_404(Article, id=id) 
+    articles = Article.objects.exclude(id=id).order_by('-updated_at')[:5]
+    articler = Article.objects.all().order_by('-updated_at')[:3]  
+    categories = KategoriArtikel.objects.all()  
     context={
-        'title':title
+        'title':title,
+        'artikel': artikel,
+        'articles': articles,
+        'articler': articler,
+        'categories': categories,
     }
     return render(request, 'pages/artikel/artikel1.html', context)
 
@@ -51,3 +60,4 @@ def faq(request):
         'title':title
     }
     return render(request, 'pages/pusat_bantuan/faq.html', context)
+

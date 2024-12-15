@@ -16,4 +16,4 @@ class ArticleForm(forms.ModelForm):
 class ProdukForm(forms.ModelForm):
     class Meta:
         model = Produk
-        fields = ['kode_saham', 'nama_saham', 'nama_perusahaan', 'jenis_saham', 'harga_saham' , 'dividen_saham', 'minimal_beli', 'deskripsi' ]
+        fields = ['kode_saham',  'nama_perusahaan', 'jenis_saham', 'saham']

@@ -1,4 +1,5 @@
 {% load static %}
+
 <footer id="footer" class="footer" style="padding-bottom: -100px;">
     <div class="container footer-top">
         <div class="row gy-4">
@@ -16,9 +17,19 @@
             <div class="col-lg-2 col-md-3 footer-links">
                 <h4 style="color: black">Navigasi</h4>
                 <ul>
-                    <li><i class="bi bi-chevron-right"></i> <a href="{% url 'home' %}">Home</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="{% url 'home' %}">Beranda</a></li>
                     <li><i class="bi bi-chevron-right"></i> <a href="{% url 'artikel' %}">Artikel</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Pusat Bantuan</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="{% url 'investasi' %}">Investasi</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-chevron-right"></i> Pusat Bantuan
+                        </a>
+                        <ul class="dropdown-menu" style="position: static; margin-top: 0;">
+                            <li><a class="dropdown-item" href="{% url 'pusat_bantuan/faq' %}">FAQ</a></li>
+                            <li><a class="dropdown-item" href="{% url 'kebijakan_privasi' %}">Kebujakan Privasi</a></li>
+                           
+                        </ul>
+                    </li>
                 </ul>
             </div>
 

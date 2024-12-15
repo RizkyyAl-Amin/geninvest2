@@ -28,7 +28,7 @@
     <h2 class="mb-4">Tambah Artikel</h2>
     <div class="card shadow-sm">
         <div class="card-body">
-            <form method="POST" enctype="multipart/form-data">
+            <form id="formArtikel" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <!-- Judul Artikel -->
                 <div class="mb-3">
@@ -53,8 +53,6 @@
                     <input type="file" class="form-control" id="coverArtikel" name="cover">
                 </div>
 
-
-
                 <!-- Konten Artikel -->
                 <div class="mb-3">
                     <label for="kontenArtikel" class="form-label">Konten</label>
@@ -71,4 +69,19 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script>
+    document.getElementById("formArtikel").addEventListener("submit", function(event) {
+        const judulArtikel = document.getElementById("judulArtikel").value.trim();
+        const kategoriArtikel = document.getElementById("kategoriArtikel").value;
+        const kontenArtikel = document.getElementById("kontenArtikel").value.trim();
+
+        if (!judulArtikel || !kategoriArtikel || !kontenArtikel) {
+            event.preventDefault(); // Mencegah form terkirim
+            alert("Semua kolom wajib diisi sebelum menyimpan!");
+        }
+    });
+</script>
 {% endblock %}

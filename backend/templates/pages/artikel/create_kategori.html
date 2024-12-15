@@ -2,7 +2,7 @@
 
 {% block title %}Tambah Kategori{% endblock %}
 
-{% block css %} 
+{% block css %}
 <style>
     .custom-dropdown {
         border-radius: 8px;
@@ -28,29 +28,20 @@
     <h2 class="mb-4">Tambah Kategori Artikel</h2>
     <div class="card shadow-sm">
         <div class="card-body">
-            <form method="POST">
+            <form id="formKategori" method="POST">
                 {% csrf_token %}
 
                 <!-- Nama Kategori -->
                 <div class="mb-3">
                     <label for="namaKategori" class="form-label">Nama Kategori</label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="namaKategori" 
-                        name="nama" 
-                        placeholder="Masukkan nama kategori"
-                        required>
+                    <input type="text" class="form-control" id="namaKategori" name="nama"
+                        placeholder="Masukkan nama kategori" required>
                 </div>
 
                 <!-- Deskripsi Kategori -->
                 <div class="mb-3">
                     <label for="deskripsiKategori" class="form-label">Deskripsi</label>
-                    <textarea 
-                        class="form-control" 
-                        id="deskripsiKategori" 
-                        name="deskripsi" 
-                        rows="3" 
+                    <textarea class="form-control" id="deskripsiKategori" name="deskripsi" rows="3"
                         placeholder="Masukkan deskripsi kategori"></textarea>
                 </div>
 
@@ -63,4 +54,17 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script>
+    document.getElementById("formKategori").addEventListener("submit", function(event) {
+        const namaKategori = document.getElementById("namaKategori").value.trim();
+
+        if (!namaKategori) {
+            event.preventDefault(); // Mencegah form terkirim
+            alert("Nama kategori wajib diisi sebelum menyimpan!");
+        }
+    });
+</script>
 {% endblock %}

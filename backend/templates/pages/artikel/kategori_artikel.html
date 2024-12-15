@@ -29,7 +29,7 @@
                                     <tr class="text-center">
                                         <th class="text-center" width="50">No.</th>
                                         <th>Nama Kategori</th>
-                                        <th>Deskripsis</th>
+                                        <th>Deskripsi</th>
                                         <th class="text-center" width="100">Aksi</th>
                                     </tr>
                                 </thead>
@@ -40,7 +40,7 @@
                                             <td>{{ item.nama }}</td>
                                             <td>{{ item.deskripsi }}</td>
                                             <td class="text-center d-flex justify-content-between">
-                                                <a href="#"
+                                                <a href="{% url 'edit_kategori' item.id %}"
                                                     class="btn btn-primary">
                                                     Edit
                                                 </a>

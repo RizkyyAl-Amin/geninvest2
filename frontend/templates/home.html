@@ -46,7 +46,7 @@
                     <p style="color: black" class="pt-5">Wujudkan Keuangan Masa Depan Anda<br> dengan Investasi Cerdas
                         di GENINVEST</p>
                 </div>
-                <a href="" class="btn-getstarted" style="font-size: 1rem; padding: 1rem; ">MULAI BERINVESTASI</a>
+                <a href="{% url 'login' %}" class="btn-getstarted" style="font-size: 1rem; padding: 1rem; ">MULAI BERINVESTASI</a>
             </div>
         </div>
     </div>
@@ -162,13 +162,17 @@
             <div class="wrap-why">
                 <div class="why-us">
                     <div class="icon">
-                        <img src="{{ article.cover.url }}" class="img-fluid custom-img-article"
-                            alt="{{ article.judul }}">
+                        {% if object.cover %}
+                        <img src="{{ object.cover.url }}" alt="Cover Image" width="150">
+                        {% else %}
+                        <p>Gambar tidak ada</p>
+                        {% endif %}
+
                     </div>
-                    <a href="#" class="card-title">{{ article.judul }}</a>
+                    <a href="{% url 'artikel1' article.id %}" class="card-title">{{ article.judul }}</a>
                     <p class="card-text">
-                        <small class="text-body-secondary">Updated {{ article.updated_at|date:"d M Y" }} - <span>oleh 
-                            {{ article.penulis }}</span></small><br>
+                        <small class="text-body-secondary">Updated {{ article.updated_at|date:"d M Y" }} - <span>oleh
+                                {{ article.penulis }}</span></small><br>
                         <small class="text-body-secondary">Kategori - {{ article.kategori }}</small>
                     </p>
                 </div>

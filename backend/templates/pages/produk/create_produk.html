@@ -43,63 +43,29 @@
 {% block content %}
 <div class="container mt-2">
     <h2 class="mb-4">Tambah Produk Saham</h2>
-    <form method="POST" enctype="multipart/form-data">
+    <form id="formProduk" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row g-3">
             <div class="col-md-6 mb-4">
-                <label for="namaSaham" class="form-label">Nama Saham</label>
-                <input type="text" class="form-control" id="namaSaham" name="nama_saham" placeholder="Masukkan nama saham">
+                <label for="kodeSaham" class="form-label">Kode Saham</label>
+                <input type="text" class="form-control" id="kodeSaham" name="kode_saham" placeholder="Masukkan kode saham" required>
             </div>
             <div class="col-md-6 mb-4">
                 <label for="namaPerusahaan" class="form-label">Nama Perusahaan</label>
-                <input type="text" class="form-control" id="namaPerusahaan" name="nama_perusahaan"
-                    placeholder="Masukkan nama perusahaan">
+                <input type="text" class="form-control" id="namaPerusahaan" name="nama_perusahaan" placeholder="Masukkan nama perusahaan" required>
             </div>
-            <div class="col-md-6 mb-4">
-                <label for="kodeSaham" class="form-label">Kode Saham</label>
-                <input type="text" class="form-control" id="kodeSaham" name="kode_saham" placeholder="Masukkan kode saham">
-            </div>
-           
-            
             <div class="col-md-6 mb-4">
                 <label for="jenisSaham" class="form-label">Jenis Saham</label>
-                <select class="form-select form-control" id="jenisSaham" name="jenis_saham">
-                    <option selected>Pilih kategori</option>
+                <select class="form-select form-control" id="jenisSaham" name="jenis_saham" required>
+                    <option value="">Pilih kategori</option>
                     <option value="Syariah">Syariah</option>
                     <option value="Konvensional">Konvensional</option>
-                    
                 </select>
             </div>
             <div class="col-md-6 mb-4">
-                
-                <div class="custom-file">
-                    <label for="harga_saham" class="form-label">Harga Saham Per Lembar</label>
-                    <input type="text" class="form-control custom-date" id="harga_saham" name="harga_saham" placeholder="Masukan harga saham">
-        
-                </div>
+                <label for="saham" class="form-label">Saham</label>
+                <input type="text" class="form-control" id="saham" name="saham" placeholder="Masukkan saham" required>
             </div>
-            <div class="col-md-6 mb-4">
-                
-                <div class="custom-file">
-                    <label for="dividen_saham" class="form-label">Dividen Saham Per Lembar</label>
-                    <input type="text" class="form-control custom-date" id="dividen_saham" name="dividen_saham" placeholder="Masukan dividen saham">
-        
-                </div>
-            </div>
-            <div class="col-md-6 mb-4">
-                
-                <div class="custom-file">
-                    <label for="minimal_pembelian" class="form-label">Minimal Pembelian Saham</label>
-                    <input type="text" class="form-control custom-date" id="minimal_pembelian" name="minimal_beli" placeholder="1 Lot atau 100 Lembar">
-        
-                </div>
-            </div>
-            <div class="col-md-12 mb-4">
-                <label for="deskripsiProduk" class="form-label">Deskripsi Produk</label>
-                <textarea class="form-control" id="deskripsiProduk" name="deskripsi" rows="4"
-                    placeholder="Jelaskan tentang perusahaan atau saham ini"></textarea>
-            </div>
-
         </div>
         <div>
             <a href="{% url 'list_produk' %}" class="btn btn-secondary">Batal</a>
@@ -109,7 +75,32 @@
 </div>
 {% endblock %}
 
-
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const sahamInput = document.getElementById("saham");
+
+    // Validasi input hanya angka dan format ribuan otomatis
+    sahamInput.addEventListener("input", function(event) {
+        let value = event.target.value.replace(/\D/g, ""); // Hapus semua karakter non-digit
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, "."); // Tambahkan titik setiap 3 angka
+        event.target.value = value;
+    });
+
+    document.getElementById("formProduk").addEventListener("submit", function(event) {
+        const kodeSaham = document.getElementById("kodeSaham").value.trim();
+        const namaPerusahaan = document.getElementById("namaPerusahaan").value.trim();
+        const jenisSaham = document.getElementById("jenisSaham").value.trim();
+        const saham = document.getElementById("saham").value.trim();
+
+        if (!kodeSaham || !namaPerusahaan || !jenisSaham || !saham) {
+            event.preventDefault(); // Mencegah form terkirim
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Semua kolom harus diisi sebelum menyimpan!',
+            });
+        }
+    });
+</script>
 {% endblock %}

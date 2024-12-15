@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites', 
+    'django.contrib.humanize',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'backend',
     'login',
     'user',
+    'django_cron',
 ]
 
 MIDDLEWARE = [
@@ -139,6 +141,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+CRON_CLASSES = [
+    "backend.cron.ResetMonthlyReportStatus",
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

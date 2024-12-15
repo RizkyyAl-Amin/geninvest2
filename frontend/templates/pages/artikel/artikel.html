@@ -40,21 +40,26 @@
                     {% for article in articles %}
                     <div class="row g-0">
                         <div class="">
+
+                            {% if object.cover %}
                             <img src="{{ article.cover.url }}" class="img-fluid col-12 rounded-start custom-img-article"
                                 style="height: 18.5rem" alt="{{ article.judul }}">
+                            {% else %}
+                            <p>Gambar tidak ada</p>
+                            {% endif %}
                         </div>
                         <div class="col-11 col-md-12 order-0 order-md-1">
                             <div class="card-body">
 
-                                <a href="{% url 'artikel1' %}"
+                                <a href="{% url 'artikel1' article.id %}"
                                     style="text-transform: capitalize; font-weight: bold; font-size:1rem;"
                                     class="card-title">{{ article.judul }}</a>
                                 <div style="display: flex; align-items: center; margin-top: 0.9rem;">
                                     <span style="margin-right: 8px;">
                                         <i class="bi bi-person-circle"></i> <!-- Icon User -->
                                     </span>
-                                    <small class="text-body-secondary" style="margin-right: 16px;">{{ article.penulis
-                                        }}</small>
+                                    <small class="text-body-secondary" style="margin-right: 16px;">{{
+                                        article.penulis}}</small>
                                     <span style="margin-right: 8px;">
                                         <i class="bi bi-clock"></i> <!-- Icon Tanggal -->
                                     </span>
@@ -64,7 +69,7 @@
                                     {{ article.konten }}
                                 </p>
 
-                                <a href="{% url 'artikel1' %}" class="btn-getstarted"
+                                <a href="{% url 'artikel1' article.id %}" class="btn-getstarted"
                                     style="font-size: 0.8rem; padding: 0.5rem; border-radius: 10px; float: right; margin-bottom: 1rem;">Selengkapnya</a>
                                 {% endfor %}
                             </div>
@@ -82,9 +87,9 @@
                     <!-- Kategori -->
                     <p style="font-size: large; color: #384046; font-weight: 600;">Kategori</p>
                     <div class="ml-2" style="margin-left: 0.5rem;">
-                        <p class="text-secondary font-weight-light">Berita (25)</p>
-                        <p class="text-secondary font-weight-light">Edukasi (12)</p>
-                        <p class="text-secondary font-weight-light">Inspirasi (5)</p>
+                        {% for article in articles %}
+                        <p class="text-secondary font-weight-light">{{ article.kategori.nama }}</p>
+                        {% endfor %}
                     </div>
 
 
@@ -94,15 +99,20 @@
 
                         <div class="d-flex align-items-center mb-3">
                             {% for article in articles %}
+
+                            {% if object.cover %}
                             <img src="{{ article.cover.url }}" alt="{{ article.judul }}"
                                 style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                            {% else %}
+                            <p>Gambar tidak ada</p>
+                            {% endif %}
                             <div>
-                                <p class="mb-0" style="font-weight: 500; color: #384046;">{{ article.judul }}</p>
-                                <p class="text-secondary" style="font-size: 0.9rem;">{{ article.updated_at|date:"d M Y" }}</p>
+                                <a href="{% url 'artikel1' article.id %}" class="mb-0" style="font-weight: 500; color: #384046;">{{ article.judul }}</a>
+                                <p class="text-secondary" style="font-size: 0.9rem;">{{ article.updated_at|date:"d M Y"}}</p>
                             </div>
                             {% endfor %}
                         </div>
-                       
+
 
 
                     </div>

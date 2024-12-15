@@ -47,11 +47,14 @@
 
     /* Main Content Styles */
     .content {
-        margin-left: 240px;
+        margin-left: 10rem;
+        margin-right: 10rem;
         padding: 20px;
     }
 
-
+    .content p {
+        text-align: justify;
+    }
     @media (min-width: 768px) {
         .sidebar.fixed {
             position: fixed;
@@ -79,11 +82,7 @@
 
 {% block content %}
 <div class="wrapper" style="padding-top: 7rem; border: #333;">
-    <section class="sidebar">
-        <button onclick="scrollToSection('definisi')">Disclaimer</button>
-        <button onclick="scrollToSection('ketentuan-umum')">Kebijakan Privasi</button>
-        <button onclick="scrollToSection('ketentuan-akun')">Syarat dan Ketentuan</button>
-    </section>
+    
 
     <section class="content">
         <h1 style="color: #000000;">SYARAT DAN KETENTUAN PENGGUNAAN GENINVEST WEBSITE INVESTASI DIGITAL (“Syarat dan
@@ -113,7 +112,7 @@
             menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, dan melindungi informasi pribadi yang
             Anda bagikan dengan kami. Dengan menggunakan platform GenInvest, Anda menyetujui praktik-praktik yang
             tercantum dalam Kebijakan Privasi ini.</p>
-        <ol style="padding-left: 1rem;">
+        <ol style="padding-left: 1rem; text-align: justify;">
 
 
             <li>Informasi yang Kami Kumpulkan: GenInvest mengumpulkan informasi pribadi seperti nama, alamat email,
@@ -142,7 +141,7 @@
         <p style="text-indent: 30px;">Dengan mengakses dan menggunakan GenInvest, Anda setuju untuk mematuhi Syarat &
             Ketentuan berikut, yang mengatur hak dan tanggung jawab Anda sebagai pengguna. Syarat & Ketentuan ini
             merupakan perjanjian yang mengikat secara hukum antara Anda dan GenInvest.</p>
-        <ol>
+        <ol style="text-align: justify;">
 
             <li>Penggunaan Layanan: GenInvest memberikan akses ke berbagai pilihan reksa dana saham konvensional dan
                 syariah yang dirancang sesuai dengan kebutuhan pengguna. Layanan kami hanya tersedia bagi pengguna yang
