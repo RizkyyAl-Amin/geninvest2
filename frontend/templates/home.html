@@ -12,6 +12,18 @@
         width: 80%;
     }
 
+    .custom-img-article {
+        height: 10rem;
+        /* Tinggi tetap */
+        width: 100%;
+        /* Lebar penuh */
+        object-fit: cover;
+        /* Menyesuaikan gambar agar memenuhi kotak */
+        border-radius: 5px;
+        /* Opsional: Membuat sudut melengkung */
+    }
+
+
     .card-direktur {
         border: none
     }
@@ -31,6 +43,12 @@
             border: #f3f4f6
         }
     }
+
+    @media screen and (max-width: 768px) {
+        .responsive-hide {
+            display: none;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -46,7 +64,8 @@
                     <p style="color: black" class="pt-5">Wujudkan Keuangan Masa Depan Anda<br> dengan Investasi Cerdas
                         di GENINVEST</p>
                 </div>
-                <a href="{% url 'login' %}" class="btn-getstarted" style="font-size: 1rem; padding: 1rem; ">MULAI BERINVESTASI</a>
+                <a href="{% url 'login' %}" class="btn-getstarted" style="font-size: 1rem; padding: 1rem; ">MULAI
+                    BERINVESTASI</a>
             </div>
         </div>
     </div>
@@ -136,7 +155,8 @@
             <h2>Tentang Kami</h2>
 
             <div class="" style="align-items: center; position: relative;">
-                <img src="{% static 'arsha/assets/img/logo.svg' %}" alt="" class="big-logo">
+                <img src="{% static 'arsha/assets/img/logo.svg' %}" alt="" class="big-logo responsive-hide">
+
 
                 <p>GenInvest adalah platform reksa dana saham yang dapat digunakan oleh semua kalangan dengan fokus
                     utama membantu Gen Z untuk memulai investasi dengan mudah dan terjangkau. Menyediakan pilihan saham
@@ -157,16 +177,16 @@
         <div class="container section-title" data-aos="fade-up">
             <h2>Artikel Terbaru</h2>
         </div>
+        {% for article in articles %}
         <div class="arc-container content" data-aos="fade-up" data-aos-delay="100">
-            {% for article in articles %}
+
             <div class="wrap-why">
                 <div class="why-us">
                     <div class="icon">
-                        {% if object.cover %}
-                        <img src="{{ object.cover.url }}" alt="Cover Image" width="150">
-                        {% else %}
-                        <p>Gambar tidak ada</p>
-                        {% endif %}
+
+                        <img src="{{ article.cover.url }}" alt="Cover Image" class="custom-img-article">
+
+
 
                     </div>
                     <a href="{% url 'artikel1' article.id %}" class="card-title">{{ article.judul }}</a>
@@ -177,8 +197,9 @@
                     </p>
                 </div>
             </div>
-            {% endfor %}
+
         </div>
+        {% endfor %}
     </div>
 </section>
 

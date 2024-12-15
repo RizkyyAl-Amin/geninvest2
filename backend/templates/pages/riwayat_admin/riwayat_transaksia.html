@@ -1,16 +1,16 @@
 {% extends "layouts/main2.html" %}
 
-{% block title %}Produk{% endblock %}
-
+{% block title %}Riwayat Transaksi{% endblock %}
+{% load humanize %}
 {% block content %}
 <div class="content-wrapper">
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Data User</h4>
+                    <h4 class="card-title">Riwayat Transaksi User</h4>
                     <div style="float: right">
-                        
+
                     </div>
                     <div class="pt-3 table-responsive">
                         <table class="table table-bordered" id="data-table">
@@ -18,24 +18,29 @@
                                 <tr class="text-center">
                                     <th class="text-center" width="50">#</th>
                                     <th>Nama User</th>
+                                    <th>Tanggal Transaksi</th>
                                     <th>Nomor RDN Wallet</th>
-                                    <th>Saldo RDN Wallet</th>
+                                    <th>Kegiatan Transaksi</th>
+                                    <th>Jumlah Rupiah</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for data in data_user %}
+                                {% for transaction in transactions %}
                                 <tr class="text-center">
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ data.first_name }} {{ data.last_name }}</td>
-                                    <td>{{ data.rdn }}</td>
-                                    <td>Rp {{ data.wallet.balance }}</td>
-                                  
-                
+                                    <td>{{ transaction.first_name }} {{ transaction.last_name }}</td>
+                                    <td>{{ transaction.date }}</td>
+                                    <td>{{ transaction.rdn }}</td>
+                                    <td>{{ transaction.activity }}</td>
+                                    <td>Rp {{ transaction.transaction_amount|intcomma }}</td>
+
+
                                 </tr>
                                 {% endfor %}
                             </tbody>
 
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -46,9 +51,26 @@
 
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript">
+<script>
     $(document).ready(function () {
-        $('#data-table').DataTable();
+        $('#data-table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "{% url 'transaksi_data' %}",
+                "type": "GET"
+            },
+            "columns": [
+                {},
+                { "data": "first_name" } { "data": "last_name" },
+                { "data": "date" },
+                { "data": "rdn" },
+                { "data": "activity" },
+                { "data": "transaction_amount" }
+            ],
+            "pageLength": 10
+        });
     });
 </script>
+
 {% endblock %}

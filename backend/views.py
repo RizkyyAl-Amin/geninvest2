@@ -10,13 +10,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Produk
 from .forms import ProdukForm
 from django.utils import timezone
-from user.models import StockTransaction
 from django.utils.timezone import now
-from django.db.models import Case, When, Value, CharField, Sum, Q
+from django.db.models import Case, When, Value, CharField, Sum, Q, Func
 from django.db.models import F, Max
 from django.db.models.functions import Concat
 from django.db.models import Subquery, OuterRef
 from django.db.models.functions import Coalesce
+from django.shortcuts import render
+from user.models import Transaction, StockTransaction
+from itertools import chain
 
 
 @login_required
@@ -25,12 +27,14 @@ def dashboard(request):
     jumlah_user = CustomUser.objects.filter(role='user').count()
     jumlah_saham = Produk.objects.filter(jenis_saham='konvensional').count()
     jumlah_sSyariah = Produk.objects.filter(jenis_saham='syariah').count()
+    jumlah_pembelian = StockTransaction.objects.count()
     context={
         'title':title,
         'jumlah_artikel': jumlah_artikel,
         'jumlah_user': jumlah_user,
         'jumlah_saham': jumlah_saham,
         'jumlah_sSyariah': jumlah_sSyariah,
+        'jumlah_pembelian' : jumlah_pembelian
     }
     return render(request, 'dashboard.html', context)
 
@@ -275,3 +279,81 @@ def monthly_report_list(request):
 def reset_monthly_report_status():
     current_month = now().replace(day=1)
     MonthlyReport.objects.filter(report_month__lt=current_month).update(status='Belum Dicek')
+
+
+from django.http import JsonResponse
+
+
+
+from django.db.models import Case, When, Value, CharField, F
+from django.db.models.functions import Concat
+from itertools import chain
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def riwayat_transaksi(request):
+    # Ambil semua data transaksi dari tabel Transaction
+    transactions = Transaction.objects.all().annotate(
+        date=F('created_at'),
+        transaction_amount=F('amount'),  # Alias untuk jumlah transaksi
+        activity=Case(
+            When(transaction_type__isnull=False, then=Concat(Value(''), F('transaction_type'))),
+            default=Value('Tidak Diketahui'),
+            output_field=CharField()
+        ),
+        first_name=F('user__first_name'),
+        last_name=F('user__last_name'),
+        rdn=F('user__rdn'),  # Ambil nomor RDN dari relasi ke User
+        source=Value('Transaction', output_field=CharField())  # Menandai sumber data
+    )
+
+    # Ambil semua data transaksi dari tabel StockTransaction
+    stock_transactions = StockTransaction.objects.all().annotate(
+        date=F('transaction_date'),
+        transaction_amount=F('amount'),  # Alias untuk jumlah transaksi
+        activity=Case(
+            When(stock_type__isnull=False, then=Concat(Value('Saham '), F('stock_type'))),  # Tambahkan "Saham" di depan
+            default=Value('Tidak Diketahui'),
+            output_field=CharField()
+        ),
+        first_name=F('user__first_name'),
+        last_name=F('user__last_name'),
+        rdn=F('user__rdn'),  # Ambil nomor RDN dari relasi ke User
+        source=Value('StockTransaction', output_field=CharField())  # Menandai sumber data
+    )
+
+    # Gabungkan kedua queryset
+    combined_transactions = chain(transactions, stock_transactions)
+
+    # Kirimkan data ke template
+    return render(request, 'pages/riwayat_admin/riwayat_transaksia.html', {'transactions': combined_transactions})
+
+from django.http import JsonResponse
+from django.core.paginator import Paginator
+from itertools import chain
+
+@login_required
+def transaksi_data(request):
+    from django.utils.formats import number_format  # Built-in Django number formatter
+
+    # Ambil semua data transaksi
+    transactions = Transaction.objects.all().annotate(
+        date=F('created_at'),
+        transaction_amount=F('amount'),
+        activity=Case(
+            When(transaction_type__isnull=False, then=Concat(Value(''), F('transaction_type'))),
+            default=Value('Tidak Diketahui'),
+            output_field=CharField()
+        ),
+        first_name=F('user__first_name'),
+        last_name=F('user__last_name'),
+        rdn=F('user__rdn'),
+        source=Value('Transaction', output_field=CharField())
+    ).values('date', 'transaction_amount', 'activity', 'first_name', 'last_name', 'rdn', 'source')
+
+    # Format transaction_amount
+    for transaction in transactions:
+        transaction['transaction_amount'] = f"Rp {number_format(transaction['transaction_amount'], decimal_pos=0, use_l10n=True)}"
+
+    return JsonResponse({'data': list(transactions)})

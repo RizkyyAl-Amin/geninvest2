@@ -3,9 +3,29 @@
 
 {% load static %}
 <style>
-    /* Default untuk layar kecil (sm) */
+    /* Default untuk layar kecil */
     .custom-img-article {
         height: 10rem;
+    }
+
+    .card-article {
+        margin-bottom: 2rem;
+        /* Tambahkan jarak antar card artikel */
+    }
+
+    .artikel-terbaru-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        /* Jarak antar artikel terbaru */
+    }
+
+    .artikel-terbaru-item img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 10px;
     }
 
     .card-direktur {
@@ -22,6 +42,7 @@
             border: #f3f4f6;
         }
     }
+    
 </style>
 {% endblock %}
 
@@ -34,88 +55,72 @@
         <div class="row">
             <!-- Kolom Daftar Artikel -->
             <div class="col-md-8 order-1 order-md-0">
-                <!-- Artikel 1 -->
-
-                <div class="card mb-3" style="max-width: 100%;">
-                    {% for article in articles %}
+                <!-- Artikel -->
+                {% for article in articles %}
+                <div class="card card-article mb-3" style="max-width: 100%;">
                     <div class="row g-0">
-                        <div class="">
-
-                            {% if object.cover %}
+                        <div>
+                            {% if article.cover %}
                             <img src="{{ article.cover.url }}" class="img-fluid col-12 rounded-start custom-img-article"
                                 style="height: 18.5rem" alt="{{ article.judul }}">
-                            {% else %}
-                            <p>Gambar tidak ada</p>
                             {% endif %}
                         </div>
-                        <div class="col-11 col-md-12 order-0 order-md-1">
+                        <div class="col-11 col-md-12">
                             <div class="card-body">
-
-                                <a href="{% url 'artikel1' article.id %}"
-                                    style="text-transform: capitalize; font-weight: bold; font-size:1rem;"
-                                    class="card-title">{{ article.judul }}</a>
+                                <a href="{% url 'artikel1' article.id %}" class="card-title"
+                                    style="text-transform: capitalize; font-weight: bold; font-size:1rem;">
+                                    {{ article.judul }}
+                                </a>
                                 <div style="display: flex; align-items: center; margin-top: 0.9rem;">
-                                    <span style="margin-right: 8px;">
-                                        <i class="bi bi-person-circle"></i> <!-- Icon User -->
-                                    </span>
-                                    <small class="text-body-secondary" style="margin-right: 16px;">{{
-                                        article.penulis}}</small>
-                                    <span style="margin-right: 8px;">
-                                        <i class="bi bi-clock"></i> <!-- Icon Tanggal -->
-                                    </span>
+                                    <i class="bi bi-person-circle me-1"></i>
+                                    <small class="text-body-secondary me-3">{{ article.penulis }}</small>
+                                    <i class="bi bi-clock me-1"></i>
                                     <small class="text-body-secondary">{{ article.updated_at|date:"d M Y" }}</small>
                                 </div>
-                                <p style="text-align:left; font-size:0.9rem; margin-top:1.4rem;" class="card-text">
+                                <p style="text-align:left; font-size:0.9rem; margin-top:1.4rem;">
                                     {{ article.konten }}
                                 </p>
-
                                 <a href="{% url 'artikel1' article.id %}" class="btn-getstarted"
-                                    style="font-size: 0.8rem; padding: 0.5rem; border-radius: 10px; float: right; margin-bottom: 1rem;">Selengkapnya</a>
-                                {% endfor %}
+                                    style="font-size: 0.8rem; float: right; margin-bottom: 1rem;">Selengkapnya</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                {% endfor %}
             </div>
+
 
             <!-- Kolom Card Kategori -->
             <div class="col-md-4 order-0 order-md-1">
                 <div class="card card-list p-4"
                     style="width: 100%; height: auto; border: none; box-shadow: 0px 0px 15px rgba(0,0,0,0.1);">
-
                     <!-- Kategori -->
                     <p style="font-size: large; color: #384046; font-weight: 600;">Kategori</p>
                     <div class="ml-2" style="margin-left: 0.5rem;">
-                        {% for article in articles %}
-                        <p class="text-secondary font-weight-light">{{ article.kategori.nama }}</p>
+                        {% for category in categories %}
+                        <p class="text-secondary font-weight-light">
+                            {{ category.nama }} ({{ category.article_count }})
+                        </p>
                         {% endfor %}
                     </div>
 
 
-                    <p style="font-size: large; color: #384046; font-weight: 600; margin-top: 1.5rem;">Artikel Terbaru
-                    </p>
-                    <div class="ml-2" style="margin-left: 0.5rem;">
-
-                        <div class="d-flex align-items-center mb-3">
-                            {% for article in articles %}
-
-                            {% if object.cover %}
-                            <img src="{{ article.cover.url }}" alt="{{ article.judul }}"
-                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
-                            {% else %}
-                            <p>Gambar tidak ada</p>
+                    <p style="font-size: large; color: #384046; font-weight: 600;">Artikel Terbaru</p>
+                    <div>
+                        {% for article in articles %}
+                        <div class="artikel-terbaru-item">
+                            {% if article.cover %}
+                            <img src="{{ article.cover.url }}" alt="{{ article.judul }}">
                             {% endif %}
                             <div>
-                                <a href="{% url 'artikel1' article.id %}" class="mb-0" style="font-weight: 500; color: #384046;">{{ article.judul }}</a>
-                                <p class="text-secondary" style="font-size: 0.9rem;">{{ article.updated_at|date:"d M Y"}}</p>
+                                <a href="{% url 'artikel1' article.id %}" class="mb-0"
+                                    style="font-weight: 500; color: #384046;">{{ article.judul }}</a>
+                                <p class="text-secondary mb-0" style="font-size: 0.9rem;">{{ article.updated_at|date:"d M Y" }}</p>
                             </div>
-                            {% endfor %}
                         </div>
-
-
-
+                        {% endfor %}
                     </div>
+
                 </div>
             </div>
         </div>

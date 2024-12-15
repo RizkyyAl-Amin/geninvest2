@@ -80,7 +80,7 @@
 <script>
     const sahamInput = document.getElementById("saham");
 
-    // Validasi input hanya angka dan format ribuan otomatis
+    // Format input saat mengetik: hanya angka dengan format ribuan
     sahamInput.addEventListener("input", function(event) {
         let value = event.target.value.replace(/\D/g, ""); // Hapus semua karakter non-digit
         value = value.replace(/\B(?=(\d{3})+(?!\d))/g, "."); // Tambahkan titik setiap 3 angka
@@ -93,6 +93,7 @@
         const jenisSaham = document.getElementById("jenisSaham").value.trim();
         const saham = document.getElementById("saham").value.trim();
 
+        // Cek apakah semua kolom diisi
         if (!kodeSaham || !namaPerusahaan || !jenisSaham || !saham) {
             event.preventDefault(); // Mencegah form terkirim
             Swal.fire({
@@ -100,7 +101,12 @@
                 title: 'Oops...',
                 text: 'Semua kolom harus diisi sebelum menyimpan!',
             });
+            return;
         }
+
+        // Ubah saham ke format angka biasa (hapus titik)
+        const rawSaham = saham.replace(/\./g, ""); // Hapus semua titik
+        sahamInput.value = rawSaham; // Ubah nilai input menjadi angka mentah untuk dikirim ke server
     });
 </script>
 {% endblock %}

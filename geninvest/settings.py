@@ -133,7 +133,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'id'
+USE_L10N = True
+
 
 TIME_ZONE = 'UTC'
 

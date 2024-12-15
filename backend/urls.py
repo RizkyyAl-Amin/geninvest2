@@ -20,9 +20,9 @@ urlpatterns = [
     path('produk/create/', views.create_produk, name='create_produk'),
     path('produk/update/<int:pk>/', views.update_produk, name='update_produk'),
     path('produk/delete/<int:pk>/', views.delete_produk, name='delete_produk'),
-
+    path('riwayat-transaksi-data/', views.transaksi_data, name='transaksi_data'),
     path('dataUser/', views.data_user, name='data_user'),
-
+    path('riwayat-transaksi-admin/', views.riwayat_transaksi, name='riwayat_transaksi_admin'),
     path('laporan-bulanan/', views.monthly_report_list, name='monthly_report_list'),
 ]
 

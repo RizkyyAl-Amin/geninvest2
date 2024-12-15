@@ -1,7 +1,7 @@
 {% extends "layouts/main2.html" %}
 
 {% block title %}Produk{% endblock %}
-
+{% load humanize %}
 {% block content %}
 <div class="content-wrapper">
     <div class="row">
@@ -33,7 +33,7 @@
                                     <td>{{ produk.kode_saham }}</td>
                                     <td>{{ produk.nama_perusahaan }}</td>
                                     <td>{{ produk.jenis_saham }}</td>
-                                    <td>{{ produk.saham }}</td>
+                                    <td>Rp {{ produk.saham|intcomma  }}</td>
                                     <td>
                                         <a href="{% url 'update_produk' produk.id %}" class="btn btn-primary">Edit</a>
                                         <form action="{% url 'delete_produk' produk.id %}" method="POST"

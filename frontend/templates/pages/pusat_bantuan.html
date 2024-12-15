@@ -55,6 +55,7 @@
     .content p {
         text-align: justify;
     }
+
     @media (min-width: 768px) {
         .sidebar.fixed {
             position: fixed;
@@ -64,17 +65,20 @@
 
 
     @media (max-width: 767px) {
-        .sidebar {
-            width: 100%;
-            margin-left: 0;
-            border-right: none;
-            position: relative;
-            margin-top: -7rem;
+        .content {
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding: 10px;
+            /* Tambahkan padding untuk memberi jarak */
         }
 
-        .content {
-            margin-left: 0;
-            margin-top: 12rem;
+        .content p {
+            font-size: 16px;
+            /* Perbaiki ukuran teks */
+            line-height: 1.6;
+            /* Tambahkan line-height agar lebih rapi */
+            text-align: justify;
+            /* Teks tetap rata kiri-kanan */
         }
     }
 </style>
@@ -82,7 +86,7 @@
 
 {% block content %}
 <div class="wrapper" style="padding-top: 7rem; border: #333;">
-    
+
 
     <section class="content">
         <h1 style="color: #000000;">SYARAT DAN KETENTUAN PENGGUNAAN GENINVEST WEBSITE INVESTASI DIGITAL (“Syarat dan
@@ -147,11 +151,25 @@
                 syariah yang dirancang sesuai dengan kebutuhan pengguna. Layanan kami hanya tersedia bagi pengguna yang
                 telah memenuhi persyaratan usia dan lulus proses verifikasi. Semua aktivitas pada akun GenInvest Anda
                 adalah tanggung jawab pribadi, dan Anda diharapkan untuk menjaga keamanan kredensial akun Anda.</li>
-            <li>Hak dan Kewajiban Pengguna: Sebagai pengguna, Anda berhak mendapatkan informasi yang jelas dan akurat terkait produk dan layanan yang tersedia di GenInvest. Anda diwajibkan memberikan informasi yang valid dan lengkap saat pendaftaran, dan bertanggung jawab atas akurasi data yang Anda berikan. Anda dilarang melakukan tindakan ilegal seperti manipulasi data, penyalahgunaan platform, atau tindakan yang merugikan GenInvest dan pengguna lain.</li>
-            <li>Perubahan Layanan dan Fitur: GenInvest memiliki hak untuk memperbarui, mengubah, atau menghentikan fitur atau layanan kapan saja tanpa pemberitahuan sebelumnya. Kami berusaha untuk menjaga layanan tetap optimal, namun tidak menjamin ketersediaan penuh atau performa tanpa gangguan pada platform.</li>
-            <li>Kewajiban Keamanan: Kami berkomitmen untuk melindungi data pengguna dengan sistem keamanan yang terstandarisasi, namun GenInvest tidak bertanggung jawab atas segala kerusakan atau kerugian akibat gangguan teknis, serangan siber, atau kegagalan sistem yang berada di luar kendali kami. Pengguna diharapkan untuk berhati-hati saat mengakses akun pada perangkat umum dan menjaga kerahasiaan akses pribadi.</li>
-            <li>Penutupan Akun: GenInvest berhak menutup atau membatasi akses akun pengguna yang melanggar ketentuan ini atau terlibat dalam aktivitas yang merugikan platform atau pengguna lain. Anda juga dapat memilih untuk menutup akun kapan saja dengan menghubungi layanan pelanggan kami.</li>
-            <li>Perubahan Syarat & Ketentuan: GenInvest berhak mengubah Syarat & Ketentuan ini untuk mengikuti perubahan regulasi atau penyesuaian layanan. Kami akan menginformasikan perubahan yang signifikan kepada pengguna, dan Anda dapat memutuskan apakah akan melanjutkan penggunaan atau menghentikan layanan kami.</li>
+            <li>Hak dan Kewajiban Pengguna: Sebagai pengguna, Anda berhak mendapatkan informasi yang jelas dan akurat
+                terkait produk dan layanan yang tersedia di GenInvest. Anda diwajibkan memberikan informasi yang valid
+                dan lengkap saat pendaftaran, dan bertanggung jawab atas akurasi data yang Anda berikan. Anda dilarang
+                melakukan tindakan ilegal seperti manipulasi data, penyalahgunaan platform, atau tindakan yang merugikan
+                GenInvest dan pengguna lain.</li>
+            <li>Perubahan Layanan dan Fitur: GenInvest memiliki hak untuk memperbarui, mengubah, atau menghentikan fitur
+                atau layanan kapan saja tanpa pemberitahuan sebelumnya. Kami berusaha untuk menjaga layanan tetap
+                optimal, namun tidak menjamin ketersediaan penuh atau performa tanpa gangguan pada platform.</li>
+            <li>Kewajiban Keamanan: Kami berkomitmen untuk melindungi data pengguna dengan sistem keamanan yang
+                terstandarisasi, namun GenInvest tidak bertanggung jawab atas segala kerusakan atau kerugian akibat
+                gangguan teknis, serangan siber, atau kegagalan sistem yang berada di luar kendali kami. Pengguna
+                diharapkan untuk berhati-hati saat mengakses akun pada perangkat umum dan menjaga kerahasiaan akses
+                pribadi.</li>
+            <li>Penutupan Akun: GenInvest berhak menutup atau membatasi akses akun pengguna yang melanggar ketentuan ini
+                atau terlibat dalam aktivitas yang merugikan platform atau pengguna lain. Anda juga dapat memilih untuk
+                menutup akun kapan saja dengan menghubungi layanan pelanggan kami.</li>
+            <li>Perubahan Syarat & Ketentuan: GenInvest berhak mengubah Syarat & Ketentuan ini untuk mengikuti perubahan
+                regulasi atau penyesuaian layanan. Kami akan menginformasikan perubahan yang signifikan kepada pengguna,
+                dan Anda dapat memutuskan apakah akan melanjutkan penggunaan atau menghentikan layanan kami.</li>
         </ol>
     </section>
 </div>

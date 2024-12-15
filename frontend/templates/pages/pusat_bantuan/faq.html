@@ -6,6 +6,7 @@
     .wrapper {
         border: 1px solid black;
     }
+
     .sidebar {
         width: 220px;
         background-color: #ffffff;
@@ -139,6 +140,40 @@
         border: 1px solid #47b2e4;
         color: #47b2e4;
     }
+
+    /* Media query untuk layar kecil */
+    @media (max-width: 768px) {
+        .content .card {
+            padding: 15px;
+            /* Tambah padding untuk ruang lebih */
+            margin: 15px auto;
+            /* Margin otomatis agar di tengah */
+            font-size: 16px;
+            /* Perbesar ukuran font */
+        }
+
+        .content .card h4 {
+            font-size: 20px;
+            /* Perbesar heading */
+        }
+
+        .content .card p,
+        .content .card ul li {
+            font-size: 15px;
+            /* Perbesar isi teks */
+        }
+
+        .sidebar {
+            width: 100%;
+            /* Sidebar menjadi full-width */
+            margin-bottom: 1rem;
+        }
+
+        .content {
+            margin: 0 1rem;
+            /* Kurangi margin untuk layar kecil */
+        }
+    }
 </style>
 {% endblock %}
 
@@ -148,111 +183,151 @@
         <div class="card" onclick="toggleAnswer(1)">
             <h4>Apa itu GenInvest?</h4>
             <div id="answer1" class="faq-answer">
-                <p style="text-align: justify;">GenInvest adalah platform investasi berbasis digital yang dirancang khusus untuk membantu masyarakat, terutama generasi muda seperti Gen Z, memulai perjalanan investasi mereka. Fokus utama GenInvest adalah memberikan kemudahan dalam berinvestasi reksa dana saham, baik syariah maupun konvensional, dengan proses yang sederhana dan transparan.
-                    Platform ini juga menawarkan fitur tambahan seperti artikel keuangan dan teknologi yang canggih untuk memastikan pengalaman pengguna yang optimal. Selain itu, GenInvest bertujuan meningkatkan literasi keuangan masyarakat, sehingga setiap pengguna dapat membuat keputusan investasi yang lebih cerdas dan terinformasi.
-                    </p>
+                <p style="text-align: justify;">GenInvest adalah platform investasi berbasis digital yang dirancang
+                    khusus untuk membantu masyarakat, terutama generasi muda seperti Gen Z, memulai perjalanan investasi
+                    mereka. Fokus utama GenInvest adalah memberikan kemudahan dalam berinvestasi reksa dana saham, baik
+                    syariah maupun konvensional, dengan proses yang sederhana dan transparan.
+                    Platform ini juga menawarkan fitur tambahan seperti artikel keuangan dan teknologi yang canggih
+                    untuk memastikan pengalaman pengguna yang optimal. Selain itu, GenInvest bertujuan meningkatkan
+                    literasi keuangan masyarakat, sehingga setiap pengguna dapat membuat keputusan investasi yang lebih
+                    cerdas dan terinformasi.
+                </p>
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(2)">
             <h4>Mengapa GenInvest cocok untuk Gen Z?</h4>
             <div id="answer2" class="faq-answer">
-                <p style="text-align: justify;">Generasi Z dikenal sebagai kelompok yang mengutamakan kemudahan, efisiensi, dan teknologi dalam setiap aspek kehidupannya. GenInvest memahami kebutuhan ini dengan menghadirkan platform yang:</p>
+                <p style="text-align: justify;">Generasi Z dikenal sebagai kelompok yang mengutamakan kemudahan,
+                    efisiensi, dan teknologi dalam setiap aspek kehidupannya. GenInvest memahami kebutuhan ini dengan
+                    menghadirkan platform yang:</p>
                 <ul>
-                    <li>	Mudah diakses: Semua proses dilakukan secara online tanpa perlu dokumen fisik.</li>
-                    <li>	Nominal investasi terjangkau: Investasi dapat dimulai dengan jumlah kecil sehingga sesuai dengan kemampuan finansial Gen Z.</li>
-                    <li>	Pilihan sesuai prinsip hidup: Gen Z dapat memilih antara saham syariah atau konvensional, sesuai dengan keyakinan atau preferensi pribadi mereka.</li>
-                    <li>	Antarmuka user-friendly: Desain platform yang intuitif memudahkan siapa saja, termasuk pemula, untuk menggunakannya.</li>
-                    <li>	Artikel Keuangan: Dilengkapi dengan konten yang dirancang untuk membantu pengguna memahami investasi, bahkan bagi mereka yang belum memiliki pengalaman sebelumnya.</li>
+                    <li> Mudah diakses: Semua proses dilakukan secara online tanpa perlu dokumen fisik.</li>
+                    <li> Nominal investasi terjangkau: Investasi dapat dimulai dengan jumlah kecil sehingga sesuai
+                        dengan kemampuan finansial Gen Z.</li>
+                    <li> Pilihan sesuai prinsip hidup: Gen Z dapat memilih antara saham syariah atau konvensional,
+                        sesuai dengan keyakinan atau preferensi pribadi mereka.</li>
+                    <li> Antarmuka user-friendly: Desain platform yang intuitif memudahkan siapa saja, termasuk pemula,
+                        untuk menggunakannya.</li>
+                    <li> Artikel Keuangan: Dilengkapi dengan konten yang dirancang untuk membantu pengguna memahami
+                        investasi, bahkan bagi mereka yang belum memiliki pengalaman sebelumnya.</li>
                 </ul>
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(3)">
             <h4>Apa saja fitur utama GenInvest?</h4>
             <div id="answer3" class="faq-answer">
-                <p>Fitur utama yang ditawarkan oleh GenInvest adalah pilihan saham yang disediakan dua jenis saham, yaitu saham konvensional dan syariah sehingga pengguna dapat menentukan sendiri pilihana mereka dan artikel keuangan yang memungkinkan pengguna untuk meningkatkan literasi keuangangan mereka dari artikel yang kami buat.</p>
+                <p>Fitur utama yang ditawarkan oleh GenInvest adalah pilihan saham yang disediakan dua jenis saham,
+                    yaitu saham konvensional dan syariah sehingga pengguna dapat menentukan sendiri pilihana mereka dan
+                    artikel keuangan yang memungkinkan pengguna untuk meningkatkan literasi keuangangan mereka dari
+                    artikel yang kami buat.</p>
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(4)">
             <h4>Apakah GenInvest hanya untuk pemula?</h4>
             <div id="answer4" class="faq-answer">
-                <p>Tidak. Meskipun GenInvest dirancang dengan fokus untuk membantu pemula, akan tetapi platform ini juga dapat digunakan oleh investor yang lebih berpengalaman.</p>
+                <p>Tidak. Meskipun GenInvest dirancang dengan fokus untuk membantu pemula, akan tetapi platform ini juga
+                    dapat digunakan oleh investor yang lebih berpengalaman.</p>
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(5)">
             <h4>Apa itu saham syariah, dan apa bedanya dengan saham konvensional?</h4>
             <div id="answer5" class="faq-answer">
                 <ul>
-                    <li>	Saham Syariah</li>
-                    <p style="text-align: justify;">Saham ini mengikuti prinsip-prinsip syariah Islam. Artinya, perusahaan yang menerbitkan saham tidak boleh bergerak di bidang yang haram, seperti perjudian, alkohol, atau riba. Selain itu, proses keuangan perusahaan harus bebas dari unsur-unsur yang bertentangan dengan syariat Islam.</p>
-                    <li>	Saham Konvensional</li>
-                    <p style="text-align: justify;">Saham ini adalah saham yang diterbitkan oleh perusahaan secara umum, tanpa memperhatikan prinsip-prinsip tertentu. Jenis saham ini lebih fleksibel dan mencakup berbagai sektor industri tanpa batasan tertentu.</p>
+                    <li> Saham Syariah</li>
+                    <p style="text-align: justify;">Saham ini mengikuti prinsip-prinsip syariah Islam. Artinya,
+                        perusahaan yang menerbitkan saham tidak boleh bergerak di bidang yang haram, seperti perjudian,
+                        alkohol, atau riba. Selain itu, proses keuangan perusahaan harus bebas dari unsur-unsur yang
+                        bertentangan dengan syariat Islam.</p>
+                    <li> Saham Konvensional</li>
+                    <p style="text-align: justify;">Saham ini adalah saham yang diterbitkan oleh perusahaan secara umum,
+                        tanpa memperhatikan prinsip-prinsip tertentu. Jenis saham ini lebih fleksibel dan mencakup
+                        berbagai sektor industri tanpa batasan tertentu.</p>
                 </ul>
-                
+
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(6)">
             <h4>Berapa biaya minimum untuk memulai investasi di GenInvest?</h4>
             <div id="answer6" class="faq-answer">
-                <p style="text-align: justify;">GenInvest memungkinkan pengguna untuk memulai investasi dengan nominal kecil, yaitu mulai dari Rp10.000. Hal ini dirancang untuk memastikan bahwa siapa saja, termasuk pelajar atau mahasiswa, dapat mengakses peluang investasi tanpa beban biaya besar.</p>
+                <p style="text-align: justify;">GenInvest memungkinkan pengguna untuk memulai investasi dengan nominal
+                    kecil, yaitu mulai dari Rp10.000. Hal ini dirancang untuk memastikan bahwa siapa saja, termasuk
+                    pelajar atau mahasiswa, dapat mengakses peluang investasi tanpa beban biaya besar.</p>
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(7)">
             <h4>Apakah GenInvest aman digunakan?</h4>
             <div id="answer7" class="faq-answer">
-                <p style="text-align: justify;">Ya, GenInvest menggunakan teknologi enkripsi terbaru untuk melindungi data dan transaksi pengguna. Selain itu, platform ini bekerja sama dengan mitra terpercaya dan diawasi oleh lembaga keuangan yang berwenang.</p>
+                <p style="text-align: justify;">Ya, GenInvest menggunakan teknologi enkripsi terbaru untuk melindungi
+                    data dan transaksi pengguna. Selain itu, platform ini bekerja sama dengan mitra terpercaya dan
+                    diawasi oleh lembaga keuangan yang berwenang.</p>
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(8)">
             <h4>Apakah saya bisa menarik dana investasi kapan saja?</h4>
             <div id="answer8" class="faq-answer">
-                <p style="text-align: justify;">Ya, pengguna memiliki fleksibilitas untuk menarik dana investasi kapan saja, tetapi perlu diperhatikan:</p>
+                <p style="text-align: justify;">Ya, pengguna memiliki fleksibilitas untuk menarik dana investasi kapan
+                    saja, tetapi perlu diperhatikan:</p>
                 <ul>
-                    <li>	Proses Pencairan: Biasanya membutuhkan waktu 1-3 hari kerja tergantung pada jenis reksa dana dan kebijakan manajer investasi.</li>
-                    <li>	Potensi Biaya: Ada kemungkinan biaya penarikan atau penalti jika dana ditarik sebelum jangka waktu yang disarankan.</li>
-                    <li>	Fluktuasi Nilai Investasi: Jika pasar sedang turun, nilai investasi Anda mungkin lebih kecil dari jumlah awal.</li>
+                    <li> Proses Pencairan: Biasanya membutuhkan waktu 1-3 hari kerja tergantung pada jenis reksa dana
+                        dan kebijakan manajer investasi.</li>
+                    <li> Potensi Biaya: Ada kemungkinan biaya penarikan atau penalti jika dana ditarik sebelum jangka
+                        waktu yang disarankan.</li>
+                    <li> Fluktuasi Nilai Investasi: Jika pasar sedang turun, nilai investasi Anda mungkin lebih kecil
+                        dari jumlah awal.</li>
                 </ul>
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(9)">
             <h4>Apakah ada biaya tambahan saat berinvestasi di GenInvest?</h4>
             <div id="answer9" class="faq-answer">
-                <p style="text-align: justify;">Ya, GenInvest mengenakan beberapa jenis biaya yang transparan, seperti:</p>
+                <p style="text-align: justify;">Ya, GenInvest mengenakan beberapa jenis biaya yang transparan, seperti:
+                </p>
                 <ul>
-                    <li>	Biaya Administrasi: Untuk pemeliharaan akun dan layanan pelanggan.</li>
-                    <li>	Biaya Pengelolaan: Sebagai kompensasi untuk manajer investasi yang mengelola reksa dana.</li>
-                    <li>	Biaya Transaksi: Dikenakan saat membeli atau menjual saham.</li>
-                    <li>	Semua biaya ini akan dijelaskan secara rinci sebelum pengguna melakukan transaksi, sehingga tidak ada biaya tersembunyi.</li>
+                    <li> Biaya Administrasi: Untuk pemeliharaan akun dan layanan pelanggan.</li>
+                    <li> Biaya Pengelolaan: Sebagai kompensasi untuk manajer investasi yang mengelola reksa dana.</li>
+                    <li> Biaya Transaksi: Dikenakan saat membeli atau menjual saham.</li>
+                    <li> Semua biaya ini akan dijelaskan secara rinci sebelum pengguna melakukan transaksi, sehingga
+                        tidak ada biaya tersembunyi.</li>
                 </ul>
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(10)">
             <h4>Apakah GenInvest memiliki layanan pelanggan?</h4>
             <div id="answer10" class="faq-answer">
-                <p style="text-align: justify;">Ya, GenInvest memiliki tim layanan pelanggan yang siap membantu melalui email, atau telepon. Layanan ini dirancang untuk menjawab pertanyaan dan menyelesaikan kendala yang dihadapi pengguna.</p>
+                <p style="text-align: justify;">Ya, GenInvest memiliki tim layanan pelanggan yang siap membantu melalui
+                    email, atau telepon. Layanan ini dirancang untuk menjawab pertanyaan dan menyelesaikan kendala yang
+                    dihadapi pengguna.</p>
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(11)">
             <h4>Bagaimana cara kerja layanan pengelolaan uang di GenInvest?</h4>
             <div id="answer11" class="faq-answer">
-                <p style="text-align: justify;">Layanan ini memungkinkan pengguna untuk menyerahkan pengelolaan dana mereka kepada tim ahli GenInvest. Tim ini akan mengelola dana berdasarkan tujuan keuangan pengguna, profil risiko, dan preferensi investasi mereka.</p>
-                
+                <p style="text-align: justify;">Layanan ini memungkinkan pengguna untuk menyerahkan pengelolaan dana
+                    mereka kepada tim ahli GenInvest. Tim ini akan mengelola dana berdasarkan tujuan keuangan pengguna,
+                    profil risiko, dan preferensi investasi mereka.</p>
+
             </div>
         </div>
         <div class="card" onclick="toggleAnswer(12)">
             <h4>Apa visi dan misi GenInvest?</h4>
             <div id="answer12" class="faq-answer">
                 <p>Visi:</p>
-                <p style="text-align: justify;">GenInvest bercita-cita menjadi platform investasi terkemuka yang memberdayakan masyarakat, khususnya generasi muda, untuk mencapai kebebasan finansial.</p>
+                <p style="text-align: justify;">GenInvest bercita-cita menjadi platform investasi terkemuka yang
+                    memberdayakan masyarakat, khususnya generasi muda, untuk mencapai kebebasan finansial.</p>
                 <p>Misi:</p>
                 <ul>
-                    <li>	Memberikan Akses yang Luas: Membuka peluang investasi untuk semua kalangan dengan nominal yang terjangkau.</li>
-                    <li>	Meningkatkan Literasi Keuangan: Membantu pengguna memahami pentingnya investasi dan pengelolaan uang.</li>
-                    <li>	Mengutamakan Teknologi: Menggunakan teknologi terkini untuk menciptakan pengalaman investasi yang aman, intuitif, dan efisien.</li>
-                    <li>	Mendukung Keberlanjutan: Mendorong investasi yang bertanggung jawab, termasuk saham syariah yang berprinsip etis.</li>
+                    <li> Memberikan Akses yang Luas: Membuka peluang investasi untuk semua kalangan dengan nominal yang
+                        terjangkau.</li>
+                    <li> Meningkatkan Literasi Keuangan: Membantu pengguna memahami pentingnya investasi dan
+                        pengelolaan uang.</li>
+                    <li> Mengutamakan Teknologi: Menggunakan teknologi terkini untuk menciptakan pengalaman investasi
+                        yang aman, intuitif, dan efisien.</li>
+                    <li> Mendukung Keberlanjutan: Mendorong investasi yang bertanggung jawab, termasuk saham syariah
+                        yang berprinsip etis.</li>
                 </ul>
             </div>
         </div>
-        
+
     </section>
 
     <div class="contact-section">
@@ -271,10 +346,10 @@
         const answer = document.querySelector(`#answer${id}`);
         const isActive = answer.classList.contains('active');
 
-      
+
         document.querySelectorAll('.faq-answer').forEach(el => {
-            el.style.height = el.scrollHeight + 'px';  
-            el.offsetHeight;  
+            el.style.height = el.scrollHeight + 'px';
+            el.offsetHeight;
             el.classList.remove('active');
             el.style.height = '0';
             el.style.opacity = '0';
@@ -282,7 +357,7 @@
 
         if (!isActive) {
             answer.classList.add('active');
-            answer.style.height = answer.scrollHeight + 'px'; 
+            answer.style.height = answer.scrollHeight + 'px';
             answer.style.opacity = '1';
         }
     }

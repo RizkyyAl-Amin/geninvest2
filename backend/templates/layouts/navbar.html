@@ -3,7 +3,8 @@
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="#"><img src="{% static 'arsha/assets/img/logo.svg' %}" alt="logo" /></a>
         <a class="navbar-brand brand-logo-mini" href="#"><img src="{% static 'arsha/assets/img/logo.svg' %}" alt="logo" /></a>
-        <P style="font-weight: 1000; font-size: larger; color: #47b2e4; font-family: Arial;">GENINVEST</P>
+        <P class="geninvest-text" style="font-weight: 1000; font-size: larger; color: #47b2e4; font-family: Arial;">GENINVEST</P>
+
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         
@@ -32,3 +33,12 @@
         </button>
     </div>
 </nav>
+<style>
+     
+    @media (max-width: 1024px) {  
+        .geninvest-text {
+            display: none;
+        }
+    }
+    </style>
+    

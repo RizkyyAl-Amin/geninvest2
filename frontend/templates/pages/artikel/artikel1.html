@@ -38,85 +38,71 @@
                 <div class="card mb-3" style="max-width: 100%;">
                     <div class="row g-0">
                         <!-- Kolom Gambar -->
-    
-                      
-                            {% if object.cover %}
-                            <img src="{{ artikel.gambar.url }}"
-                            class="img-fluid col-12 rounded-start custom-img-article" style="height: 18.5rem;"
-                            alt="Artikel Image">
-                            {% else %}
-                            <p>Gambar tidak ada</p>
-                            {% endif %}
-    
-                        
+                        <img src="{{ artikel.cover.url }}" class="img-fluid col-12 rounded-start custom-img-article"
+                            style="height: 18.5rem;" alt="Artikel Image">
+
                         <div class="col-11 col-md-8 order-0 order-md-1" style="margin-left: 1rem;">
                             <div class="card-body">
-                               
                                 <a href="#" style="text-transform: capitalize; font-weight: bold; font-size:1.5rem;"
                                     class="card-title">{{ artikel.judul }}</a>
                                 <div style="display: flex; align-items: center; margin-top: 0.9rem;">
                                     <span style="margin-right: 8px;">
-                                        <i class="bi bi-person-circle"></i> 
+                                        <i class="bi bi-person-circle"></i>
                                     </span>
                                     <small class="text-body-secondary" style="margin-right: 16px;">{{ artikel.penulis }}</small>
-                                 
-    
+
                                     <span style="margin-right: 8px;">
                                         <i class="bi bi-clock"></i>
                                     </span>
-                                    <small class="text-body-secondary">{{ artikel.updated_at|date:"d M Y" }}</small> 
+                                    <small class="text-body-secondary">{{ artikel.updated_at|date:"d M Y" }}</small>
                                 </div>
-                              
+
                                 <div style="width: 40rem;">
                                     <p style=" margin-top:1.4rem;">
                                         {{ artikel.konten }}
                                     </p>
-                                    
                                 </div>
-                            
-    
                             </div>
                         </div>
                     </div>
                 </div>
-
-               
             </div>
 
             <!-- Kolom Card Kategori -->
             <div class="col-md-4 order-0 order-md-1">
                 <div class="card card-list p-4"
                     style="width: 100%; height: auto; border: none; box-shadow: 0px 0px 15px rgba(0,0,0,0.1);">
-                
+
                     <!-- Kategori -->
                     <p style="font-size: large; color: #384046; font-weight: 600;">Kategori</p>
                     <div class="ml-2" style="margin-left: 0.5rem;">
-                        {% for article in categories %}
-                        <p class="text-secondary font-weight-light">{{ article.nama }}</p>
+                        {% for category in categories %}
+                        <p class="text-secondary font-weight-light">
+                            {{ category.nama }} ({{ category.article_count }})
+                        </p>
                         {% endfor %}
                     </div>
-                
+
+
                     <!-- Artikel Terbaru -->
-                    <p style="font-size: large; color: #384046; font-weight: 600; margin-top: 1.5rem;">Artikel Terbaru</p>
+                    <p style="font-size: large; color: #384046; font-weight: 600; margin-top: 1.5rem;">Artikel Terbaru
+                    </p>
                     <div class="ml-2" style="margin-left: 0.5rem;">
                         {% for article in articler %}
                         <div class="d-flex align-items-center mb-3">
-                            {% if object.cover %}
                             <img src="{{ article.cover.url }}" alt="{{ article.judul }}"
                                 style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
-                                {% else %}
-                                <p>Gambar tidak ada</p>
-                                {% endif %}
                             <div>
-                                <a href="{% url 'artikel1' article.id %}" class="mb-0" style="font-weight: 500; color: #384046;">{{ article.judul }}</a>
-                                <p class="text-secondary" style="font-size: 0.9rem;">{{ article.updated_at|date:"d M Y"}}</p>
+                                <a href="{% url 'artikel1' article.id %}" class="mb-0"
+                                    style="font-weight: 500; color: #384046;">
+                                    {{ article.judul }}
+                                </a>
+                                <p class="text-secondary" style="font-size: 0.9rem;">
+                                    {{ article.updated_at|date:"d M Y"}}
+                                </p>
                             </div>
                         </div>
                         {% endfor %}
-                        
-
-   
-                
                     </div>
                 </div>
             </div>

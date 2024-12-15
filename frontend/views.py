@@ -5,21 +5,27 @@ from django.core.paginator import Paginator
 from backend.models import Article
 from backend.models import KategoriArtikel
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Count
 
 # Create your views here.
 def home(request):
-    articles = Article.objects.all()
-    context={
-        'title':title,
-        'articles': articles
+    articles = Article.objects.order_by('-updated_at')[:3]
+
+    context = {
+        'title': 'Home',
+        'articles': articles,   
     }
     return render(request, 'home.html', context)
 
+
+
 def artikel(request):
     articles = Article.objects.all()
-    context={
-        'title':title,
-        'articles': articles
+    categories = KategoriArtikel.objects.annotate(article_count=Count('article'))
+    context = {
+        'title': title,
+        'articles': articles,
+        'categories': categories,
     }
     return render(request, 'pages/artikel/artikel.html', context)
 
@@ -27,15 +33,16 @@ def artikel1(request, id):
     artikel = get_object_or_404(Article, id=id) 
     articles = Article.objects.exclude(id=id).order_by('-updated_at')[:5]
     articler = Article.objects.all().order_by('-updated_at')[:3]  
-    categories = KategoriArtikel.objects.all()  
-    context={
-        'title':title,
+    categories = KategoriArtikel.objects.annotate(article_count=Count('article'))
+    context = {
+        'title': title,
         'artikel': artikel,
         'articles': articles,
         'articler': articler,
         'categories': categories,
     }
     return render(request, 'pages/artikel/artikel1.html', context)
+
 
 
 def kebijakan_privasi(request):

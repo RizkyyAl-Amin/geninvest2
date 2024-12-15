@@ -48,9 +48,10 @@
                     </select>
                 </div>
 
+                <!-- Cover Artikel -->
                 <div class="mb-3">
                     <label for="coverArtikel" class="form-label">Cover Artikel</label>
-                    <input type="file" class="form-control" id="coverArtikel" name="cover">
+                    <input type="file" class="form-control" id="coverArtikel" name="cover" required>
                 </div>
 
                 <!-- Konten Artikel -->
@@ -73,15 +74,6 @@
 
 {% block js %}
 <script>
-    document.getElementById("formArtikel").addEventListener("submit", function(event) {
-        const judulArtikel = document.getElementById("judulArtikel").value.trim();
-        const kategoriArtikel = document.getElementById("kategoriArtikel").value;
-        const kontenArtikel = document.getElementById("kontenArtikel").value.trim();
-
-        if (!judulArtikel || !kategoriArtikel || !kontenArtikel) {
-            event.preventDefault(); // Mencegah form terkirim
-            alert("Semua kolom wajib diisi sebelum menyimpan!");
-        }
-    });
+    // Tidak diperlukan validasi manual lagi karena semua input sudah memiliki atribut "required"
 </script>
 {% endblock %}
