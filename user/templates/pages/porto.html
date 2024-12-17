@@ -85,8 +85,8 @@
         <div class="portfolio-section">
             <div class="portfolio-header">
                 <h5>Nilai Portofolio</h5>
-                <div class="portfolio-value">Rp {{ total_portfolio|floatformat:0 }}</div>
-                <div class="portfolio-subvalue">Rp {{ total_imba_hasil|floatformat:0 }}</div>
+                <div class="portfolio-value">Rp {{ total_portfolio|floatformat:2|intcomma }}</div>
+                <div class="portfolio-subvalue">Rp {{ total_imba_hasil|floatformat:2|intcomma }}</div>
             </div>
 
 
@@ -112,7 +112,7 @@
                         <span class="stock-name">{{ transaction.transaction_number }}</span>
                         <span class="stock-detail">Transaksi pada {{ transaction.transaction_date|date:"d M Y" }}</span>
                     </div>
-                    <div class="stock-amount">Rp {{ transaction.amount|intcomma }}</div>
+                    <div class="stock-amount">Rp {{ transaction.amount|floatformat:2|intcomma }}</div>
                 </li>
                 {% empty %}
                 <li>Tidak ada transaksi untuk filter yang dipilih.</li>

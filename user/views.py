@@ -25,13 +25,13 @@ def u_dashboard(request):
 
     # Hitung jumlah artikel dan pengguna
     jumlah_artikel = Article.objects.count()
-    jumlah_user = CustomUser.objects.all()
+    jumlah_user = CustomUser.objects.count()
 
     # Daftar produk
-    produks_list = Produk.objects.all()
+    produk_list = Produk.objects.all()
 
     # Data RDN Wallet
-    rdn_data = RDNWalletDetail.objects.filter(user=user).first()
+    rdn_data = RDNWalletDetail.objects.filter(user=user).first() or {}
 
     # Total portfolio dari StockTransaction
     total_portfolio = StockTransaction.objects.filter(user=user).aggregate(
@@ -44,27 +44,29 @@ def u_dashboard(request):
     )['total_imba'] or 0
 
     # Pembelian saham berdasarkan jenis
-    pembelian_syariah = StockTransaction.objects.filter(
+    pembelian_syariah = list(StockTransaction.objects.filter(
         user=user, stock_type="Syariah"
-    ).values("transaction_date").annotate(total=Sum("amount"))
-    pembelian_konvensional = StockTransaction.objects.filter(
+    ).values("transaction_date").annotate(total=Sum("amount")))
+
+    pembelian_konvensional = list(StockTransaction.objects.filter(
         user=user, stock_type="Konvensional"
-    ).values("transaction_date").annotate(total=Sum("amount"))
+    ).values("transaction_date").annotate(total=Sum("amount")))
 
     # Context untuk template
     context = {
         'title': "Dashboard",
         'jumlah_artikel': jumlah_artikel,
         'jumlah_user': jumlah_user,
-        'produk_list': produks_list,
+        'produk_list': produk_list,
         'rdn_data': rdn_data,
-        'pembelian_syariah': list(pembelian_syariah),
-        'pembelian_konvensional': list(pembelian_konvensional),
+        'pembelian_syariah': pembelian_syariah,
+        'pembelian_konvensional': pembelian_konvensional,
         'total_portfolio': total_portfolio,
-        'total_imba_hasil': total_imba_hasil,  # Tambahkan total imba hasil ke context
+        'total_imba_hasil': total_imba_hasil,
     }
     return render(request, 'user_dashboard.html', context)
 
+@login_required
 def get_stock_data(request):
     # Ambil parameter "type" dari URL
     stock_type = request.GET.get('type')
@@ -73,13 +75,16 @@ def get_stock_data(request):
     if stock_type not in ['syariah', 'konvensional']:
         return JsonResponse({"error": "Jenis saham tidak valid."}, status=400)
 
-    # Ambil data transaksi berdasarkan jenis saham
-    transactions = StockTransaction.objects.filter(stock_type=stock_type).order_by('transaction_date')
+    # Ambil 10 transaksi terbaru berdasarkan jenis saham dan user yang login
+    transactions = StockTransaction.objects.filter(
+        user=request.user,  # Hanya data milik user yang login
+        stock_type=stock_type
+    ).order_by('-transaction_date')[:10]  # Urutkan dari terbaru dan batasi 10 data
 
-    # Format data untuk Chart.js
+    # Format data untuk Chart.js (dari terbaru ke terlama)
     data = {
-        "dates": [t.transaction_date.strftime('%Y-%m-%d') for t in transactions],
-        "amounts": [t.amount for t in transactions],
+        "dates": [t.transaction_date.strftime('%Y-%m-%d') for t in transactions][::-1], 
+        "amounts": [t.amount for t in transactions][::-1],  
     }
     return JsonResponse(data)
 

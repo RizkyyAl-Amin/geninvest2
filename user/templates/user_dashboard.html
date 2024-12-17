@@ -13,6 +13,54 @@
         background-color: #f5f7fa;
     }
 
+    /* Tombol Beli Saham */
+    .btn-buy {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin: 10px;
+    }
+
+    .btn-buy[data-jenis="Syariah"] {
+        background-color: #28a745;
+    }
+
+    .btn-buy[data-jenis="Konvensional"] {
+        background-color: #28a745;
+        color: #000;
+    }
+
+    .btn-buy:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    /* Tombol Filter */
+    .btn-filter {
+        border: 2px solid #007bff;
+        color: #007bff;
+        padding: 8px 16px;
+        margin-right: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-filter.active {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .btn-filter:not(.active):hover {
+        background-color: #e0f2ff;
+    }
+
     .quick-btn {
         margin: 5px;
         padding: 10px;
@@ -289,9 +337,9 @@
                     </div>
                     <div class="text-section">
                         <h4>Nilai Portofolio</h4>
-                        <h1>Rp {{ total_portfolio|floatformat:0 }}</h1>
+                        <h1>Rp {{ total_portfolio|floatformat:2|intcomma }}</h1>
                         <p>Keuntungan</p>
-                        <small>Rp {{ total_imba_hasil|floatformat:0 }}</small>
+                        <small>Rp {{ total_imba_hasil|floatformat:2|intcomma }}</small>
                     </div>
                 </div>
             </div>
@@ -319,14 +367,17 @@
 
         <div style="margin-top: 30px; text-align: center;">
             <div>
-                <button class="btn btn-custom" id="showSyariah">Tampilkan Saham Syariah</button>
-                <button class="btn btn-custom" id="showKonvensional">Tampilkan Saham Konvensional</button>
+                <button class="btn btn-outline-primary me-2 btn-filter active" id="btnSyariah"
+                    onclick="fetchStockData('syariah')">Saham Syariah</button>
+                <button class="btn btn-outline-primary btn-filter" id="btnKonvensional"
+                    onclick="fetchStockData('konvensional')">Saham Konvensional</button>
+
             </div>
             <canvas id="stockChart" style="max-width: 800px; margin-top: 20px;"></canvas>
             <div id="loadingIndicator" style="display: none; text-align: center;">
                 <p>Loading...</p>
             </div>
-            
+
         </div>
 
         <div class="mdl" id="purchaseModal" style="display: none;">
@@ -458,40 +509,43 @@
 
     // Confirm Purchase
     confirmPurchase.addEventListener('click', function () {
-        const jenisSaham = modalJenisSaham.innerText;
-        const nominalValue = purchaseAmountInput.value.replace(/\./g, '').replace('Rp ', '');
-        if (!nominalValue || parseInt(nominalValue) <= 0) {
+    const jenisSaham = modalJenisSaham.innerText;
+    const nominalValue = purchaseAmountInput.value.replace(/\./g, '').replace('Rp ', '');
+    if (!nominalValue || parseInt(nominalValue) <= 0) {
         alert('Nominal pembelian harus lebih dari 0.');
         return;
     }
-        fetch('/buy-stock/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            body: JSON.stringify({
-                stock_type: jenisSaham,
-                amount: parseInt(nominalValue)
-            })
+    fetch('/buy-stock/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            stock_type: jenisSaham,
+            amount: parseInt(nominalValue)
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
 
-                    // Update saldo wallet secara dinamis
-                    document.querySelector('.wallet-card h1').innerText = `Rp ${data.new_balance.toLocaleString('id-ID')}`;
-                    purchaseModal.style.display = 'none';
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan saat memproses pembelian.');
-            });
-    });
+                // Update saldo wallet
+                document.querySelector('.wallet-card h1').innerText = `Rp ${data.new_balance.toLocaleString('id-ID')}`;
+                purchaseModal.style.display = 'none';
+
+                // Reset halaman otomatis
+                window.location.reload();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat memproses pembelian.');
+        });
+});
 
 </script>
 
@@ -505,7 +559,7 @@
             labels: [], // Tanggal pembelian saham
             datasets: [{
                 label: 'Jumlah Saham Dibeli',
-                data: [], // Data jumlah saham
+                data: [],
                 borderColor: '#007bff',
                 backgroundColor: 'rgba(0, 123, 255, 0.1)',
                 borderWidth: 2
@@ -538,24 +592,37 @@
 
     // Fungsi untuk mengambil data saham
     function fetchStockData(stockType) {
-        // Tampilkan spinner
-        const spinner = document.getElementById('loadingIndicator');
-        spinner.style.display = 'block';
+    // Update active state tombol filter
+    document.querySelectorAll('.btn-filter').forEach(button => {
+        button.classList.remove('active');
+    });
 
-        fetch(`/api/get-stock-data/?type=${stockType}`)
-            .then(response => response.json())
-            .then(data => {
-                spinner.style.display = 'none'; // Sembunyikan spinner
-                stockChart.data.labels = data.dates;
-                stockChart.data.datasets[0].data = data.amounts;
-                stockChart.update();
-            })
-            .catch(error => {
-                spinner.style.display = 'none'; // Sembunyikan spinner
-                console.error('Error fetching stock data:', error);
-                alert('Gagal memuat data saham.');
-            });
+    if (stockType === 'syariah') {
+        document.getElementById('btnSyariah').classList.add('active');
+    } else {
+        document.getElementById('btnKonvensional').classList.add('active');
     }
+
+    // Tampilkan spinner
+    const spinner = document.getElementById('loadingIndicator');
+    spinner.style.display = 'block';
+
+    // Fetch data
+    fetch(`/api/get-stock-data/?type=${stockType}`)
+        .then(response => response.json())
+        .then(data => {
+            spinner.style.display = 'none';
+            stockChart.data.labels = data.dates;
+            stockChart.data.datasets[0].data = data.amounts;
+            stockChart.update();
+        })
+        .catch(error => {
+            spinner.style.display = 'none';
+            console.error('Error fetching stock data:', error);
+            alert('Gagal memuat data saham.');
+        });
+}
+
 
 
     // Event listeners untuk tombol
