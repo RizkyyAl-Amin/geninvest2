@@ -78,7 +78,11 @@
                                     <small class="text-body-secondary">{{ article.updated_at|date:"d M Y" }}</small>
                                 </div>
                                 <p style="text-align:left; font-size:0.9rem; margin-top:1.4rem;">
+                                    {% autoescape off %}
+                                    
                                     {{ article.konten }}
+                                    {% endautoescape %}
+                                    
                                 </p>
                                 <a href="{% url 'artikel1' article.id %}" class="btn-getstarted"
                                     style="font-size: 0.8rem; float: right; margin-bottom: 1rem;">Selengkapnya</a>
