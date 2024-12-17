@@ -2,6 +2,71 @@
 
 {% block title %}Laporan Bulanan{% endblock %}
 
+{% block css %}
+<style>
+    /* Modal General Styles */
+    .mdl {
+        display: none;
+        position: fixed;
+        z-index: 1050;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .mdl.fade {
+        opacity: 0;
+        transition: opacity 0.15s linear;
+    }
+
+    .mdl.show {
+        display: block;
+        opacity: 1;
+    }
+
+    /* Perbaikan Modal */
+    .modal-dialog {
+        position: relative;
+        margin: 5% auto;
+        max-width: 1000px;
+        width: 90%;
+        pointer-events: none;
+    }
+
+    .modal-content {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 1rem;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .modal-title {
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        border-top: 1px solid #dee2e6;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="content-wrapper">
     <div class="row">
@@ -28,25 +93,23 @@
                                     <td>{{ data.first_name }} {{ data.last_name }}</td>
                                     <td>{{ data.jenis_investasi }}</td>
                                     <td>
-                                        {% if data.laporan_bulanan == "Sudah Dicek" %}
-                                            <i class="bi bi-check-circle-fill text-success"></i>
+                                        {% if data.laporan_bulanan_status.strip == "Ceklist" %}
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                        {% elif data.laporan_bulanan_status.strip == "Belum Dicek" %}
+                                        <i class="bi bi-x-circle-fill text-danger"></i>
                                         {% else %}
-                                            <i class="bi bi-x-circle-fill text-danger"></i>
+                                        <span>Belum Ada Laporan</span>
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <button class="btn btn-primary btn-sm btn-modal" data-id="{{ data.id }}"
-                                            data-nama="{{ data.first_name }} {{ data.last_name }}" 
-                                            data-jenis="{{ data.jenis_investasi }}"
-                                            data-laporan="{{ data.laporan_bulanan }}">
+                                        <a href="{% url 'monthly_report_update' data.id %}" class="btn btn-primary btn-sm">
                                             Selengkapnya
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-                        
                     </div>
                 </div>
             </div>
@@ -54,112 +117,15 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="mdl" id="laporanModal" style="display: none;">
-    <div class="mdl-dialog">
-        <div class="mdl-content">
-            <div class="mdl-header">
-                <h5 class="mdl-title">Detail Laporan Bulanan</h5>
-                <button type="button" class="close" id="closeModal">&times;</button>
-            </div>
-            <div class="mdl-body">
-                <form id="uploadForm" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="hidden" name="user_id" value="{{ data.user.id }}">
-                    <div class="form-group">
-                        <label for="reportFile">Upload Laporan Bulanan (PDF):</label>
-                        <input type="file" id="reportFile" name="report_file" accept="application/pdf"
-                            class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="imbalHasil">Imba Hasil:</label>
-                        <input type="number" id="imbalHasil" name="imbal_hasil" class="form-control" required>
-                    </div>
-                </form>
-            </div>
-            <div class="mdl-footer">
-                <button type="submit" form="uploadForm" class="btn btn-primary">Simpan</button>
-                <button type="button" class="btn btn-secondary" id="closeFooter">Tutup</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
+ 
 {% endblock %}
 
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#data-table').DataTable({
-            initComplete: function () {
-                this.api().columns(3).every(function () {
-                    var column = this;
-                    var select = $('<select><option value="">Filter</option></select>')
-                        .appendTo($(column.header()))
-                        .on('change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                            column.search(val ? '^' + val + '$' : '', true, false).draw();
-                        });
-
-                    column.data().unique().sort().each(function (d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>');
-                    });
-                });
-            }
-        });
-
-
-        // Show Modal
-        $('.btn-modal').click(function () {
-            var nama = $(this).data('nama');
-            var jenis = $(this).data('jenis');
-            var laporan = $(this).data('laporan');
-
-            // Isi data ke modal
-            $('#modal-nama').text(nama);
-            $('#modal-jenis').text(jenis);
-            $('#modal-laporan').text(laporan);
-
-            // Set nilai ke form hidden input
-            $('input[name="user_id"]').val($(this).data('id'));
-
-            $('#laporanModal').fadeIn();
-        });
-
-        // Close Modal
-        $('#closeModal, #closeFooter').click(function () {
-            $('#laporanModal').fadeOut();
-        });
-
-        // Validate File
-        $('#reportFile').change(function () {
-            const file = this.files[0];
-            if (file && file.type !== 'application/pdf') {
-                Swal.fire('Error', 'Hanya file PDF yang diperbolehkan!', 'error');
-                $(this).val('');
-            }
-        });
-    });
-    $('form#uploadForm').on('submit', function (e) {
-        e.preventDefault();
-        // Lakukan submit via AJAX (contoh sederhana):
-        $.ajax({
-            url: $(this).attr('action'),
-            method: 'POST',
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                Swal.fire('Sukses', 'Laporan berhasil diunggah!', 'success');
-                $('#laporanModal').fadeOut();
-                location.reload(); // Reload halaman untuk memperbarui tabel
-            },
-            error: function () {
-                Swal.fire('Error', 'Terjadi kesalahan saat mengunggah laporan.', 'error');
-            }
-        });
+<script>
+        $(document).ready(function () {
+        $('#data-table').DataTable();
     });
 </script>
+
 {% endblock %}

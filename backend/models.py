@@ -55,25 +55,29 @@ class MonthlyReport(models.Model):
     ]
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, 
-        on_delete=models.CASCADE, 
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
         related_name='monthly_reports'
     )
     report_month = models.DateField(default=now)
     status = models.CharField(
-        max_length=15, 
-        choices=STATUS_CHOICES, 
+        max_length=15,
+        choices=STATUS_CHOICES,
         default='Belum Dicek'
     )
     report_file = models.FileField(
-        upload_to='reports/', 
-        null=True, 
-        blank=True, 
+        upload_to='reports/',
+        null=True,
+        blank=True,
         validators=[FileExtensionValidator(['pdf'])],
         help_text="Upload PDF laporan bulanan"
     )
+    imba_hasil = models.BigIntegerField(default=0, help_text="Input imba hasil dividen")
+    total  = models.BigIntegerField(default=0, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         month_year = self.report_month.strftime('%B %Y')
         return f"Laporan {self.user.username} - {month_year} - {self.status}"
+
+     

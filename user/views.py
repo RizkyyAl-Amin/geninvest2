@@ -21,33 +21,67 @@ import datetime
 
 @login_required
 def u_dashboard(request):
-    from django.db.models import Sum
+    user = request.user
 
+    # Hitung jumlah artikel dan pengguna
     jumlah_artikel = Article.objects.count()
     jumlah_user = CustomUser.objects.all()
+
+    # Daftar produk
     produks_list = Produk.objects.all()
-    rdn_data = RDNWalletDetail.objects.filter(user=request.user).first()
-    
-   
+
+    # Data RDN Wallet
+    rdn_data = RDNWalletDetail.objects.filter(user=user).first()
+
+    # Total portfolio dari StockTransaction
+    total_portfolio = StockTransaction.objects.filter(user=user).aggregate(
+        total_amount=Sum('amount')
+    )['total_amount'] or 0
+
+    # Total imba hasil dari MonthlyReport
+    total_imba_hasil = MonthlyReport.objects.filter(user=user).aggregate(
+        total_imba=Sum('imba_hasil')
+    )['total_imba'] or 0
+
+    # Pembelian saham berdasarkan jenis
     pembelian_syariah = StockTransaction.objects.filter(
-        user=request.user, stock_type="Syariah"
+        user=user, stock_type="Syariah"
     ).values("transaction_date").annotate(total=Sum("amount"))
     pembelian_konvensional = StockTransaction.objects.filter(
-        user=request.user, stock_type="Konvensional"
+        user=user, stock_type="Konvensional"
     ).values("transaction_date").annotate(total=Sum("amount"))
 
+    # Context untuk template
     context = {
-        'title': title,
+        'title': "Dashboard",
         'jumlah_artikel': jumlah_artikel,
         'jumlah_user': jumlah_user,
         'produk_list': produks_list,
         'rdn_data': rdn_data,
         'pembelian_syariah': list(pembelian_syariah),
         'pembelian_konvensional': list(pembelian_konvensional),
+        'total_portfolio': total_portfolio,
+        'total_imba_hasil': total_imba_hasil,  # Tambahkan total imba hasil ke context
     }
     return render(request, 'user_dashboard.html', context)
 
- 
+def get_stock_data(request):
+    # Ambil parameter "type" dari URL
+    stock_type = request.GET.get('type')
+    
+    # Validasi parameter
+    if stock_type not in ['syariah', 'konvensional']:
+        return JsonResponse({"error": "Jenis saham tidak valid."}, status=400)
+
+    # Ambil data transaksi berdasarkan jenis saham
+    transactions = StockTransaction.objects.filter(stock_type=stock_type).order_by('transaction_date')
+
+    # Format data untuk Chart.js
+    data = {
+        "dates": [t.transaction_date.strftime('%Y-%m-%d') for t in transactions],
+        "amounts": [t.amount for t in transactions],
+    }
+    return JsonResponse(data)
 
 @login_required
 def wallet(request):
@@ -60,24 +94,62 @@ def wallet(request):
         rdn_data = RDNWalletDetail.objects.get(user=request.user)
     except RDNWalletDetail.DoesNotExist:
         rdn_data = None
+    
+   
     context={
         'title':title,
         'jumlah_user': jumlah_user,
         'rdn_data' : rdn_data,
-        'transactions': transactions
+        'transactions': transactions,
+       
         
     }
     return render(request, 'pages/wallet.html', context)
 
 
 def porto(request):
-    
-    context={
-        'title':title,
-         
+    user = request.user
+
+    # Filter jenis investasi
+    filter_type = request.GET.get('type', 'all')
+
+    # Hitung total portfolio dari StockTransaction
+    total_portfolio = StockTransaction.objects.filter(user=user).aggregate(
+        total_amount=Sum('amount')
+    )['total_amount'] or 0
+
+    # Ambil total imba hasil dari MonthlyReport
+    total_imba_hasil = MonthlyReport.objects.filter(user=user).aggregate(
+        total_imba=Sum('imba_hasil')
+    )['total_imba'] or 0
+
+    # Filter transaksi berdasarkan jenis saham
+    if filter_type == 'konvensional':
+        transactions = StockTransaction.objects.filter(user=user, stock_type='konvensional').order_by('-transaction_date')
+    elif filter_type == 'syariah':
+        transactions = StockTransaction.objects.filter(user=user, stock_type='syariah').order_by('-transaction_date')
+    else:  
+        transactions = StockTransaction.objects.filter(user=user).order_by('-transaction_date')
+
+    # Tambahkan data ke context
+    context = {
+        'total_portfolio': total_portfolio,
+        'total_imba_hasil': total_imba_hasil,
+        'transactions': transactions,
+        'filter_type': filter_type,   
     }
     return render(request, 'pages/porto.html', context)
 
+@login_required
+def download_user(request):
+    
+    reports = MonthlyReport.objects.filter(user=request.user)
+
+    context = {
+        'title': 'Laporan Keuangan',
+        'data_user': reports,   
+    }
+    return render(request, 'pages/download_user.html', context)
 
 def jual(request):
     produks_list = Produk.objects.all()

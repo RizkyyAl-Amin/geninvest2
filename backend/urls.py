@@ -15,7 +15,7 @@ urlpatterns = [
     path('kategori/delete/<int:pk>/', views.delete_kategori, name='delete_kategori'),
     path('kategori/edit/<int:pk>/', views.edit_kategori, name='edit_kategori'),
 
-
+    path('monthly-report/update/<int:id>/', views.update_monthly_report, name='monthly_report_update'),
     path('produk/', views.list_produk, name='list_produk'),
     path('produk/create/', views.create_produk, name='create_produk'),
     path('produk/update/<int:pk>/', views.update_produk, name='update_produk'),

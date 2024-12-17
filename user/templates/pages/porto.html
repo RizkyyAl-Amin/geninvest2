@@ -1,7 +1,7 @@
 {% extends 'layouts/main3.html' %}
 {% load static %}
 {% block title %}Portofolio{% endblock %}
-
+{% load humanize %}
 {% block css %}
 <style>
     .portfolio-section {
@@ -85,26 +85,38 @@
         <div class="portfolio-section">
             <div class="portfolio-header">
                 <h5>Nilai Portofolio</h5>
-                <div class="portfolio-value">Rp 500.000</div>
-                <div class="portfolio-subvalue">Rp 4.300</div>
+                <div class="portfolio-value">Rp {{ total_portfolio|floatformat:0 }}</div>
+                <div class="portfolio-subvalue">Rp {{ total_imba_hasil|floatformat:0 }}</div>
             </div>
 
-            <!-- Filter Buttons -->
+
             <div class="filter-buttons">
-                <button class="btn btn-outline-primary active">Saham Konvensional</button>
-                <button class="btn btn-outline-secondary">Saham Syariah</button>
-            </div>
+                <!-- Tombol Semua Saham -->
+                <a href="?type=all" class="btn {% if filter_type == 'all' %}active{% endif %}">Semua Saham</a>
 
+                <!-- Tombol Saham Konvensional -->
+                <a href="?type=konvensional" class="btn {% if filter_type == 'konvensional' %}active{% endif %}">
+                    Saham Konvensional
+                </a>
+
+                <!-- Tombol Saham Syariah -->
+                <a href="?type=syariah" class="btn {% if filter_type == 'syariah' %}active{% endif %}">
+                    Saham Syariah
+                </a>
+            </div>
             <!-- Stock List -->
             <ul class="stock-list">
+                {% for transaction in transactions %}
                 <li>
                     <div class="stock-info">
-                        <span class="stock-name">BBCA</span>
-                        <span class="stock-detail">PT. Bank Century Asia tbk.</span>
-                        <span class="stock-date">24 Nov 2024</span>
+                        <span class="stock-name">{{ transaction.transaction_number }}</span>
+                        <span class="stock-detail">Transaksi pada {{ transaction.transaction_date|date:"d M Y" }}</span>
                     </div>
-                    <div class="stock-amount">Rp 500.000</div>
+                    <div class="stock-amount">Rp {{ transaction.amount|intcomma }}</div>
                 </li>
+                {% empty %}
+                <li>Tidak ada transaksi untuk filter yang dipilih.</li>
+                {% endfor %}
             </ul>
         </div>
     </div>

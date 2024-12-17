@@ -13,6 +13,19 @@
         background-color: #f5f7fa;
     }
 
+    .quick-btn {
+        margin: 5px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .quick-btn:hover {
+        background-color: #e0e0e0;
+    }
+
     /* Card Style */
     .portfolio-card,
     .wallet-card {
@@ -276,9 +289,9 @@
                     </div>
                     <div class="text-section">
                         <h4>Nilai Portofolio</h4>
-                        <h1>Rp 0</h1>
+                        <h1>Rp {{ total_portfolio|floatformat:0 }}</h1>
                         <p>Keuntungan</p>
-                        <small>Rp 0</small>
+                        <small>Rp {{ total_imba_hasil|floatformat:0 }}</small>
                     </div>
                 </div>
             </div>
@@ -303,47 +316,51 @@
 
         <button class="btn-buy" data-jenis="Syariah">Beli Saham Syariah</button>
         <button class="btn-buy" data-jenis="Konvensional">Beli Saham Konvensional</button>
- 
+
         <div style="margin-top: 30px; text-align: center;">
             <div>
                 <button class="btn btn-custom" id="showSyariah">Tampilkan Saham Syariah</button>
                 <button class="btn btn-custom" id="showKonvensional">Tampilkan Saham Konvensional</button>
             </div>
             <canvas id="stockChart" style="max-width: 800px; margin-top: 20px;"></canvas>
+            <div id="loadingIndicator" style="display: none; text-align: center;">
+                <p>Loading...</p>
+            </div>
+            
         </div>
-        
+
         <div class="mdl" id="purchaseModal" style="display: none;">
             <div class="mdl-content">
                 <span class="close" id="closeModal">&times;</span>
                 <h4>Pembelian Saham</h4>
                 <form id="buy-stock-form"></form>
-             
+
                 <div style="margin-bottom: 10px;">
                     <label style="font-weight: bold;">Jenis Saham:</label>
                     <span id="modalJenisSaham" style="font-weight: bold; color: #007bff;"></span>
                 </div>
 
-              
+
                 <div style="margin-bottom: 15px;">
                     <button class="quick-btn" data-amount="50000">50.000</button>
                     <button class="quick-btn" data-amount="100000">100.000</button>
                     <button class="quick-btn" data-amount="500000">500.000</button>
                 </div>
 
-        
+
                 <div style="margin-bottom: 20px;">
                     <label style="font-weight: bold;">Nominal Pembelian:</label>
                     <input type="text" id="purchaseAmount" placeholder="Rp 0"
                         style="width: 100%; font-size: 24px; text-align: left; padding: 5px;">
                 </div>
 
-           
+
                 <div style="margin-bottom: 20px;">
                     <p>Biaya Transaksi: <span id="transactionFee">Rp 0</span></p>
                     <p>Total Biaya: <span id="totalAmount">Rp 0</span></p>
                 </div>
 
-   
+
                 <button class="btn" style="width: 100%;" id="confirmPurchase">Beli Sekarang</button>
                 </form>
             </div>
@@ -443,7 +460,10 @@
     confirmPurchase.addEventListener('click', function () {
         const jenisSaham = modalJenisSaham.innerText;
         const nominalValue = purchaseAmountInput.value.replace(/\./g, '').replace('Rp ', '');
-
+        if (!nominalValue || parseInt(nominalValue) <= 0) {
+        alert('Nominal pembelian harus lebih dari 0.');
+        return;
+    }
         fetch('/buy-stock/', {
             method: 'POST',
             headers: {
@@ -518,19 +538,25 @@
 
     // Fungsi untuk mengambil data saham
     function fetchStockData(stockType) {
+        // Tampilkan spinner
+        const spinner = document.getElementById('loadingIndicator');
+        spinner.style.display = 'block';
+
         fetch(`/api/get-stock-data/?type=${stockType}`)
             .then(response => response.json())
             .then(data => {
-                // Perbarui grafik dengan data baru
+                spinner.style.display = 'none'; // Sembunyikan spinner
                 stockChart.data.labels = data.dates;
                 stockChart.data.datasets[0].data = data.amounts;
                 stockChart.update();
             })
             .catch(error => {
+                spinner.style.display = 'none'; // Sembunyikan spinner
                 console.error('Error fetching stock data:', error);
-                alert('Terjadi kesalahan saat mengambil data saham.');
+                alert('Gagal memuat data saham.');
             });
     }
+
 
     // Event listeners untuk tombol
     document.getElementById('showSyariah').addEventListener('click', () => {

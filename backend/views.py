@@ -19,7 +19,28 @@ from django.db.models.functions import Coalesce
 from django.shortcuts import render
 from user.models import Transaction, StockTransaction
 from itertools import chain
+from .forms import MonthlyReportForm
+from django.http import JsonResponse
 
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import MonthlyReport  # Ganti dengan nama model yang sesuai
+
+from django.http import JsonResponse
+from django.core.paginator import Paginator
+from itertools import chain
+from django.http import JsonResponse
+
+
+from django.db.models.functions import Concat, Coalesce
+from django.db.models import Case, When, Value, CharField, Sum, Q, Subquery, OuterRef
+
+from django.db.models import Case, When, Value, CharField, F
+from django.db.models.functions import Concat
+from itertools import chain
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 @login_required
 def dashboard(request):
@@ -28,13 +49,15 @@ def dashboard(request):
     jumlah_saham = Produk.objects.filter(jenis_saham='konvensional').count()
     jumlah_sSyariah = Produk.objects.filter(jenis_saham='syariah').count()
     jumlah_pembelian = StockTransaction.objects.count()
+    jumlah_penarikan = Transaction.objects.filter(transaction_type='withdraw').count()
     context={
         'title':title,
         'jumlah_artikel': jumlah_artikel,
         'jumlah_user': jumlah_user,
         'jumlah_saham': jumlah_saham,
         'jumlah_sSyariah': jumlah_sSyariah,
-        'jumlah_pembelian' : jumlah_pembelian
+        'jumlah_pembelian' : jumlah_pembelian,
+        'jumlah_penarikan' : jumlah_penarikan
     }
     return render(request, 'dashboard.html', context)
 
@@ -197,14 +220,21 @@ def delete_produk(request, pk):
     return render(request, 'pages/produk/delete.html', {'produk': produk})
 
 
+
 @login_required
 def data_user(request):
-    data_user = CustomUser.objects.filter(role='user')
-    context={
-        'title':title,
-        'data_user' : data_user
+    
+    data_user = CustomUser.objects.filter(role='user').annotate(
+    
+        balance=F('wallet__balance') 
+    )
+    
+    context = {
+        'title': "Data User",
+        'data_user': data_user,
     }
     return render(request, 'pages/akun_user/a_user.html', context)
+
 
 @login_required
 def generate_monthly_report(user):
@@ -235,15 +265,88 @@ def generate_monthly_report(user):
     return f"Laporan berhasil dibuat untuk {user.username}."
 
 
+def update_monthly_report(request, id):
+    # Ambil data laporan bulanan
+    report = get_object_or_404(MonthlyReport, user_id=id)
+    user = report.user
+
+    # Ambil semua transaksi saham terkait user
+    transactions = user.stock_transactions.all()
+
+    # Hitung total berdasarkan jenis saham
+    syariah_total = transactions.filter(stock_type='syariah').aggregate(total=Sum('amount'))['total'] or 0
+    konvensional_total = transactions.filter(stock_type='konvensional').aggregate(total=Sum('amount'))['total'] or 0
+
+    # Tentukan jenis investasi
+    if syariah_total > 0 and konvensional_total > 0:
+        jenis_investasi = "Saham Syariah, Saham Konvensional"
+    elif syariah_total > 0:
+        jenis_investasi = "Saham Syariah"
+    elif konvensional_total > 0:
+        jenis_investasi = "Saham Konvensional"
+    else:
+        jenis_investasi = "Tidak Ada"
+
+    if request.method == "POST":
+        form = MonthlyReportForm(request.POST, request.FILES, instance=report)
+        if form.is_valid():
+            # Simpan data laporan
+            updated_report = form.save(commit=False)
+
+            # Ubah status menjadi 'Ceklist'
+            updated_report.status = 'Ceklist'
+
+            # Hitung total keseluruhan
+            updated_report.total = syariah_total + konvensional_total + updated_report.imba_hasil
+
+            # Simpan perubahan
+            updated_report.save()
+
+            messages.success(request, "Laporan bulanan berhasil diperbarui.")
+            return redirect('monthly_report_list')
+        else:
+            messages.error(request, "Terjadi kesalahan. Mohon cek kembali data Anda.")
+    else:
+        form = MonthlyReportForm(instance=report)
+
+    # Data untuk template
+    context = {
+        "data": {
+            "id": report.id,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "jenis_investasi": jenis_investasi,
+            "syariah_total": syariah_total,
+            "konvensional_total": konvensional_total,
+            "total_investasi": syariah_total + konvensional_total,
+            "imba_hasil": report.imba_hasil,
+            "total": report.total,
+        },
+        "form": form,
+    }
+    return render(request, "pages/laporan_admin/update_laporan_admin.html", context)
+
+
+
 
 @login_required
 def monthly_report_list(request):
     from datetime import datetime
-    current_month = datetime.now().replace(day=1)  # Bulan berjalan (tanggal 1)
+    from django.db.models import F, Sum, Value, CharField, Subquery, OuterRef, Case, When
+    from django.db.models.functions import Coalesce, Concat
 
+    current_month = datetime.now().replace(day=1)  # Bulan berjalan (tanggal 1)
+    id=F('id') 
     data_list = CustomUser.objects.annotate(
-        syariah_total=Sum('stock_transactions__amount', filter=Q(stock_transactions__stock_type='syariah')),
-        konvensional_total=Sum('stock_transactions__amount', filter=Q(stock_transactions__stock_type='konvensional')),
+        syariah_total=Coalesce(
+            Sum('stock_transactions__amount', filter=Q(stock_transactions__stock_type='syariah')), 
+            Value(0)
+        ),
+        konvensional_total=Coalesce(
+            Sum('stock_transactions__amount', filter=Q(stock_transactions__stock_type='konvensional')), 
+            Value(0)
+        ),
+        total_investasi=F('syariah_total') + F('konvensional_total'),
         jenis_investasi=Concat(
             Case(
                 When(syariah_total__gt=0, then=Value("Saham Syariah")),
@@ -257,7 +360,7 @@ def monthly_report_list(request):
             ),
             output_field=CharField()
         ),
-        laporan_bulanan=Coalesce(   
+        laporan_bulanan_status=Coalesce(   
             Subquery(
                 MonthlyReport.objects.filter(
                     user=OuterRef('id'), 
@@ -266,30 +369,43 @@ def monthly_report_list(request):
             ),
             Value("Belum Ada Laporan"),   
             output_field=CharField()
-        )
-    ).filter(Q(syariah_total__gt=0) | Q(konvensional_total__gt=0))   
+        ),
+        laporan_bulanan_file=Subquery(
+        MonthlyReport.objects.filter(
+            user=OuterRef('id'), 
+            report_month=current_month
+        ).values('report_file')[:1]
+            ),
+        
+        imba_hasil=Coalesce(
+            Subquery(
+                MonthlyReport.objects.filter(
+                    user=OuterRef('id'), 
+                    report_month=current_month
+                ).values('imba_hasil')[:1]
+            ),
+            Value(0)
+        ),
+        total_imba_hasil=Coalesce(
+            Sum('monthly_reports__imba_hasil'), 
+            Value(0)
+        ),
+        total_keseluruhan=F('total_investasi') + F('total_imba_hasil'),
+    ).filter(
+        Q(syariah_total__gt=0) | Q(konvensional_total__gt=0)
+    )   
 
     context = {
         'data_list': data_list
     }
     return render(request, 'pages/laporan_admin/laporan_admin.html', context)
 
-
-
 def reset_monthly_report_status():
     current_month = now().replace(day=1)
     MonthlyReport.objects.filter(report_month__lt=current_month).update(status='Belum Dicek')
 
 
-from django.http import JsonResponse
 
-
-
-from django.db.models import Case, When, Value, CharField, F
-from django.db.models.functions import Concat
-from itertools import chain
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 
 @login_required
 def riwayat_transaksi(request):
@@ -329,9 +445,6 @@ def riwayat_transaksi(request):
     # Kirimkan data ke template
     return render(request, 'pages/riwayat_admin/riwayat_transaksia.html', {'transactions': combined_transactions})
 
-from django.http import JsonResponse
-from django.core.paginator import Paginator
-from itertools import chain
 
 @login_required
 def transaksi_data(request):

@@ -47,6 +47,49 @@
         margin: 0;
     }
 
+    .hero-text {
+        flex: 1 1 50%;
+        padding: 1rem;
+    }
+
+    .hero-text h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    .hero-text p {
+        margin: 1rem 0;
+        font-size: 1rem;
+        color: #000;
+    }
+
+    .hero-text a {
+        display: inline-block;
+        color: var(--contrast-color);
+        background: var(--accent-color);
+        padding: 0.5rem 1.5rem;
+        text-decoration: none;
+        border-radius: 0.375rem;
+        font-weight: bold;
+    }
+
+    .hero-text a:hover {
+        color: var(--contrast-color);
+        background: color-mix(in srgb, var(--accent-color), transparent 15%);
+    }
+
+    .hero-image {
+        flex: 1 1 50%;
+        padding: 4rem;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+        border-radius: 0.5rem;
+    }
+
+
     @media (max-width: 768px) {
         .hero-section2 {
             flex-direction: column;
@@ -99,7 +142,7 @@
     </div>
 </section>
 
-<section id="contact" class="why-us section">
+<section id="contact" class="why-us section" >
     <div class="container section-title" data-aos="fade-up">
         <h2>Saham Konvensional</h2>
         <p>Saham konvensional adalah instrumen investasi yang mewakili kepemilikan suatu perusahaan tanpa adanya batasan
@@ -194,7 +237,7 @@
     </div>
 </section>
 
-<section id="contact" class="why-us section">
+<section id="contact" class="why-us section" style="background-color: #f0f8ff; !important">
     <div class="container section-title" data-aos="fade-up">
         <h2>Saham Syariah</h2>
         <p>Saham syariah adalah saham yang diterbitkan oleh perusahaan yang kegiatannya sesuai dengan prinsip-prinsip
@@ -312,7 +355,7 @@
     </div>
 </section>
 
-<section id="contact" class="why-us section">
+<section id="contact" class="why-us section" style="background-color: #f0f8ff; !important">
     <div class="container section-title" data-aos="fade-up">
         <h2>Produk Saham</h2>
         <div class="table-responsive">

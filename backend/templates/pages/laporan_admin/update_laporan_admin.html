@@ -1,0 +1,125 @@
+{% extends "layouts/main2.html" %}
+
+{% block title %}Update Laporan Bulanan{% endblock %}
+
+{% block css %}
+<style>
+    .custom-input {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 14px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Update Laporan Bulanan</h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form id="formUpdateLaporan" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Hidden Field for Report ID -->
+                <input type="hidden" id="reportId" name="id" value="{{ data.id }}">
+
+                <!-- Nama User -->
+                <div class="mb-3">
+                    <label for="userNama" class="form-label">Nama User</label>
+                    <input type="text" class="form-control custom-input" id="userNama"
+                        value="{{ data.first_name }} {{ data.last_name }}" readonly>
+                </div>
+
+                <!-- Jenis Investasi -->
+                <div class="mb-3">
+                    <label for="jenisInvestasi" class="form-label">Jenis Investasi</label>
+                    <input type="text" class="form-control custom-input" id="jenisInvestasi"
+                        value="{{ data.jenis_investasi }}" readonly>
+                </div>
+
+                <!-- Total Saham Syariah -->
+                <div class="mb-3">
+                    <label for="syariahInvestasi" class="form-label">Total Saham Syariah</label>
+                    <input type="text" class="form-control custom-input" id="syariahInvestasi"
+                        value="{{ data.syariah_total }}" readonly>
+                </div>
+
+                <!-- Total Saham Konvensional -->
+                <div class="mb-3">
+                    <label for="konvensionalInvestasi" class="form-label">Total Saham Konvensional</label>
+                    <input type="text" class="form-control custom-input" id="konvensionalInvestasi"
+                        value="{{ data.konvensional_total }}" readonly>
+                </div>
+
+                <!-- Total Investasi -->
+                <div class="mb-3">
+                    <label for="totalInvestasi" class="form-label">Total Investasi</label>
+                    <input type="text" class="form-control custom-input" id="totalInvestasi"
+                        value="{{ data.total_investasi }}" readonly>
+                </div>
+
+                <!-- Imba Hasil -->
+                <div class="mb-3">
+                    <label for="imbaHasil" class="form-label">Imba Hasil</label>
+                    <input type="number" class="form-control custom-input" id="imbaHasil" name="imba_hasil"
+                        value="{{ data.imba_hasil }}" required>
+                </div>
+
+                <!-- Total Keseluruhan -->
+                <div class="mb-3">
+                    <label for="totalKeseluruhan" class="form-label">Total</label>
+                    <input type="text" class="form-control custom-input" id="totalKeseluruhan"
+                        value="{{ data.total|floatformat:0 }}" readonly>
+                </div>
+
+                <!-- Upload Laporan Bulanan -->
+                <div class="mb-3">
+                    <label for="reportFile" class="form-label">Upload Laporan Bulanan (PDF)</label>
+                    <input type="file" class="form-control custom-input" id="reportFile" name="report_file"
+                        accept="application/pdf">
+                </div>
+
+                <!-- Tombol Submit -->
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="{% url 'monthly_report_list' %}" class="btn btn-light border">Batal</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const imbaHasilInput = document.getElementById("imbaHasil");
+        const totalKeseluruhanInput = document.getElementById("totalKeseluruhan");
+        const totalInvestasiInput = document.getElementById("totalInvestasi");
+
+        // Format angka menjadi Rupiah
+        const formatRupiah = (angka) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(angka).replace(",00", "");
+        };
+
+        // Parse angka dari format Rupiah
+        const parseRupiah = (rupiah) => {
+            if (!rupiah) return 0; // Jika kosong, kembalikan 0
+            return parseInt(rupiah.replace(/[Rp.,\s]/g, '') || 0, 10);
+        };
+
+        // Update Total Keseluruhan
+        const updateTotalKeseluruhan = () => {
+            const totalInvestasi = parseRupiah(totalInvestasiInput.value); // Total investasi dari field
+            const imbaHasil = parseInt(imbaHasilInput.value || '0', 10);  // Imba Hasil sebagai angka
+
+            const total = totalInvestasi + imbaHasil; // Hitung total keseluruhan
+            totalKeseluruhanInput.value = formatRupiah(total); // Format dan set nilai
+        };
+
+        // Event listener untuk input pada Imba Hasil
+        imbaHasilInput.addEventListener("input", updateTotalKeseluruhan);
+    });
+
+</script>
+{% endblock %}

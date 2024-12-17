@@ -12,5 +12,6 @@ urlpatterns = [
     path('wallet/deposit/', views.deposit, name='deposit'),
     path('wallet/withdraw/', views.withdraw, name='withdraw'),
     path('buy-stock/', views.buy_stock, name='buy_stock'),  
-    
+    path('api/get-stock-data/', views.get_stock_data, name='get_stock_data'),
+    path('laporan_keuangan',views.download_user,name='download_user'),
 ]

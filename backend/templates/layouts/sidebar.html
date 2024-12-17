@@ -3,54 +3,45 @@
     <ul class="nav">
         <li class="nav-item">
             <a class="nav-link {% if request.path == '/dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">
-                <i class="icon-grid menu-icon"></i>
+                <i class="bi bi-grid menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {% if request.path == '/artikel/' %}active{% endif %}" href="{% url 'art' %}">
-                <i class="ti-world menu-icon"></i>
+                <i class="bi bi-newspaper menu-icon"></i>
                 <span class="menu-title">Artikel</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {% if request.path == '/kategori/' %}active{% endif %}" href="{% url 'list_kategori' %}">
-                <i class="ti-world menu-icon"></i>
+                <i class="bi bi-tags menu-icon"></i>
                 <span class="menu-title">Kategori Artikel</span>
             </a>
         </li>
-
         <li class="nav-item">
             <a class="nav-link {% if request.path == '/produk/' %}active{% endif %}" href="{% url 'list_produk' %}">
-                <i class="icon-paper menu-icon"></i>
+                <i class="bi bi-box-seam menu-icon"></i>
                 <span class="menu-title">Produk</span>
             </a>
         </li>
-
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'monthly_report_list' %}">
-                <i class="icon-paper menu-icon"></i>
+            <a class="nav-link {% if request.path == '/laporan-bulanan/' %}active{% endif %}" href="{% url 'monthly_report_list' %}">
+                <i class="bi bi-file-earmark-bar-graph menu-icon"></i>
                 <span class="menu-title">Laporan</span>
             </a>
         </li>
-
         <li class="nav-item">
-            <a class="nav-link {% if request.path == 'dataUser/' %}active{% endif %}" href="{% url 'data_user' %}">
-                <i class="icon-paper menu-icon"></i>
-                <span class="menu-title">User </span>
+            <a class="nav-link {% if request.path == '/dataUser/' %}active{% endif %}" href="{% url 'data_user' %}">
+                <i class="bi bi-people menu-icon"></i>
+                <span class="menu-title">User</span>
             </a>
         </li>
-
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'riwayat_transaksi_admin' %}">
-                <i class="icon-paper menu-icon"></i>
+            <a class="nav-link {% if request.path == '/riwayat-transaksi-admin/' %}active{% endif %}" href="{% url 'riwayat_transaksi_admin' %}">
+                <i class="bi bi-clock-history menu-icon"></i>
                 <span class="menu-title">Riwayat Transaksi</span>
             </a>
         </li>
-
-        <!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-            <span class="icon-menu"></span>
-        </button> -->
     </ul>
-    
 </nav>

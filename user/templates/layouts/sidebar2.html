@@ -25,11 +25,11 @@
             </a>
         </li>
 
-        <!-- Menu Laporan Keuangan -->
+        
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link {% if request.path == '/download_user/' %}active{% endif %}" href="{% url 'download_user' %}">
                 <i class="bi bi-file-text menu-icon"></i> <!-- Ikon Laporan -->
-                <span class="menu-title">Laporan Keuangan</span>
+                <span class="menu-title">Laporan Keuangan </span>
             </a>
         </li>
     </ul>
