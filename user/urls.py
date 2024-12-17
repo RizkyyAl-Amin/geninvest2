@@ -14,4 +14,5 @@ urlpatterns = [
     path('buy-stock/', views.buy_stock, name='buy_stock'),  
     path('api/get-stock-data/', views.get_stock_data, name='get_stock_data'),
     path('laporan_keuangan',views.download_user,name='download_user'),
+    path('sell-stock/', views.sell_stock, name='sell_stock'),
 ]

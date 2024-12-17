@@ -88,6 +88,81 @@ def get_stock_data(request):
     }
     return JsonResponse(data)
 
+from django.db import transaction
+
+@csrf_exempt
+@login_required
+def sell_stock(request):
+    if request.method == 'POST':
+        try:
+            # Parse data JSON dari request body
+            data = json.loads(request.body)
+            stock_type = data.get('stock_type')  # Jenis saham: konvensional/syariah
+            sell_amount = int(data.get('amount', 0))  # Harga saham yang dijual
+
+            # Validasi awal input
+            if sell_amount <= 0:
+                return JsonResponse({'success': False, 'message': 'Nominal penjualan harus lebih dari 0.'})
+
+            user = request.user  # User yang sedang login
+            
+            # Ambil data portofolio dan keuntungan imba_hasil
+            monthly_report = MonthlyReport.objects.filter(user=user).first()
+            imba_hasil = monthly_report.imba_hasil if monthly_report else 0
+            total_portfolio = StockTransaction.objects.filter(user=user).aggregate(total=Sum('amount'))['total'] or 0
+
+            # Hitung 3% dari total portofolio
+            three_percent_portfolio = round(0.03 * total_portfolio)
+            imba_hasil_used = min(three_percent_portfolio, imba_hasil)  # Kurangi maksimal hingga imba_hasil
+            
+            # Hitung total saham yang dijual (harga jual + imba_hasil digunakan)
+            total_sell_amount = sell_amount + imba_hasil_used
+
+            # Validasi total saham yang dimiliki user
+            stock_transactions = StockTransaction.objects.filter(user=user, stock_type=stock_type)
+            total_owned_stocks = sum([stock.amount for stock in stock_transactions])
+
+            if total_sell_amount > total_owned_stocks:
+                return JsonResponse({'success': False, 'message': 'Jumlah saham yang dijual melebihi jumlah yang dimiliki.'})
+
+            # Mengurangi jumlah saham dan menyimpan perubahan
+            with transaction.atomic():
+                # Kurangi saham dari transaksi
+                remaining_sell_amount = total_sell_amount
+                for stock in stock_transactions:
+                    if stock.amount >= remaining_sell_amount:
+                        stock.amount -= remaining_sell_amount
+                        stock.save()
+                        break
+                    else:
+                        remaining_sell_amount -= stock.amount
+                        stock.amount = 0
+                        stock.save()
+
+                # Kurangi imba_hasil di MonthlyReport
+                if monthly_report:
+                    monthly_report.imba_hasil -= imba_hasil_used
+                    monthly_report.save()
+
+                # Update saldo RDN user
+                wallet, created = RDNWalletDetail.objects.get_or_create(user=user)
+                wallet.balance += sell_amount  # Hanya harga saham (bukan total)
+                wallet.save()
+
+            return JsonResponse({
+                'success': True,
+                'message': 'Saham berhasil dijual!',
+                'new_balance': wallet.balance,
+                'imba_hasil_used': imba_hasil_used
+            })
+
+        except Exception as e:
+            print(e)
+            return JsonResponse({'success': False, 'message': 'Terjadi kesalahan, coba lagi.'})
+    
+    return JsonResponse({'success': False, 'message': 'Metode tidak diizinkan.'})
+
+
 @login_required
 def wallet(request):
     jumlah_user = CustomUser.objects.all()
