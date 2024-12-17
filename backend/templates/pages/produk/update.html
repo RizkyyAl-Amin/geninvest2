@@ -47,18 +47,15 @@
         {% csrf_token %}
         <div class="row g-3"> 
             <div class="col-md-6 mb-4">
-                <label for="namaSaham" class="form-label">Nama Saham</label>
-                <input type="text" class="form-control" id="namaSaham" name="nama_saham" placeholder="Masukkan nama saham" value="{{ produk.nama_saham }}">
+                <label for="kodeSaham" class="form-label">Kode Saham</label>
+                <input type="text" class="form-control" id="kodeSaham" name="kode_saham" placeholder="Masukkan kode saham" value="{{ produk.kode_saham }}">
             </div>
             <div class="col-md-6 mb-4">
                 <label for="namaPerusahaan" class="form-label">Nama Perusahaan</label>
                 <input type="text" class="form-control" id="namaPerusahaan" name="nama_perusahaan"
                     placeholder="Masukkan nama perusahaan" value="{{ produk.nama_perusahaan }}">
             </div>
-            <div class="col-md-6 mb-4">
-                <label for="kodeSaham" class="form-label">Kode Saham</label>
-                <input type="text" class="form-control" id="kodeSaham" name="kode_saham" placeholder="Masukkan kode saham" value="{{ produk.kode_saham }}">
-            </div>
+           
             <div class="col-md-6 mb-4">
                 <label for="jenisSaham" class="form-label">Jenis Saham</label>
                 <select class="form-select form-control" id="jenisSaham" name="jenis_saham">
@@ -69,34 +66,10 @@
                 </select>
             </div>
             <div class="col-md-6 mb-4">
-                
-                <div class="custom-file">
-                    <label for="harga_saham" class="form-label">Harga Saham Per Lembar</label>
-                    <input type="text" class="form-control custom-date" id="harga_saham" name="harga_saham" placeholder="Masukan harga saham" value="{{ produk.harga_saham }}">
-        
-                </div>
+                <label for="saham" class="form-label">Saham</label>
+                <input type="text" class="form-control" id="saham" name="saham" placeholder="Masukkan saham" value="{{ produk.saham }}" required>
             </div>
-            <div class="col-md-6 mb-4">
-                
-                <div class="custom-file">
-                    <label for="dividen_saham" class="form-label">Dividen Saham Per Lembar</label>
-                    <input type="text" class="form-control custom-date" id="dividen_saham" name="dividen_saham" placeholder="Masukan dividen saham" value="{{ produk.dividen_saham }}">
-        
-                </div>
-            </div>
-            <div class="col-md-6 mb-4">
-                
-                <div class="custom-file">
-                    <label for="minimal_pembelian" class="form-label">Minimal Pembelian Saham</label>
-                    <input type="text" class="form-control custom-date" id="minimal_pembelian" name="minimal_beli" placeholder="1 Lot atau 100 Lembar" value="{{ produk.minimal_beli }}">
-        
-                </div>
-            </div>
-            <div class="col-md-12 mb-4">
-                <label for="deskripsiProduk" class="form-label">Deskripsi Produk</label>
-                <textarea class="form-control" id="deskripsiProduk" name="deskripsi" rows="4"
-                    placeholder="Jelaskan tentang perusahaan atau saham ini">{{ produk.deskripsi }}</textarea>
-            </div>
+            
         </div>
         <div>
             <a href="{% url 'list_produk' %}" class="btn btn-secondary">Batal</a>
